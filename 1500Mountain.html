@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1500 Mountain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+   <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline:15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+/* for main content  */
+
+.main_container{
+    padding: 15px 10%;
+}
+.main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+
+.slider-container {
+    width: 100%;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.main-image {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+    transition: 7.2s ease;
+}
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.navigation button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #0a93f64e;
+}
+
+.thumbnails img {
+    width: 60px;
+    height: 60px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.thumbnails img:hover {
+    border-color: #c4d873; /* Hover effect */
+}
+
+.thumbnails .active {
+    border-color: rgb(115, 244, 162);
+    transform: scale(1.1);
+}
+.prev,.next{
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+}
+button:active{
+    background-color: rgba(255, 255, 255, 0.177);
+}
+ /* piture-ta */
+ .container-taprom {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .text-section {
+            width: 50%;
+            padding: 50px;
+            background-color: #2e4c47;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-section1 {
+            width: 50%;
+            padding: 50px;
+            background-color: #fefce0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .subheading {
+            font-size: 14px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #eaeaea;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #d9d9d9;
+            margin-bottom: 40px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #f0f0f0;
+            color: #2e4c47;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: start;
+        }
+
+        .title1 {
+            color: #000000;
+        }
+        .description1 {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 20px;
+            line-height: 1.6;
+
+        }
+
+        .image-section {
+            width: 50%;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 1 1 22%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    
+}
+.card img:hover{
+    opacity: 0.8s;
+}
+
+
+.card h3 {
+    font-size: 1.2em;
+    margin: 15px;
+    color: #333;
+}
+
+.card p {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0 15px 15px;
+    line-height: 1.5;
+}
+@media (max-width: 1200px) {
+    .card {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex: 1 1 100%;
+    }
+}
+/* for map  */
+.container-map{
+    display: flex;
+    gap: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.map {
+    width: 800px;
+    height: 400px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.coordinates, .distances {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.coordinates h3, .distances h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.coordinates .p-map, .distances .p-map {
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-26.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://visitlocaltravel.com/blog/media/2024/03/Pursat-Province-2.png');"></div>
+        <div class="slide fade" style="background-image: url('https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20247/1_7_2024_dji_0193.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.guidetrip.info/asset/img/gallery_album/616830ed726ac.jpeg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.siem-reap.de/wp-content/uploads/2021/10/Phnom_1500_2-1024x768.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://thebettercambodia.com/wp-content/uploads/2024/02/5s4dzRwnVbzGY5ssnCE4wXzkeAEXyVtgk1ApQTwHMTp6y5PvEo1yennCKJr2uwSqL9mF5bb6KsTxr2qkipUv7AFHuHzV7VyNcXrsBmo7wuYvkpXNVwgMTCMkmJ4uEm6bLHfubovGuaXN5w7i3gTRxcifyLat7P1HSVsSE8v.jpeg');"></div>
+        <div class="title">1500 Mountain
+            <p class="title_p">The chill place ever you can try </p>
+        </div>
+    </div>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="TraditionalTransportation.html" >Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html" >Kep</a>
+              <a href="BohKoh.html" >BohKor</a>
+              <a href="Kampot.html" >KamPot</a>
+              <a href="Chipart.html" >Chipart</a>
+              <a href="KohTonsay.html" >Koh Tonsay </a>
+              <a href="" style="background-color: #8d8d9386; color: white;">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- code here -->
+
+    <div class="main_container">
+        <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To 1500 Mountain</h1>
+        <p class="main_p">Phnom 1500 offers simply stunning vistas that stretch to the horizon and take in a patchwork of landscapes.
+
+            At this point on the National Road 55 from Pursat town, the road snakes its way up 1,500 metres (hence the name Phnom 1500) over the mountain range. Wind your windows down and turn off the air conditioning to enjoy the fresh breeze and views as you wind your way up the mountain.
+            
+            The meandering mountain road was only officially inaugurated in 2020. It is popular destination among Cambodians, who simply want to see the road itself as it is still quite a novelty. It is often called the “eel” road.</p>
+        <div class="slider-container">
+            <div class="main-image">
+                <!-- Default main image, can be changed through JS -->
+                <img src="https://i.pinimg.com/736x/a9/ec/71/a9ec71e2067d075394c0a783d0fe32b3.jpg" alt="Main Image" id="mainImage">
+                <div class="navigation">
+                    <!-- Navigation buttons for previous and next -->
+                    <button class="prev" onclick="prevImage()">&#8249;</button>
+                    <button class="next" onclick="nextImage()">&#8250;</button>
+                </div>
+            </div>
+            <div class="thumbnails">
+                <!-- Thumbnails for selecting images -->
+                <img src="https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-50.jpg" alt="Thumbnail 1" onclick="showImage(0)">
+                <img src="https://z-p3-scontent.fpnh18-1.fna.fbcdn.net/v/t39.30808-6/273548985_4869070599817120_6719420779286186580_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeH_Jf-MN9Ua1At5f9D4xLa0IejJNhnC4Y4h6Mk2GcLhjuo2UX2_K8uMhpOIg1nhiCFlRdQyEygtmO4nX0cR-jZN&_nc_ohc=oythCrZGL-8Q7kNvgEuQmyc&_nc_zt=23&_nc_ht=z-p3-scontent.fpnh18-1.fna&oh=00_AYBaX2CjTBZ5czbj_WtmYvpHapzYiy5-pnxeEnTetNHh3w&oe=66D7BB43" alt="Thumbnail 2" onclick="showImage(1)">
+                <img src="https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-04.jpg" alt="Thumbnail 3" onclick="showImage(2)">
+                <img src="https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20247/1_7_2024_dji_0193.jpg" alt="Thumbnail 4" onclick="showImage(3)">
+                <img src="https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20245/8_5_2024_phnom_penh_post_photo_1005_mountain.jpg" alt="Thumbnail 5" onclick="showImage(4)">
+                <img src="https://i.ytimg.com/vi/Cl7H3OYk2II/maxresdefault.jpg" alt="Thumbnail 5" onclick="showImage(5)">
+            </div>
+        </div>
+        <br><br>
+        <p class="main_p">Once over the mountain pass from the winding Phnom 1500 road you will reach Thma Da Waterfall.
+
+            This is a multi-level waterfall with a surprising number of visitors considering its remote location. At the site, you will find the usual Khmer food vendors and wooden huts with hammocks to relax and picnic.
+            
+            The waterfall itself drops down to a lower level. This is pretty much inaccessible except for the super-adventurous via a precarious rope hanging over the edge. In the dry season there are pools of water to take a dip and refresh, but not any deep pools suitable enough for proper swimming.</p>
+        <br><br>
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="text-section">
+                    <h1 class="title">1500 Mountain or Phnom 1005 </h1>
+                    <p class="subtitle">Where is Phnom 1500?</p>
+                    <p class="description">Phnom 1500 or it's often called Phnom 1005, is located in Ek Pheap village, Thmor Dar commune, Veal Veng district, Pursat province, Cambodia and far about ~150km away from Sampov Meas Island. 
+                        Quick tip: Phnom 1500 is in the category of the Mountain, Natural tourism site.
+
+                        Your sweet and savory recipes will be sublimated by this rare pepper, long in the mouth. Use it also in your marinades and sauces, you will tell me about it.</p>
+                    <p class="description">Things to do, as well as the attractions of Phnom 1500 for you such as Seeing mountain view, Camping, Viewing sunset, Having picnic, Hiking, Trekking, Viewing sunrise and more. 
+                        Travel Information: For the trip to the location of Phnom 1500, it is easy because it is not necessary to walk and cross the river or take a boat. For parking, you can park directly at the location.</p>
+                    <button class="cta-button">PLEASE TRY PHNOM 1500 TO GET HIGH HEALTH</button>
+                </div>
+                <div class="image-section">
+                    <img src="https://img.harbor-property.com/bkcontent/2023/08/12/104900001.jpg"
+                        alt="Tree roots covering a temple" />
+                </div>
+            </div>
+        </section>
+        <br><br>
+        <p class="main_p">Phnom 1500 is the category beautiful nature of the Mountain that have location at Ek Pheap village, Thmor Dar commune, Veal Veng district, Pursat province, Cambodia.
+            There are many things to do, as well as the attractions of Phnom 1500 for you such as Seeing mountain view, Camping, Viewing sunset, Having picnic, Hiking, Trekking, Viewing sunrise and more.
+            How to travalling to Phnom 1500?
+            Travalling to Phnom 1500 by our owned transportation or private take it easy, due to there are no bus company providing</p>
+    
+            <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">Some Places on the Way</h1>
+            <div class="card-container">
+                <div class="card">
+                    <img src="https://www.guidetrip.info/asset/img/gallery_album/616830ed774a7.jpeg" alt="Northwest Cambodia">
+                    <h3>Winding Roads:</h3>
+                    <p class="main_p"> The image captures the curving roads that are iconic to mountainous regions. These roads not only offer a sense of adventure but also provide stunning viewpoints of the surrounding landscapes.</p>
+                </div>
+                <div class="card">
+                    <img src="https://i.ytimg.com/vi/bAmgw5GnJFY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCN9nw80EEoL6FG8iUgMyDqeHm94Q" alt="Best Waterfalls">
+                    <h3>Lush Green Hills:</h3>
+                    <p> The hills are covered in rich greenery, showcasing the natural beauty of Cambodia's highlands. The vegetation is dense and vibrant, indicating the area's healthy ecosystem.</p>
+                </div>
+                <div class="card">
+                    <img src="https://www.guidetrip.info/asset/img/gallery_album/616830ee85a32.jpeg" alt="Provincial Cambodia">
+                    <h3>Expansive Views:</h3>
+                    <p> The wide-angle shot of the valley with the winding road in the background is particularly striking. It offers a sense of scale and depth, emphasizing the vastness of the region.</p>
+                </div>
+                <div class="card">
+                    <img src="https://asset.cambodia.gov.kh/tourism/2024/04/photo_2024-04-10_22-43-54-1024x576.jpg" alt="Surviving Covid">
+                    <h3>Clear Skies:</h3>
+                    <p> The sky is a brilliant shade of blue, with scattered clouds adding depth to the image. The clarity of the sky enhances the overall beauty of the landscape.</p>
+                </div>
+            </div>
+            
+            <p class="main_p">The 1500 Mountain area in Cambodia is truly a gem for nature lovers and adventurers alike. The winding roads invite exploration, while the serene environment offers a perfect escape from the hustle and bustle of city life. The combination of lush greenery, rolling hills, and expansive views creates a picturesque scene that is both calming and inspiring.
+                Whether you're driving through the scenic routes or stopping to take in the panoramic views, the 1500 Mountain area is a place where nature's beauty is on full display. It's a testament to Cambodia's rich natural heritage and a reminder of the importance of preserving such stunning landscapes for future generations to enjoy.</p>
+
+                <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">The map of 1500 mountain</h1>     
+       
+                <div class="container-map">
+                    <div id="map" class="map"></div>
+                        <div class="info">
+                            <div class="coordinates">
+                                <h3>Coordinates</h3>
+                                <p class="p-map">12.218436, 102.908058</p>
+                            </div>
+                            <div class="distances">
+                                <h3>Distances</h3>
+                                <p class="p-map">Phnom Pehn   : 190km</p>
+                                <p class="p-map">Siem Reap    : 160km</p>
+                                <p class="p-map">Sihanoukville: 110km</p>
+                                <p class="p-map">Kampot city  : 36km</p>
+                                <p class="p-map">Kep  : 58km</p>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+        
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="" style="color: #d900007d;">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ 
+    // for slide image show
+let currentIndex = 0;
+const images = [
+    "https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-50.jpg",
+    "https://z-p3-scontent.fpnh18-1.fna.fbcdn.net/v/t39.30808-6/273548985_4869070599817120_6719420779286186580_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeH_Jf-MN9Ua1At5f9D4xLa0IejJNhnC4Y4h6Mk2GcLhjuo2UX2_K8uMhpOIg1nhiCFlRdQyEygtmO4nX0cR-jZN&_nc_ohc=oythCrZGL-8Q7kNvgEuQmyc&_nc_zt=23&_nc_ht=z-p3-scontent.fpnh18-1.fna&oh=00_AYBaX2CjTBZ5czbj_WtmYvpHapzYiy5-pnxeEnTetNHh3w&oe=66D7BB43",
+    "https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-04.jpg",
+    "https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20247/1_7_2024_dji_0193.jpg",
+    "https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20245/8_5_2024_phnom_penh_post_photo_1005_mountain.jpg",
+    "https://i.ytimg.com/vi/Cl7H3OYk2II/maxresdefault.jpg"
+];
+
+function showImage(index) {
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnails img');
+
+    // Add a hidden class to trigger transition
+    mainImage.classList.add('hidden');
+
+    // Wait for the transition to finish before changing the image
+    setTimeout(() => {
+        mainImage.src = images[index];
+        mainImage.classList.remove('hidden');
+        currentIndex = index;
+
+        // Update the active thumbnail
+        thumbnails.forEach((thumbnail, i) => {
+            thumbnail.classList.toggle('active', i === index);
+        });
+    }, 100); 
+}
+
+function prevImage() {
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+    showImage(currentIndex);
+}
+
+function nextImage() {
+    currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+    showImage(currentIndex);
+}
+
+document.querySelector('.slider-container').addEventListener('mouseover', () => {
+    clearInterval(autoSlide);
+});
+
+document.querySelector('.slider-container').addEventListener('mouseleave', () => {
+    autoSlide = setInterval(nextImage, 5000);
+});
+showImage(currentIndex);
+
+var map = L.map('map').setView([12.218436, 102.908058], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'About our G3 Team'
+}).addTo(map);
+var marker = L.marker([12.218436, 102.908058]).addTo(map);
+marker.bindPopup("<b>1500 Mountain </b><br>Welcome to 1500 mountain").openPopup();
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampot Cambodia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+
+
+        /* Background image styling */
+        .background-image {
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+            background-size: cover;
+            background-attachment: fixed;
+            /* Fixes the background image */
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 23%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+
+        .background-image .title p {
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 70px;
+            cursor: pointer;
+        }
+
+        .navbar a {
+            text-align: center;
+            font-size: 25px;
+            color: rgb(113, 106, 106);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+
+            font-size: 25px;
+            border: none;
+            outline: none;
+            color: rgb(113, 106, 106);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(33, 115, 255, 0.905);
+            transition: 0.6s;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #e6e1e1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            transition: 0.6s;
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #8d8d9386;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        .title_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+        }
+
+        .about-us-line1 h3,
+        .Natural-line1 h3 {
+            color: rgb(5, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        .about-us-line1 a,
+        .Natural-line1 a {
+            display: block;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .about-us-line1 a:hover,
+        .Natural-line1 a:hover {
+            color: #d900007d;
+
+        }
+
+        @media (max-width: 768px) {
+            .container_footer {
+                flex-direction: column;
+                padding-inline: 20px;
+                text-align: center;
+            }
+        }
+
+        .Natural-line1 .p_support,
+        .icon-support {
+            max-width: 200px;
+            margin-bottom: 15px;
+            padding: 8px;
+            color: rgb(6, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        /* taprohm */
+
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .temple {
+            background-color: #2f4f4f;
+
+        }
+
+        .historical {
+
+            background-color: #f5f5dc;
+            color: #333;
+        }
+
+        .content-ta {
+            padding: 50px;
+            flex: 1;
+        }
+
+        .image {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .h1-ta {
+            font-size: 2.5rem;
+            margin: 0;
+            color: white;
+
+        }
+
+        .h1-ta2 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: rgb(0, 0, 0);
+        }
+
+        .h2-ta {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: white;
+        }
+
+        .h2-ta2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: rgb(0, 0, 0);
+
+        }
+
+        /* piture-ta */
+        .container-taprom {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .text-section {
+            width: 50%;
+            padding: 50px;
+            background-color: #2e4c47;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-section1 {
+            width: 50%;
+            padding: 50px;
+            background-color: #fefce0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .subheading {
+            font-size: 14px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #eaeaea;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #d9d9d9;
+            margin-bottom: 40px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #f0f0f0;
+            color: #2e4c47;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: start;
+        }
+
+        .subheading1 {
+            font-size: 14px;
+            color: #000000;
+            margin-bottom: 40px;
+
+        }
+
+        .title1 {
+
+            color: #000000;
+
+        }
+
+        .subtitle1 {
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 40px;
+
+        }
+
+        .description1 {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 20px;
+            line-height: 1.6;
+
+        }
+
+        .cta-button1 {
+            padding: 15px 30px;
+            background-color: #f0f0f0;
+            color: #000000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: start;
+
+        }
+
+        .image-section {
+            width: 50%;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ta-prohm1 {
+            color: black;
+            text-align: center;
+        }
+
+              /* map */
+              .container-map {
+            display: flex;
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map {
+            width: 600px;
+            height: 400px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coordinates,
+        .distances {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coordinates h3,
+        .distances h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .coordinates .p-map,
+        .distances .p-map {
+            margin: 5px 0;
+            font-size: 19px;
+        }
+/* map */
+
+        /* ta */
+
+        .text-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .image-content {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .image-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background-color: #f4c542;
+            color: #014436;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #e6b539;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://d2detours.com/wp-content/uploads/2024/03/FB-185621-1024x467.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.neverendingvoyage.com/wp-content/uploads/2014/03/salt-fields-kampot-sunrise-cambodia-main.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://infotainment.ams.com.kh/wp-content/uploads/2024/04/435890503_432945695906007_7671598139824484043_n.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.bordersofadventure.com/wp-content/uploads/2020/01/Rabbit-Island-Cambodia-Kep.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.tripsavvy.com/thmb/aC3NVAdz81KwYZaVS7sgQdrqZWE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/kampot-sunset-boat-664fa057832c414aa5c3d9f72c1a85a4.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://i0.wp.com/dreamsbecomewings.com/wp-content/uploads/2023/01/D9E0A286-DD69-4DBE-B75F-D8BFFBB277A9.jpeg?fit=2048%2C1536&ssl=1');"></div>
+        <div class="title"> Kampot Province
+            <p class="title_p">Kampot will bring you to the real world </p>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="TraditionalTransportation.html" >Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html" >Kep</a>
+              <a href="BohKoh.html" >BohKor</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- Content section -->
+     
+    <!-- for popup  -->
+    <div id="popup-kingCam" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_Cambodia.svg/1280px-Flag_of_Cambodia.svg.png">
+        <p><strong>Cambodia</strong>  is officially the Kingdom of Cambodia, is a country in Mainland Southeast Asia. It borders Thailand to the northwest, Laos to the north, Vietnam to the east, and has a coastline along the Gulf of Thailand on the southwest.</p>
+     </div>
+
+    <div class="ta-all">
+        <div class="h-taprohm">
+            <div class="container-taprohm">
+                <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Kampot Province</h1>
+                <p class="ta-prohm1">Kampot (Khmer: កំពត [kɑmpɔːt], lit. 'The Kampot's Fish') is a province in southwestern Cambodia.</p>
+                <p class="ta-prohm1"> Kampot became a regional administrative center with the status of a state border district as a result of the delimitation of the <a href="#" class="hover-link" data-popup="popup-kingCam">Kingdom of Cambodia.</a>
+                </p>
+            </div>
+        </div>
+        <br><br><br>
+        <!-- Main Content -->
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="text-section">
+                    <p class="subheading">Wellness Retreats, Kampot</p>
+                    <h1 class="title">The best place of Durian & Pepper</h1>
+                    <p class="subtitle">Destruction and mass murder happened throughout the whole area of Kampot province</p>
+                    <p class="description">In 1889, French colonial census reports a multi-ethnic community: Kampot town consisted of "Cambodian Kampot" on the Prek-Kampot River and "Chinese Kampot" on the right riverbank of the west branch of the Prek-Thom River. </p>
+                    <p class="description">Nearby was also a Vietnamese village, called Tien-Thanh and another Vietnamese village on Traeuy Koh Island. A Malay also existed on Traeuy Koh Island. Additional villages of mixed ethnicity are listed.</p>
+                    <button class="cta-button">THE HISTORY OF KAMPOT PROVINCE</button>
+                </div>
+                <div class="image-section">
+                    <img src="https://www.novo-monde.com/app/uploads/2023/07/kampot-roundabout-1024x683.jpg"
+                        alt="Kampot Roundabout" />
+                </div>
+            </div>
+        </section>
+
+        <br><br><br><br><br><br>
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="image-section">
+                    <img src="https://pippalihotel.com/wp-content/uploads/2023/05/Kampot-Durian-1.jpg"
+                        alt="Durain image" />
+                </div>
+                <div class="text-section1">
+                    <h1 class="title1" style="font-size: 40px;">Kampot Durian: Savoring the King of Fruits</h1>
+                    <p class="subtitle1">What is Durian?</p>
+                    <p class="description1">Durian is a fruit that is native to Southeast Asia. It is a large, spiky fruit weighing up to 3 kilograms. The fruit is known for its strong scent, which has been described as a combination of almonds, caramel, and custard. Some people describe the smell as pleasant, while others find it overpowering.</p>
+                    <p class="subtitle1">When is the Best Time to Eat Durian in Kampot?</p>
+                    <p class="description1">The best time to eat durian in Kampot is from May to July, which is the durian season. During this time, the fruit is at its peak ripeness and flavor. Kampot’s durian is known for its high quality, and many people come from all over the world to try it. Tasting Kampot durians is a must-try if you want to prosper your visit to Kampot. </p>
+                    <p class="description1">Kampot’s durian is a delicious and unique fruit that is worth trying. It has a creamy texture and sweet, nutty flavor that is hard to resist. If you are a fan of durian, then Kampot is a must-visit destination. The town is also famous for its pepper farms so you can experience the best of both worlds. So, the next time you are in Cambodia, make sure to visit Kampot and try some of its famous durians.</p>
+
+                </div>
+            </div>
+        </section>
+        <br><br><br><br><br><br>
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="text-section">
+                    <h1 class="title">Peper of Kampot the only one on the world</h1>
+                    <p class="subtitle">How to use Kampot pepper in cooking?</p>
+                    <p class="description">In Cambodian cuisine, Kampot pepper has a large place! Thus, it can be found among the list of ingredients that make up the " Lok Pak ", an emblematic Cambodian dish made of marinated beef pieces, tomatoes, onion rings, and sautéed rice accompanied by a lime, salt and Kampot Black Pepper sauce.
+
+                        Your sweet and savory recipes will be sublimated by this rare pepper, long in the mouth. Use it also in your marinades and sauces, you will tell me about it.</p>
+                    <p class="description">A Sunday dish as we like it! Choose a nice bone-in rib eye and baked potatoes. Slice your potatoes and place them on a bed of coarse salt in a baking dish. Sprinkle with garlic, rosemary and olive oil. Place in the oven. Grill your side on the bone. Season with salt and pepper and set aside in aluminum foil. Serve 15 minutes after the end of cooking.</p>
+                    <button class="cta-button">PLEASE TRY KAMPOT PEPPER FOR NEW FLAVOR</button>
+                </div>
+                <div class="image-section">
+                    <img src="https://media.npr.org/assets/img/2020/03/10/20200305_121807_sq-141b1195ab78bbfaba42c7f933b278fec7479825.jpg"
+                        alt="Tree roots covering a temple" />
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- map -->
+ <div class="container-map">
+    <div id="map" class="map"></div>
+    <div class="info">
+        <div class="coordinates">
+            <h3>Coordinates</h3>
+            <p class="p-map">10.594140, 104.166091</p>
+        </div>
+        <div class="distances">
+            <h3>Distances</h3>
+            <p class="p-map">Siem Reap: 12km</p>
+            <p class="p-map">Angkor Thom: 9.4km</p>
+            <p class="p-map">Angkor Wat: 8.3km</p>
+            <p class="p-map">Bakeng Hill: 6.5km</p>
+        </div>
+    </div>
+</div>
+
+ 
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+var map = L.map('map').setView([10.594140, 104.166091], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'About our G3 Team'
+}).addTo(map);
+var marker = L.marker([10.594140, 104.166091]).addTo(map);
+marker.bindPopup("<b>Kampot Provine</b><br>Welcome to Kampot Province").openPopup();
+   </script>
+</body>
+</html>

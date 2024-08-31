@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koh Tonsay Cambodia</title>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: 10%;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+.main-content {
+    flex: 3;
+    margin-right: 20px;
+    
+}
+
+.sidebar {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.main_img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.main_img:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+h1, h2 {
+    color: #333;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #efefef;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 3px;
+    color: #444;
+    text-align: center;
+}
+.container_last {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.item {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item img {
+    width: 280px;
+    height: 200px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform .5s;
+}
+.item img:hover{
+    transform: translateY(-10px);
+}
+
+.item p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* for map  */
+.container-map{
+    display: flex;
+    gap: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.map {
+    width: 500px;
+    height: 400px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.coordinates, .distances {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.coordinates h3, .distances h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.coordinates .p-map, .distances .p-map {
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://scontent.fpnh8-1.fna.fbcdn.net/v/t1.6435-9/92138441_1135355256805937_3404615576197267456_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_ohc=GupqJ0rJycEQ7kNvgF58gBk&_nc_ht=scontent.fpnh8-1.fna&_nc_gid=A3fwZqyHQ2A89aXwvsB6aB0&oh=00_AYA-_N3VPeb_2sLbmDPCGv-eMZCkMZ8UoAJzGkjh19bFoQ&oe=66F58E59');"></div>
+        <div class="slide fade" style="background-image: url('https://allpointseast.com/wp-content/uploads/2023/11/IMG_6067.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://southeastasiabackpacker.com/wp-content/uploads/2024/01/Beachfront-Rabbit-Island-1200x800.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.csndaily.com/wp-content/uploads/2023/03/photo_2023-03-17_08-50-38.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://lp-cms-production.imgix.net/2019-06/148509932_high.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://images.travelandleisureasia.com/wp-content/uploads/sites/7/2024/05/13105540/cambodia-islands_kactus-resort-1024x683-1.jpeg');"></div>
+        <div class="title">Koh Tonsay 
+            <p class="title_p">Koh Tonsay will make you feel better wheter you reach there </p>
+        </div>
+    </div>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="TraditionalTransportation.html" >Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html" >Kep</a>
+              <a href="BohKoh.html" >BohKor</a>
+              <a href="Kampot.html" >KamPot</a>
+              <a href="Chipart.html" >Chipart</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+
+      <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Koh Tonsay</h1>
+      <div class="container">
+    <div id="popup-contact" class="popup">
+        <img src="qr.jpg">
+    </div>
+        <!-- end popup -->
+        <div class="main-content">
+          <img class="main_img" src="https://island-touch.com/wp-content/uploads/2016/08/koh-tonsay-ile-au-lapin-08.jpg" alt="Image">
+          <h1>The view feature at Koh Tonsay</h1>
+          <img class="main_img" src="https://www.easybook.com/images/destination/Cambodia/Kep/KohTonsay/6Koh_Tonsay_1.jpg" alt="">
+          <h1>Sunset at Koh Tonsay </h1>
+          <img class="main_img" src="https://livingnomads.com/wp-content/uploads/2016/03/28/koh-tonsay-travel-guide.jpg" alt="">
+          <h1>The beach with boat </h1>
+          <img class="main_img" src="https://www.guidetrip.info/asset/img/gallery_album/5ce910d73bea2.jpg" alt="">
+         <h1>The image from the sky</h1>
+         <iframe width="900px" height="500px" src="https://www.youtube.com/embed/bpVXhmE0m0g?si=pSP7r9_gdmjV2gDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+         <h1>The map of Koh Tonsay</h1>
+         <div class="container-map">
+            <div id="map" class="map"></div>
+                <div class="info">
+                    <div class="coordinates">
+                        <h3>Coordinates</h3>
+                        <p class="p-map">10.436489, 104.328956</p>
+                    </div>
+                    <div class="distances">
+                        <h3>Distances</h3>
+                        <p class="p-map">Phnom Pehn   : 190km</p>
+                        <p class="p-map">Siem Reap    : 160km</p>
+                        <p class="p-map">Sihanoukville: 110km</p>
+                        <p class="p-map">Kampot city  : 36km</p>
+                        <p class="p-map">Kep  : 58km</p>
+                    </div>
+                </div>
+            </div>
+      
+         <h1>The last with a good views</h1>
+         <div class="container_last">
+            <div class="item">
+                <img class="main_img" src="https://cambodiapropertyreport.com//storage/posts/May2020/239.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://www.gocambodia.tours/wp-content/uploads/2019/05/Rabbit-Island-Cambodia-Koh-Tonsay-Travel-Guide.jpg" >
+               
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://cdn.azie.nl/media/review/57/71/57718b55846a6.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://island-touch.com/wp-content/uploads/2016/08/koh-tonsay-ile-au-lapin-19.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://island-touch.com/wp-content/uploads/2016/08/koh-tonsay-ile-au-lapin-21.jpg">
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://thumbs.dreamstime.com/b/koh-tonsay-rabbit-island-kep-city-cambodia-rabbit-island-khmer-language-koh-tonsay-small-square-kilometer-island-152455171.jpg">
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://angkorfocus.com/userfiles/thumbs/new-Koh-Tonsay-Resort.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://www.siem-reap.de/wp-content/uploads/2022/03/rabbit_island.jpg">
+                
+            </div>
+             <div class="item">
+                <img class="main_img" src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474543KHZ/koh-tonsay1-ivivu.jpg">
+                
+            </div>
+        </div>
+       
+        </div>
+        <div class="sidebar">
+            <div class="box">
+                <h2>Koh Tonsay (Rabbit Island), Cambodia – Travel Guide</h2>
+                <p class="main_p">Koh Tonsay, pronounced “Koh Tonsai”, is the most famous of all the islands floating off of Cambodia’s crab capital, Kep. Nicknamed Rabbit Island due to its shape (nope, we don’t see it either), it is the most popular day trip from this part of the mainland. 
+
+                    While most only spend a few hours on the island’s shores, Koh Tonsay is well worth spending longer – especially if you are looking for a rustic beach experience that has yet to be spoilt by large infrastructure projects. Beware though, development is coming.</p>
+            
+            </div>
+            
+            <div class="box">
+                <h2>Where to Stay in Koh Tonsay, Cambodia</h2>
+                <img class="main_img" src="https://southeastasiabackpacker.com/wp-content/uploads/2024/01/Basic-bungalow-Rabbit-Island-1536x1024.jpg" alt="">
+                <p class="main_p">The main strip on Koh Tonsay where the boats arrive and depart is where all the accommodation is located. These businesses are usually family-run and very few are available to book in advance. Don’t expect any kind of luxury here – no-frills bungalows and tents on the beach are all that’s on offer. </p>
+              
+            </div>
+            <div class="box">
+            <h2>Chill on the Beach</h2>
+            <img class="main_img" src="https://southeastasiabackpacker.com/wp-content/uploads/2024/01/Beachfront-Rabbit-Island-1536x1024.jpg" alt="">
+            <p class="main_p">Plonk your bum on one of the many sun loungers, open your book and get ready to relax! Most restaurants will let you use their loungers free of charge provided you’re happy to buy the odd drink.</p>
+            </div>
+            <div class="box">
+              <h2>Do a Boat Trip</h2>
+              <img class="main_img" src="https://southeastasiabackpacker.com/wp-content/uploads/2024/01/Local-man-on-boat-1536x1024.jpg" alt="">
+            <p class="main_p">A range of cocktails is available on the beachfront, ranging from $3-4USD. Cans of local beer start at around $0.75, making this a great place to enjoy a tipple in the sun. </p>
+            </div>
+
+            <div class="box">
+                <h2>Enjoy a Cocktail or Coconut</h2>
+                <img class="main_img" src="https://southeastasiabackpacker.com/wp-content/uploads/2024/01/Coconuts--1536x1024.jpg" alt="">
+              <p class="main_p">Kep National Park is a national park of Cambodia in the Kep region of Cambodia. Established in 1993 it covers an area of 50 square kilometres. The nearest town lies at Krong Kaeb. </p>
+              </div>
+
+              <div class="box">
+                <h2>Getting Around Koh Tonsay, Cambodia</h2>
+                <img class="main_img" src="https://southeastasiabackpacker.com/wp-content/uploads/2024/01/Walking-along-the-beach-1536x1024.jpg" alt="">
+              <p class="main_p">The only way to get around the island is on foot (always stick to beaten tracks in Cambodia because of landmines) and by boat. Several of the beachfront businesses offer boat trips around the island.</p>
+              </div>
+            <div class="box">
+                <h2>Wish Regards by G3</h2>
+                <p class="main_p">Thanks for visiting our Website. This website create to share to the tourism for who want to visit cambodia. Welcome to Cambodia. <a href="#" class="hover-link" data-popup="popup-contact"> Support Us </a> </p>
+                
+            </div>
+            
+        </div>
+    </div>
+   </div>
+    
+
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="Kbalchhaywaterfall.html">Kbal Chhay Waterfall</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+var map = L.map('map').setView([10.436489, 104.328956], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'About our G3 Team'
+}).addTo(map);
+var marker = L.marker([10.436489, 104.328956]).addTo(map);
+marker.bindPopup("<b>Koh Tonsay</b><br>Welcome to Koh Tonsay").openPopup();
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Music</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* h2 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #333;
+        } */
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+/* Content section */
+.content_m1 {
+    margin-top: 40px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.content_m1 p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    text-align: justify;
+}
+
+.first_section_m {
+    display: flex;
+    align-items: flex-start; 
+    justify-content: center; 
+    gap: 30px; 
+}
+
+.img_first_m {
+    width: 410px; 
+    height: 435px; 
+    margin-top: 22px;
+}
+/* for card vertical  */
+.container {
+    padding: 0 10%; /* 10% padding on both sides */
+    margin-top: 20px;
+}
+
+.hotel-listing {
+    display: flex;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-image {
+    width: 30%;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.hotel-info {
+    flex-grow: 1;
+    
+}
+
+.hotel-info h2 {
+    margin: 0 0 10px 0;
+}
+
+.exploreLink {
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.exploreLink:hover {
+    background-color: #ffaa00;
+}
+.exploreLink:active {
+    background-color: #ffaa0091;
+}
+.h2_m {
+  font-size: 40px;
+  font-family: "Merriweather", serif;
+  font-weight: 900px;
+  font-style: normal;
+}
+.image_container {
+    padding:0; 
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.image_nom {
+    display: flex;
+    gap: 20px;
+    cursor: grab;
+}
+
+.image_nom img {
+    width: 250px;
+    height: 200px;
+    border-radius: 8px;
+   
+}
+.iframe_nom iframe{
+    margin-top: 50px;
+    width: 250px;
+    height: 200px;
+    border-radius: 8px;
+    gap: 200px;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://www.bu.edu/files/2019/11/cambodia-ritual-music-IMG_3722.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.khmertimeskh.com/wp-content/uploads/2024/05/Revered-Cambodian-musician-rushed-to-hospital.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://scontent.fpnh10-1.fna.fbcdn.net/v/t1.18169-9/10940566_882518628467703_9041510533739743370_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ce0548&_nc_ohc=1-CtHhG6JjYQ7kNvgEeYorg&_nc_ht=scontent.fpnh10-1.fna&oh=00_AYCq0zClYYkn0b_O6pztIlWKOj1kszQRCi_-IZx-naDFmQ&oe=66F79166');"></div>
+        <div class="slide fade" style="background-image: url('https://image.jimcdn.com/app/cms/image/transf/dimension=328x10000:format=jpg/path/s9a975dc0e208e9cc/image/i7792209631332346/version/1619246259/image.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://bestkhmersongs.wordpress.com/wp-content/uploads/2017/02/khmer-old-song-01.png?w=1086');"></div>
+        <div class="slide fade" style="background-image: url('https://media.gettyimages.com/id/1487517590/photo/traditional-khmer-music-gamelan-instruments-in-a-cambodian-pagoda-phnom-penh-cambodia.jpg?s=612x612&w=0&k=20&c=idzhYo82tC7fmct0_4GvMiAj1A_bFqdgQECz732MgXk=');"></div>
+        <div class="title">Here is Traditional Musics
+            <p class="title_p">Our music will give you a strange feeling of listening</p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html">Traditional Dancing</a>
+              <a href="TraditionalWedding.html">Traditional Wedding</a>
+              <a href="TraditionalMedicines.html">Traditional Medicines</a>
+              <a href="TraditionalTransportation.html">Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+      <!-- Content section -->
+
+      <div class="container">
+        <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">About Traditionalonal Musics and Khmer Artists</h1>
+        <div class="content_m1">
+              <div class="first_section_m">
+               <p class="main_p">
+                Traditional Cambodian music is deeply rooted in the country's history, culture, and religious practices. It reflects the rich heritage of the Khmer people and has been passed down through generations, often associated with rituals, ceremonies, and cultural performances. Here’s an overview of some key aspects:  
+               </p>
+                  <img style="height: 200px;" class="img_first_m" src="https://www.shutterstock.com/image-photo/close-alto-xylophone-traditional-classical-600nw-1102699079.jpg" alt="">
+              </div>
+          </div>
+          <div>
+            <h1 class="pga">Traditional Musics In Cambodia</h1>
+        <div class="hotel-listing">
+            <img src="https://pppenglish.sgp1.digitaloceanspaces.com/image/main/field/image/17_story_1_6.jpg" alt="Saravoan Kep Hotel" class="hotel-image">
+            <div class="hotel-info">
+                <h2>1. Pinpeat Ensemble</h2>
+                <!-- <p><strong>Holy place</strong></p> -->
+                <!-- <p>⭐️⭐️⭐️⭐️⭐️ 835 reviews</p> -->
+                <p style="max-width: 800px;">"Pinpeat is one of the most important and oldest forms of Cambodian traditional music. It is an orchestra that typically accompanies classical dance, religious ceremonies, and court performances. The ensemble includes instruments such as:
+                    Roneat: A xylophone-like instrument made of bamboo or wood.
+                    Skor Thom: A pair of large, barrel-shaped drums.
+                    Sralai: A quadruple-reed wind instrument.
+                    Chhing: Small hand cymbals.
+                    Kong Thom: A set of gongs arranged in a circular frame.
+                    Sampho: A double-headed drum."</p>
+               <a href="https://en.wikipedia.org/wiki/Pinpeat" class="exploreLink">Explore</a>
+                   <div class="image_container">
+                       <div class="image_nom">
+                           <img src="https://asset.ams.com.kh/khmercivilization/media/photo_2021-11-10_06-48-53-copy-1024x640.jpg" alt="">
+                           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Khong_wong_yai.jpg/1200px-Khong_wong_yai.jpg" alt="">
+                           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Skor_thom_%28Sounds_of_Angkor%29.jpg/330px-Skor_thom_%28Sounds_of_Angkor%29.jpg" alt="">
+                       </div>
+                   </div>
+            </div>
+        </div>
+        
+       <div class="hotel-listing">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Khrueang_Mahori_Piphat_%281930%2C_p._38%29.jpg/330px-Khrueang_Mahori_Piphat_%281930%2C_p._38%29.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+            <div class="hotel-info">
+                <h2>2. Mahori Ensemble</h2>
+                <!-- <p><strong>Luxurious Resort</strong></p> -->
+                <!-- <p>⭐️⭐️⭐️⭐️⭐️ 743 reviews</p> -->
+                <p style="max-width: 700px;">The Mahori ensemble is smaller than Pinpeat and is often used to accompany singing or dance. 
+                    It consists of stringed instruments like the Tro (a bowed string instrument) and the Khse Diev (a single-stringed instrument), as well as xylophones, drums, and the Khloy (a type of bamboo flute).</p>
+                <a href="https://en.wikipedia.org/wiki/Mahori" class="exploreLink">Explore</a>
+                <div class="image_container">
+                    <div class="image_nom">
+                        <img src="https://www.cambodiancommunityday.org/images/khmer_music_instrument/trorou.jpg" alt="">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGt3HpCPMqiE5A8IjTEQPkmeWMfwNKJToj2ThkaonoNA50cgL3dpN9FymgjhZw7xcWhOY&usqp=CAU" alt="">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Khmer_instruments_03.jpg/330px-Khmer_instruments_03.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       <div class="hotel-listing">
+           <img src="https://qph.cf2.quoracdn.net/main-qimg-7cfe738f11bf9f70d8ac13f536d0b00b" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>3. Ayai</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 971 reviews</p> -->
+               <p style="max-width: 700px;">Ayai is a form of Cambodian folk music that involves comedic, often improvised, singing. Performers, usually in pairs, engage in a back-and-forth exchange, poking fun at each other and using wordplay to entertain the audience.</p>
+               <a href="https://en.wikipedia.org/wiki/Ayai" class="exploreLink">Explore</a>
+               <div class="image_container">
+                   <div class="image_nom">
+                       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO9mMDjPLWc9uOKRH-KeeiyfbOVP-fa-C99wCrBoVko6gImsNsUTrLIlGAOerUebO0OKs&usqp=CAU" alt="">
+                       <img src="https://images.khmer24.co/23-07-15/s--free--739380168942356057052530-c.jpg" alt="">
+                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Skor_thom_%28Sounds_of_Angkor%29.jpg/330px-Skor_thom_%28Sounds_of_Angkor%29.jpg" alt="">
+                   </div>
+               </div>
+           </div>
+       </div>
+       
+       <div class="hotel-listing">
+           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Cambodian_musician_playing_Chapey%2C_1880.jpg/330px-Cambodian_musician_playing_Chapey%2C_1880.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>4. Chapei Dang Veng</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 1045 reviews</p> -->
+               <p>The Chapei Dang Veng is a traditional lute that accompanies singing, storytelling, and poetic recitation. The music is often social commentary or moral teachings, and the instrument itself has a distinctive sound.</p>
+               <a href="https://en.wikipedia.org/wiki/Chapei_dang_veng" class="exploreLink">Explore</a>
+
+               </div>
+           </div>
+       </div>
+       
+       <div class="hotel-listing">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Lakhon_Bassac_comedians.jpg/330px-Lakhon_Bassac_comedians.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+        <div class="hotel-info">
+            <h2>5. Lakhon Bassac</h2>
+            <!-- <p><strong>Luxurious Resort</strong></p> -->
+            <!-- <p>⭐️⭐️⭐️⭐️⭐️ 2497 reviews</p> -->
+            <p>A popular theater form that combines music, dance, and drama, often depicting historical or mythological stories.</p>
+            <a href="https://en.wikipedia.org/wiki/Lakhon_Bassac" class="exploreLink">Explore</a>
+            <div class="image_container">
+                <div class="image_nom">
+                    <img src="https://vayofm.com/content_img/100546/rty.jpg" alt="">
+                    <img src="https://sakalsours.wordpress.com/wp-content/uploads/2016/09/sbek-thom.jpg?w=1200" alt="">
+                    <img src="https://intocambodia.org/wp-content/uploads/2024/08/Lakhaon-Bassac-1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+       
+       <div class="hotel-listing">
+           <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Sinn_Sisamouth.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>6. Sinn Sisamouth (1932-1976)</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 1578 reviews</p> -->
+               <p style="max-width: 800px;">Sinn Sisamouth (c. 1932 – c. 1976) was a Cambodian singer-songwriter active from the 1950s to the 1970s. 
+                Widely considered the "King of Khmer Music", Sisamouth, along with Ros Serey Sothea, Pen Ran, Mao Sareth, and other Cambodian artists, was part of a thriving pop music scene in Phnom Penh that blended elements of Khmer traditional music with the sounds of rhythm and blues and rock and roll to develop a Cambodian rock sound. 
+                Sisamouth died during the Khmer Rouge regime under circumstances that are unclear.​Sinn Sisamouth was born in Stung Treng Province, the son of Sinn Leang and mother Seb Bunlei. One or both of Sisamouth's parents were partially Lao. 
+                Most sources list his year of birth as 1935, though some list 1932 or 1933. ​23 August 1933 is generally accepted as his date of birth. Some people that had been alive during Sisamouth's era state that he was born during the Rooster zodiac, which includes the year 1933. Sisamouth's father was a soldier during the Colonial Cambodia period and also served as prison warden in Battambang Province. 
+                His father died when he was a child and his mother then remarried.</p>
+               <a href="https://en.wikipedia.org/wiki/Sinn_Sisamouth" class="exploreLink">Explore</a>
+               <div class="image_container">
+                   <div class="iframe_nom">
+                    <iframe  src="//www.youtube.com/embed/SiUwcDUYcuc?si=WP1dPW8m2eo1AwrG" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/VYxaRyPP7Nk?si=0biU3FKMzjtYnwY3" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/tDtFV9Tgo1g?si=7lKObZ0WKeWEeaqM" title="YouTube video player"" frameborder="0"></iframe>
+                   </div>
+               </div>
+           </div>
+       </div>
+       
+       <div class="hotel-listing">
+           <img src="https://upload.wikimedia.org/wikipedia/en/b/b5/Ros_Serey_Sothea_discogs.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>7. Ros Sereysothea (1948-1977)</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 1682 reviews</p> -->
+               <p style="max-width: 700px;">Ros Serey Sothea (Khmer: រស់ សេរីសុទ្ធា/រស់ សិរីសុទ្ធា [ruəh serəjsotʰiə]; c. 1948 - 1977) was a Cambodian singer. She was active during the final years of the First Kingdom of Cambodia and into the Khmer Republic period. 
+                She sang in a variety of genres; romantic ballads emerged as her most popular works. Despite a relatively brief career she is credited with singing hundreds of songs. She also ventured into acting, starring in a few films. Details of her life are relatively scarce. 
+                She disappeared during the Khmer Rouge regime of the late 1970s but the circumstances of her fate remain a mystery. Norodom Sihanouk granted Sothea the honorary title "Queen with the Golden Voice."</p>
+               <a href="https://en.wikipedia.org/wiki/Ros_Serey_Sothea" class="exploreLink">Explore</a>
+               <div class="image_container">
+                   <div class="iframe_nom">
+                    <iframe  src="//www.youtube.com/embed/KE2DBI26CB0?si=JcIzmZegmg1K3um9" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/ddtCAhX2nbE?si=tBLddVr5nH7T5gsP" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe src="//www.youtube.com/embed/54Y-Q1gw19Y?si=sU1wcDix2T9bq9Kv" title="YouTube video player"" frameborder="0"></iframe>
+                   </div>
+               </div>
+           </div>
+       </div>
+       
+       <div class="hotel-listing">
+           <img src="https://i.discogs.com/TUXF-eUNIZB2np5lcyGNOvoKWETreiiuumYjMDo5dgY/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTExMDA3/MTYtMTQ5MDY0MTQy/MS05NTE5LnBuZw.jpeg" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>8. Pen Ran (1944-1975)</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 1743 reviews</p> -->
+               <p style="max-width: 700px;">Pen Ran (Khmer: ប៉ែន រ៉ន, Khmer pronunciation: [paen rɑːn]), (c. 1944 – c. 1979) also commonly known as Pan Ron in some Romanized sources intended for English-speaking audiences, was a Cambodian singer and songwriter who was at the height of her popularity in the 1960s and early 1970s. 
+                Known particularly for her western rock and soul influences, flirtatious dancing, and risque lyrics,[1] Pen Ran has been described by the New York Times as a "worldly, wise-cracking foil" to the more restrained Cambodian pop singers of her era. She disappeared during the Khmer Rouge genocide and her fate is unknown.</p>
+               <a href="https://en.wikipedia.org/wiki/Pen_Ran" class="exploreLink">Explore</a>
+               <div class="image_container">
+                   <div class="iframe_nom">
+                    <iframe  src="//www.youtube.com/embed/GKPS8pIDE5o?si=iJesMJfLrH8QnEGw" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/vUEFgEsxsxE?si=RTNo3_vH_BhRr-YU" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/DnE83lLV17w?si=wHXvL5kN2utlhR_Y" title="YouTube video player"" frameborder="0"></iframe>
+                   </div>
+               </div>
+           </div>
+       </div>
+       
+       <div class="hotel-listing">
+           <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Houy.Meas.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>9. Huoy Meas (1946-1977)</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 1856 reviews</p> -->
+               <p style="max-width: 700px;">She was born in Svay Por Commune, Sangker District, Battambang Province, Cambodia. She also acted as a judge (with other singers such as Sinn Sisamouth, Liev Tuk, Touch Teng, Mao Sareth, and Chhoun Malai) in the formal public song contest Samach Cheat, which was established by Head of State Norodom Sihanouk. 
+                Until the Khmer Rouge took control of Cambodia in April 1975, Meas was the most popular female radio DJ in Cambodia, working for the National Radio station and promoting the Cambodian rock and pop scene. During her work with the National Radio (RNK), she interviewed Cambodian artists like Mao Sareth, Sos Math, and others who played large roles in the music industry of Cambodia at that time. She was also a popular singer in that scene, noted for melancholy lyrics about her own personal life. 
+                Norodom Sihanouk compared her lyrics and singing style to those of Edith Piaf. Her most well-known songs included "Samros Borey Tioulong" and "Unique Child".
+                A talented singer and radio announcer, Huoy Meas was known for her melancholic ballads and folk songs. Her work includes songs like "Veasna Kang Bachey" and "Khmer Krohom," which highlight her ability to convey deep emotions through her voice.</p>
+               <a href="https://en.wikipedia.org/wiki/Huoy_Meas" class="exploreLink">Explore</a>
+               <div class="image_container">
+                   <div class="iframe_nom">
+                    <iframe src="//www.youtube.com/embed/7_1YzKuD8zw?si=pF9dl6R6nzbnkfag" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/CHyOI8HfJAE?si=Y0067VWVXmpfjZ40" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/ImrQysUCbpY?si=3x8STvuuzvWY3G3M" title="YouTube video player"" frameborder="0"></iframe>
+               </div>
+           </div>
+       </div>
+    </div>
+       <div class="hotel-listing">
+           <img src="data:image/jpeg;base64,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" alt="Knai Bang Chatt Resort" class="hotel-image">
+           <div class="hotel-info">
+               <h2>10. Eng Nary</h2>
+               <!-- <p><strong>Luxurious Resort</strong></p> -->
+               <!-- <p>⭐️⭐️⭐️⭐️⭐️ 2497 reviews</p> -->
+               <p style="max-width: 700px;">Eng Nary is a Cambodian artist whose work is known for its exploration of contemporary themes through traditional and modern techniques. His art often delves into personal and collective histories, social issues, and cultural identity.
+                Eng Nary was born in Cambodia and grew up in a country with a rich but tumultuous history.
+                He studied art both in Cambodia and abroad, which has helped him blend traditional Cambodian artistic methods with contemporary approaches.
+                His work includes a range of mediums such as painting, drawing, and mixed media.
+                Eng Nary often explores themes related to Cambodian history, including the Khmer Rouge era and its ongoing impact on Cambodian society. 
+                He integrates traditional Cambodian motifs and techniques with modern elements to create art that resonates with both local and global audiences.
+                His art frequently addresses issues of identity, memory, and cultural heritage.
+
+               </p>
+               <a href="https://www.discogs.com/artist/2603941-Eng-Nary" class="exploreLink">Explore</a>
+               <div class="image_container">
+                   <div class="iframe_nom">
+                    <iframe  src="//www.youtube.com/embed/fnbDCzDaSKc?si=dv_JmB-o6lZ7sNaY" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe  src="//www.youtube.com/embed/07FFk_P7hgg?si=lJVflSNDSemHXd9O" title="YouTube video player"" frameborder="0"></iframe>
+                    <iframe src="//www.youtube.com/embed/u9j0RW3qtVo?si=_fvPoVG4hKfXkMqG" title="YouTube video player"" frameborder="0"></iframe>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="" style="color: #d900007d;"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+// For scroll images
+const imageNom = document.querySelector('.image_nom');
+
+imageNom.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    let startX = e.pageX - imageNom.offsetLeft;
+    let scrollLeft = imageNom.scrollLeft;
+
+    function onMouseMove(e) {
+        const x = e.pageX - imageNom.offsetLeft;
+        const walk = (x - startX) * 2; // Scroll speed multiplier
+        imageNom.scrollLeft = scrollLeft - walk;
+    }
+
+    function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+});
+
+   </script>
+</body>
+</html>

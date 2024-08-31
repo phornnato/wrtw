@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakheng Hill</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+            background-size: cover;
+            background-attachment: fixed;
+            /* Fixes the background image */
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 22%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+
+        .background-image .title p {
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 70px;
+            cursor: pointer;
+        }
+
+        .navbar a {
+            text-align: center;
+            font-size: 25px;
+            color: rgb(113, 106, 106);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+
+            font-size: 25px;
+            border: none;
+            outline: none;
+            color: rgb(113, 106, 106);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(33, 115, 255, 0.905);
+            transition: 0.6s;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #e6e1e1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            transition: 0.6s;
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #8d8d9386;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Content section */
+
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* h2 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #333;
+        } */
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        .main-content {
+            flex: 3;
+            margin-right: 20px;
+
+        }
+
+        .title_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+
+        .container-mid {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 2px solid rgba(33, 115, 255, 0.905);
+            border-bottom: 2px solid rgba(33, 115, 255, 0.905);
+        }
+
+        .content-mid {
+            max-width: 50%;
+        }
+
+        .content-mid h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .content-mid .mid {
+            margin: 8px 0;
+            font-size: 17px;
+        }
+
+        .content-mid .mid {
+            font-weight: bold;
+        }
+
+        .content-mid a {
+            color: rgba(33, 115, 255, 0.905);
+            text-decoration: none;
+        }
+
+        .image-mid {
+            max-width: 69%;
+        }
+
+        .image-mid {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container_last {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .item {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .item img {
+            width: 280px;
+            height: 200px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform .5s;
+        }
+
+        .item img:hover {
+            transform: translateY(-10px);
+        }
+
+        .item p {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .location {
+            font-size: medium;
+        }
+
+        .loc {
+            text-align: left;
+        }
+
+        /* map */
+        .container-map {
+            display: flex;
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map {
+            width: 600px;
+            height: 400px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coordinates,
+        .distances {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coordinates h3,
+        .distances h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .coordinates .p-map,
+        .distances .p-map {
+            margin: 5px 0;
+            font-size: 19px;
+        }
+/* map */
+
+        /* footer */
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+        }
+
+        .about-us-line1 h3,
+        .Natural-line1 h3 {
+            color: rgb(5, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        .about-us-line1 a,
+        .Natural-line1 a {
+            display: block;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .about-us-line1 a:hover,
+        .Natural-line1 a:hover {
+            color: #d900007d;
+
+        }
+
+        @media (max-width: 768px) {
+            .container_footer {
+                flex-direction: column;
+                padding-inline: 20px;
+                text-align: center;
+            }
+        }
+
+        .Natural-line1 .p_support,
+        .icon-support {
+            max-width: 200px;
+            margin-bottom: 15px;
+            padding: 8px;
+            color: rgb(6, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background image with title -->
+
+    <div class="background-image">
+        <div class="slide fade"
+            style="background-image: url('https://2.bp.blogspot.com/-NqGy_07a_uI/WtsaxXCf3GI/AAAAAAAAAGE/4WkWuVR3yPw8CCnruuf7X4wxoiKspen4QCK4BGAYYCw/s1600/phnom-bakheng.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://letstravelcambodia.wordpress.com/wp-content/uploads/2015/03/bakheng-hill-2.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://intocambodia.org/wp-content/uploads/2024/08/Bakheng-Temple-2.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Angkor_Wat%2C_Camboya%2C_2013-08-16%2C_DD_073.JPG/2880px-Angkor_Wat%2C_Camboya%2C_2013-08-16%2C_DD_073.JPG');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/63/Phnom_Bakheng-1.JPG');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Phnom_Bakheng_Angkor_Thom_Cambodia.jpg/2560px-Phnom_Bakheng_Angkor_Thom_Cambodia.jpg');">
+        </div>
+        <div class="title">Bakheng Hill
+            <p class="title_p">Welcome to Bakheng Hill in Siem Reap </p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+            <div class="dropdown-content">
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html">Traditional Musics</a>
+                <a href="TraditionalClothes.html">Traditional Clothes</a>
+                <a href="TraditionalDancing.html">Traditional Dancing</a>
+                <a href="TraditionalWedding.html">Traditional Wedding</a>
+                <a href="TraditionalMedicines.html">Traditional Medicines</a>
+                <a href="TraditionalTransportation.html">Traditional Transportation</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+                <a href="Kep.html">Kep</a>
+                <a href="BohKoh.html">BohKor</a>
+                <a href="Kampot.html">KamPot</a>
+                <a href="Chipart.html">Chipart</a>
+                <a href="KohTonsay.html">Koh Tonsay </a>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Tourism</div>
+            <div class="dropdown-content">
+                <a href="AngkorWat.html">Angkor Wat</a>
+                <a href="BayonTemple.html">Bayon Temple</a>
+                <a href="" style="background-color: #8d8d9386; color: white;">Bakheng Hill</a>
+                <a href="TapromTemple.html">Taprom Temple</a>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+        </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+    </div>
+
+
+
+    <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Bakheng Hill</h1>
+    <div class="content">
+        <!-- code -->
+        <p class="main_p">Phnom Bakheng is a temple mountain dedicated to Shiva. It was built by King Yasovarman at the
+            end of the 9th century. Phnom means hill or mountain in English and as such, Phnom Bakheng was built at the
+            top of a hill. This hill is perfect for watching the sunset at Angkor Wat.</p>
+
+        <p class="main_p">Unfortunately, due to the popularity of watching the sunset, the WMF (World Monuments Fund)
+            has been working to preserve the temple as it’s one of the most threatened temples in Angkor.</p>
+
+        <p class="main_p">Built more than two hundred years before Angkor Wat, Bahkeng temple was the state temple for
+            Yasovarman when he founded his new capital city called Yashodharapura with Bakheng his greatest achievement.
+        </p>
+        <div class="container-mid">
+            <div class="content-mid">
+                <h2>Temple Facts</h2>
+                <p class="mid"><strong>Date:</strong> 889 - 910 AD</p>
+                <p class="mid"><strong>Religion:</strong> Hinduism and Buddhism</p>
+                <p class="mid"><strong>Built By:</strong> Yasovarman I</p>
+                <p class="mid"><strong>Dedicated To:</strong> Shiva</p>
+                <p class="mid"><strong>Style:</strong> Temple Mountain</p>
+                <p class="mid"><strong>Best Time to Visit:</strong> Late Afternoon for the Sunset</p>
+                <p class="mid"><strong>Length of Visit:</strong> 1 - 2 hours</p>
+                <p class="mid"><strong>Temple Pass:</strong> Required</p>
+                <p class="mid">More information about the <a href="#">Angkor Temple Pass</a>.</p>
+            </div>
+            <div class="image-mid">
+                <img src="https://justsiemreap.com/wp-content/uploads/2018/05/phnom-bakheng-temple-guide-2.jpg"
+                    alt="Temple Image">
+            </div>
+        </div>
+        
+
+
+        <!-- map -->
+        <div class="container-map">
+            <div id="map" class="map"></div>
+            <div class="info">
+                <div class="coordinates">
+                    <h3>Coordinates</h3>
+                    <p class="p-map">13.4237719, 103.8560634</p>
+                </div>
+                <div class="distances">
+                    <h3>Distances</h3>
+                    <p class="p-map">Siem Reap: 8.4km</p>
+                    <p class="p-map">Angkor Thom: 2.8km</p>
+                    <p class="p-map">Angkor Wat: 1.3km</p>
+                    <p class="p-map">Ta Prohm Kel: 1.0km</p>
+                </div>
+            </div>
+        </div>
+        <h1>The video of Bakeng Hill</h1>
+        <iframe width="900px" height="450px" src="https://www.youtube.com/embed/ISZD8KuXiag?si=Wum6JtzmNL4YBdsK"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <h1>The last with a good views</h1>
+        <div class="container_last">
+            <div class="item">
+                <img class="main_img" src="https://www.greeneratravel.com/userfiles/850sunset.jpg"
+                    alt="Earth Network Project">
+
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://intocambodia.org/wp-content/uploads/2024/08/Bakheng-Temple-2.jpg"
+                    alt="The Earth Network">
+
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://upload.wikimedia.org/wikipedia/commons/6/63/Phnom_Bakheng-1.JPG"
+                    alt="World Heritage forests">
+
+            </div>
+            <div class="item">
+                <img class="main_img"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Phnom_Bakheng_temple_at_Angkor%2C_Cambodia.jpg/1200px-Phnom_Bakheng_temple_at_Angkor%2C_Cambodia.jpg"
+                    alt="World Heritage glaciers">
+
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://evivatour.com/wp-content/uploads/2021/09/Bakheng-Hill-Siem-Reap.jpg">
+
+            </div>
+            <div class="item">
+                <img class="main_img"
+                    src="https://images.trvl-media.com/localexpert/573460/1908248b-a265-400a-a418-6f8d16d0239a.jpg?impolicy=resizecrop&rw=1005&rh=565">
+
+            </div>
+            <div class="item">
+                <img class="main_img"
+                    src="https://www.centralsuiteresidence.com/userfiles/image/Blog/sunset-seekers-at-phom-bakheng.jpg"
+                    alt="World Heritage glaciers">
+
+            </div>
+            <div class="item">
+                <img class="main_img"
+                    src="https://t3.ftcdn.net/jpg/03/29/38/60/360_F_329386006_eKxTejUKBmQE3Z5hDbzE5wV5KsjwWtS0.jpg">
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="Kbalchhaywaterfall.html">Kbal Chhay Waterfall</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Support Us</h3>
+                <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are
+                    interest us please join us <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+                <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i> +855 : 0974303668</p>
+                <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i> @group3</p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("fade");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000);
+        }
+       
+        var map = L.map('map').setView([13.4237719, 103.8560634], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        var marker = L.marker([13.4237719, 103.8560634]).addTo(map);
+        marker.bindPopup("<b>Phnom Bakheng</b><br>CVF4+GCF Angkor Archaeological Park, Krong Siem Reap 17000").openPopup();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Wedding</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* h2 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #333;
+        } */
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://images.macrumors.com/t/3SwpDI7nrMQeeIro9X7SbILE4_I=/1600x0/article-new/2021/03/Facebook-Feature.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://pngbuy.com/wp-content/uploads/2023/06/HD-instagram-logoinstagram-logotipo-png.png');"></div>
+        <div class="slide fade" style="background-image: url('https://mrwallpaper.com/images/hd/telegram-flying-planes-blue-background-7uot7hm3atxia65f.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://akm-img-a-in.tosshub.com/indiatoday/images/story/202010/Google_Gmail_New_Logo_India_To_1200x768.jpeg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.siem-reap.de/wp-content/uploads/2021/10/Phnom_1500_2-1024x768.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://thebettercambodia.com/wp-content/uploads/2024/02/5s4dzRwnVbzGY5ssnCE4wXzkeAEXyVtgk1ApQTwHMTp6y5PvEo1yennCKJr2uwSqL9mF5bb6KsTxr2qkipUv7AFHuHzV7VyNcXrsBmo7wuYvkpXNVwgMTCMkmJ4uEm6bLHfubovGuaXN5w7i3gTRxcifyLat7P1HSVsSE8v.jpeg');"></div>
+        <div class="title">Contact Us Information
+            <p class="title_p">You can contact us for something news </p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Traditional Wedding</a>
+              <a href="TraditionalMedicines.html">Traditional Medicines</a>
+              <a href="TraditionalTransportation.html">Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- Content section -->
+    <div class="content">
+        <h2>The Religion</h2>
+       <!-- code -->
+        <p>Buddhism is the state religion of Cambodia. Approximately 97% of Cambodia's population follows Theravada Buddhism, with Islam, Christianity, and tribal animism as well as Bahai faith making up the bulk of the small remainder.The wat (Buddhist monastery) and sangha (monkhood), together with essential Buddhist doctrines such as reincarnation and the accumulation of merit, are at the centre of religious life.
+
+          According to The World Factbook in 2019, 97.1% of Cambodia's population was Buddhist, 2% Muslim, 0.3% Christian and 0.5% Other.
+          
+          According to the Pew Research Center in 2010, 96.9% of Cambodia's population was Buddhist, 2.0% Muslim, 0.4% Christian, and 0.7% folk religion and non religious.</p>
+          <h1>History of Religion in Cambodia</h1>
+          <p>When the Khmer Empire came to power in the ninth century AD, Hinduism was the official religion. It had been the case in that part of the world for generations. Rulers of the great empire worshipped Hindu gods such as Vishnu and Shiva, and dedicated the 12th-century temple of Angkor Wat to these beliefs. 
+
+            It wasn’t until King Jayavarman VII, who ruled later in the 12th and 13th centuries, that Buddhism was fully introduced to the Khmer people. The temple of Bayon was the first in the Angkor complex to be built in the image of Buddha. Buddhism then infiltrated Khmer society through trade and interaction with nearby Southeast Asian kingdoms. Now, Buddhism is the most popular religion of Cambodia.  </p>
+            
+            <!-- image on right -->
+          <h2 class="h2_witPHo">Buddhism: Cambodia’s Main Religion</h2>
+         
+     </div>
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phimeanakas Temple</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+            background-size: cover;
+            background-attachment: fixed;
+            /* Fixes the background image */
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+
+        .background-image .title p {
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 70px;
+            cursor: pointer;
+        }
+
+        .navbar a {
+            text-align: center;
+            font-size: 25px;
+            color: rgb(113, 106, 106);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+
+            font-size: 25px;
+            border: none;
+            outline: none;
+            color: rgb(113, 106, 106);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(33, 115, 255, 0.905);
+            transition: 0.6s;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #e6e1e1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            transition: 0.6s;
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #8d8d9386;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* phimeanakas */
+        .main-pic img {
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .container-taprom {
+            display: flex;
+            flex-direction: row;
+            height: 50vh;
+            width: 100%;
+        }
+
+        .text-section {
+            width: 50%;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .subheading {
+            font-size: 14px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #eaeaea;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #d9d9d9;
+            margin-bottom: 40px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+            /* line-height: 1.6; */
+        }
+
+        .h2-his {
+            padding-top: 30px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* map */
+        .container-map {
+            display: flex;
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 0;
+            margin-left: 310px;
+            margin-right: 310px;
+            box-shadow: 10 10 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map {
+            width: 600px;
+            height: 400px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coordinates,
+        .distances {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coordinates h3,
+        .distances h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .coordinates .p-map,
+        .distances .p-map {
+            margin: 5px 0;
+            font-size: 19px;
+        }
+
+        /* map */
+        .video {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+        }
+
+
+
+
+
+
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        .title_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+        }
+
+        .about-us-line1 h3,
+        .Natural-line1 h3 {
+            color: rgb(5, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        .about-us-line1 a,
+        .Natural-line1 a {
+            display: block;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .about-us-line1 a:hover,
+        .Natural-line1 a:hover {
+            color: #d900007d;
+
+        }
+
+        @media (max-width: 768px) {
+            .container_footer {
+                flex-direction: column;
+                padding-inline: 20px;
+                text-align: center;
+            }
+        }
+
+        .Natural-line1 .p_support,
+        .icon-support {
+            max-width: 200px;
+            margin-bottom: 15px;
+            padding: 8px;
+            color: rgb(6, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background image with title -->
+
+    <div class="background-image">
+        <div class="slide fade"
+            style="background-image: url('https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTGIzBkTlPM0pBuaHFyFznWeJhDMtBnIvHyYuuwFqAQ0QmbAbtz0bLytfrp9iIvGqtfP99ZeLe-0h0KCIimqcFkVsR6357TXFg1KxTcPA');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTZoXEuUfMTORwqAx4XFDD9a2EEIHYnZ1Of312HcfLmDoW86pDWesRz7YPULUfmzUA1qTBg-m6mQ1k3A8oyhfJxa633pRdrNBFWm4yXQQ');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcSMRgntTDECroZFfN5had5im0tYa8A-4_zeXvQ4J5m-gWMpUvjyZGwAhQI5UfDjs7TsrXC4-y7thE_Mwf_HtOxjgQaJwdfXlFFcJyPlnA');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRgPvWvgBUn9N2b4rD9TL12hwZuhU1Eg3dgQPH6RrTiLykQmfnPn6dx0ZwyOZuSknQywtWb-dTqZ0ckCa4tLcAlmnzJWrFMVqAQfiLwsw');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQxIT5uT7RCJ0SN44pCZUxercnVRKSG7qJTQJY3fluYbEyj5zUH7RGxqfH7dd-TRkUVy5I1pUkFUfnxdVdxMSXCY3bhg_qUEC1IpeBohw');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTcIqaCpd10--fIIOORG7SjGeipnuaZ-0my1XQvU_XAb73l07olYZCoBEtqoZs17PNCWfz6VTM6OBYZkLcOqAGNPmuHLYYlmR3KXeepIQ');">
+        </div>
+        <div class="title">Phimeanakas Temple
+            <p class="title_p">Welcome to Phimeanaks Temple in Siem Reap </p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+            <div class="dropdown-content">
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html">Traditional Musics</a>
+                <a href="TraditionalClothes.html">Traditional Clothes</a>
+                <a href="TraditionalDancing.html">Traditional Dancing</a>
+                <a href="TraditionalWedding.html">Traditional Wedding</a>
+                <a href="TraditionalMedicines.html">Traditional Medicines</a>
+                <a href="TraditionalTransportation.html">Traditional Transportation</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+                <a href="Kep.html">Kep</a>
+                <a href="BohKoh.html">BohKor</a>
+                <a href="Kampot.html">KamPot</a>
+                <a href="Chipart.html">Chipart</a>
+                <a href="KohTonsay.html">Koh Tonsay </a>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Tourism</div>
+            <div class="dropdown-content">
+                <a href="AngkorWat.html">Angkor Wat</a>
+                <a href="BayonTemple.html">Bayon Temple</a>
+                <a href="BakengHill.html">Bakheng Hill</a>
+                <a href="TapromTemple.html">Taprom Temple</a>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="" style="background-color: #8d8d9386; color: white;">Phimeanakas Temple</a>
+                <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+        </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+    </div>
+
+    <!-- Content section -->
+    <div class="content">
+        <div>
+            <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To
+                Phimeanakas Temple</h1>
+        </div>
+        <div class="main-pic">
+            <img src="https://apsaraauthority.gov.kh/wp-content/uploads/2021/08/Apsara-National-Authority-Prasat-Bat-Chum-136.jpg"
+                alt="">
+        </div>
+        <br><br><br>
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="text-section">
+                    <p class="description">Phimeanakas is known in English as the “Celestial Temple” and is a 10th
+                        century Hindu temple built in the Khleang style. The three-tiered pyramid style was used as a
+                        place to worship the gods.
+
+                        Although smaller than other temples in the region, it’s still around 40m tall.
+
+                        The name comes from a tale that the king would climb the stairs every night to lay with the Naga
+                        princess. If the Naga didn’t turn up one night, it would have been the end of the king and havoc
+                        would rain on the kingdom..</p>
+
+                </div>
+                <div class="image-section">
+                    <img src="https://tourismcambodia.org/storage/uploads/contents/entryform/ministry-of-tourism-cambodia-2019-02-27-04-15-09am1551240911-1469.png"
+                        alt="Tree roots covering a temple" />
+                </div>
+            </div>
+            <h2 class="h2-his">History</h2>
+            <div>
+                <p class="his">Phimeanakas was built at the end of the 10th century by King Rajendravarman and completed
+                    by King Suryavarman I. It was built as a Hindu temple in the Khleang style inside the Royal Palace
+                    of Angkor Thom.
+
+                    It’s believed that an earlier structure was built here in the early part of the 10th century and
+                    knocked down to make way for Phimeanakas. There is an inscription which as been dated to 910 AD and
+                    mentions a structure which was dedicated to Vishnu.</p>
+            </div>
+            <h3 style="text-align: left;">The Golden Towers</h3>
+            <div>
+                <p class="golden">Zhou Danguan, the Chinese diplomat, wrote about the golden tower and told story of the
+                    King and the
+                    Naga Princess.
+
+                    It was believed that the Naga (a nine headed serpent) lived in the Golden Tower. Each night, the
+                    Naga would take the form of a woman. The king would lay with the woman every night and nobody was
+                    allowed to enter during this time. It was said that if the king failed to arrive one evening, then a
+                    great disaster would befall his kingdom. If the Naga failed to appear, then the king’s days were
+                    numbered and he would die.</p>
+            </div>
+            <h3 style="text-align: left;">Desertion</h3>
+            <div>
+                <p class="deser">The temples at Angkor were all deserted at some point in the 16th century and
+                    Phimeanakas was the same. It’s not exactly known why the Khmer deserted these great structures.</p>
+            </div>
+            <h3 style="text-align: left;">20th Century – Today</h3>
+            <div>
+                <p>The French explorer, Henri Marchal, discovered a broken stela which was apparently written by King
+                    Jayavarman VII’s second wife. It tells us about the king and his both his first and second wives.
+                    The queens had an important role in spreading the Buddhist religion across the kingdom. The stela
+                    also shows battles between the Khmer and the Chams as well as King Jayavarman VII’s coronation.
+
+                    Most of the structure remains intact and has been open to tourists for years. It’s widely visited
+                    and welcomes thousands of visitors each day.</p>
+            </div>
+            <h2>The last with a good views</h2>
+            <div class="image-gallery">
+                <img src="https://us.images.westend61.de/0000778128pw/cambodia-siem-reap-angkor-phimeanakas-temple-SJF00196.jpg"
+                    alt="Temple Image 1">
+                <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQSjgpH1B69xi7jUdAINTcjYwJu62pro5hs_nkQQAHls0hF0URHvTu9CvwmwlqPKpMT28lcDd450iDiupRwY3TewNHWyiiLMPVyfOp-BQ"
+                    alt="Temple Image 2">
+                <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTGIzBkTlPM0pBuaHFyFznWeJhDMtBnIvHyYuuwFqAQ0QmbAbtz0bLytfrp9iIvGqtfP99ZeLe-0h0KCIimqcFkVsR6357TXFg1KxTcPA"
+                    alt="Temple Image 3">
+                <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQxIT5uT7RCJ0SN44pCZUxercnVRKSG7qJTQJY3fluYbEyj5zUH7RGxqfH7dd-TRkUVy5I1pUkFUfnxdVdxMSXCY3bhg_qUEC1IpeBohw"
+                    alt="Temple Image 4">
+                <img src="https://previews.123rf.com/images/balazssebok/balazssebok2001/balazssebok200100123/139635254-phimeanakas-temple-site-among-the-ancient-ruins-of-angkor-wat-hindu-temple-complex-in-siem-reap.jpg"
+                    alt="Temple Image 5">
+                <img src=" https://as2.ftcdn.net/v2/jpg/04/22/16/25/1000_F_422162515_xI5sDht2uy5TFViyd64QzWjKbh36WQHJ.jpg"
+                    alt="Temple Image 6">
+                <img src="https://live.staticflickr.com/65535/50196268707_89cf5489d7_b.jpg" alt="Temple Image 6">
+                <img src="https://www.visitkohrong.com/wp-content/uploads/2023/09/Phimeanakas-Temple-Entrance-1212-1024x682.jpg"
+                    alt="Temple Image 6">
+            </div>
+            <h2>Location</h2>
+            <p>Phimeanakas temple is located inside the Royal Palace in Angkor Thom. It’s just north of Baphuon temple
+                and West of the Terrace of the Elephants and the Terrace of Leper King. A few hundred metres to the
+                north is Prasat Preah Palilay.</p>
+        </section>
+    </div>
+    <!-- map -->
+    <div class="container-map">
+        <div id="map" class="map"></div>
+        <div class="info">
+            <div class="coordinates">
+                <h3>Coordinates</h3>
+                <p class="p-map">13.4457097, 103.8562727</p>
+            </div>
+            <div class="distances">
+                <h3>Distances</h3>
+                <p class="p-map">Siem Reap: 9.9km</p>
+                <p class="p-map">Angkor Thom: 5.5km</p>
+                <p class="p-map">Angkor Wat: 4.9km</p>
+                <p class="p-map">Bakeng Hill: 2.6km</p>
+            </div>
+        </div>
+    </div>
+    <div class="video">
+        <h2>The video of Phiemanakas Temple</h2>
+        <iframe width="900px" height="500px" src="https://www.youtube.com/embed/pDvMuyEo4rY?si=3tnB7pgnGr48xHa6"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="Kbalchhaywaterfall.html">Kbal Chhay Waterfall</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html" style="color: #d900007d;">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Support Us</h3>
+                <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are
+                    interest us please join us <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+                <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i> +855 : 0974303668</p>
+                <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i> @group3</p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("fade");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000);
+        }
+
+        var map = L.map('map').setView([13.4457097, 103.8562727], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Phimeanakas Temple'
+        }).addTo(map);
+        var marker = L.marker([13.4457097, 103.8562727]).addTo(map);
+        marker.bindPopup("<b>Phimeanakas Temple</b><br>CVW4+7GV Krong Siem Reap").openPopup();
+
+    </script>
+</body>
+
+</html>

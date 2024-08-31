@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayon Temple</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .popup img {
+            width: 100%;
+            height: auto;
+
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .main_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .background-image {
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+            background-size: cover;
+            background-attachment: fixed;
+            /* Fixes the background image */
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 23%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+
+        .background-image .title p {
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 70px;
+            cursor: pointer;
+        }
+
+        .navbar a {
+            text-align: center;
+            font-size: 25px;
+            color: rgb(113, 106, 106);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+
+            font-size: 25px;
+            border: none;
+            outline: none;
+            color: rgb(113, 106, 106);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(33, 115, 255, 0.905);
+            transition: 0.6s;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #e6e1e1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            transition: 0.6s;
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #8d8d9386;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        .title_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+
+
+        /* map */
+        .container-map {
+            display: flex;
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-inline: 20px;
+        }
+
+        .map {
+            width: 600px;
+            height: 400px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coordinates,
+        .distances {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coordinates h3,
+        .distances h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .coordinates .p-map,
+        .distances .p-map {
+            margin: 5px 0;
+            font-size: 19px;
+        }
+
+        /* map */
+
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+        }
+
+        .about-us-line1 h3,
+        .Natural-line1 h3 {
+            color: rgb(5, 5, 5);
+            margin-bottom: 15px;
+            margin-left: 8px;
+        }
+
+        .about-us-line1 a,
+        .Natural-line1 a {
+            display: block;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .about-us-line1 a:hover,
+        .Natural-line1 a:hover {
+            color: #d900007d;
+
+        }
+
+        @media (max-width: 768px) {
+            .container_footer {
+                flex-direction: column;
+                padding-inline: 20px;
+                text-align: center;
+            }
+        }
+
+        .Natural-line1 .p_support,
+        .icon-support {
+            max-width: 200px;
+            margin-bottom: 15px;
+            padding: 4px;
+            color: rgb(6, 5, 5);
+            margin-bottom: 15px;
+
+        }
+
+        .p_support {
+            font-size: 15Px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding-inline: 10%;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            flex: 3;
+            margin-right: 20px;
+
+        }
+
+        .sidebar {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .box {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #efefef;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 3px;
+            color: #444;
+            text-align: center;
+        }
+
+        .container_last {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .item {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .item img {
+            width: 280px;
+            height: 200px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform .5s;
+        }
+
+        .item img:hover {
+            transform: translateY(-10px);
+        }
+
+        .item p {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background image with title -->
+
+    <div class="background-image">
+        <div class="slide fade"
+            style="background-image: url('https://www.visitkohrong.com/wp-content/uploads/2023/09/Bayon-Temple-in-Cambodia-121212.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://smarthistory.org/wp-content/uploads/2021/05/Prasat_Bayon_2014-scaled.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://d2d3n9ufwugv3m.cloudfront.net/w1200-h900-cfill/topics/MtwDl-bayon%20temple%20siem%20reap%20cambodia.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://d13jio720g7qcs.cloudfront.net/images/destinations/origin/5d01caca24c71.png');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://static1.thetravelimages.com/wordpress/wp-content/uploads/2023/04/bayon-temple-angkor-thom-cambodia.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/06/28/a8288104c12540d03a9a1e8c16acd53c_1000x1000.jpg');">
+        </div>
+        <div class="title">Bayon Temple
+            <p class="title_p">The wonder full of temple in cambodai </p>
+        </div>
+    </div>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+            <div class="dropdown-content">
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html">Traditional Musics</a>
+                <a href="TraditionalClothes.html">Traditional Clothes</a>
+                <a href="TraditionalDancing.html">Traditional Dancing</a>
+                <a href="TraditionalWedding.html">Traditional Wedding</a>
+                <a href="TraditionalMedicines.html">Traditional Medicines</a>
+                <a href="TraditionalTransportation.html">Traditional Transportation</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+                <a href="Kep.html">Kep</a>
+                <a href="BohKoh.html">BohKor</a>
+                <a href="Kampot.html">KamPot</a>
+                <a href="Chipart.html">Chipart</a>
+                <a href="KohTonsay.html">Koh Tonsay </a>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Tourism</div>
+            <div class="dropdown-content">
+                <a href="AngkorWat.html">Angkor Wat</a>
+                <a href="" style="background-color: #8d8d9386; color: white;">Bayon Temple</a>
+                <a href="BakengHill.html">Bakheng Hill</a>
+                <a href="TapromTemple.html">Taprom Temple</a>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+        </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+    </div>
+
+    <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Bayon Temple</h1>
+    <div class="container">
+        <!-- popup  -->
+        <div id="popup-Angkor" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Angkor_Wat_Temple.jpg/500px-Angkor_Wat_Temple.jpg">
+            <p><strong><a>Angkor</a></strong> , also known
+                as Yasodharapura, was the capital city of the Khmer Empire, located in present-day Cambodia. The city
+                and empire flourished from approximately the 9th to the 15th centuries. The city houses the Angkor Wat,
+                one of Cambodia's most popular tourist attractions.</p>
+        </div>
+
+        <div id="popup-cambodia" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_Cambodia.svg/250px-Flag_of_Cambodia.svg.png">
+            <p><strong><a>Cambodia</a></strong>,
+                officially the Kingdom of Cambodia, is a country in Mainland Southeast Asia. It borders Thailand to the
+                northwest, Laos to the north, Vietnam to the east, and has a coastline along the Gulf of Thailand on the
+                southwest. It spans an area of 181,035 square kilometres, and has a</p>
+        </div>
+
+        <div id="popup-jayavarman" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/JayavarmanVII.jpg/469px-JayavarmanVII.jpg">
+            <p><strong><a>Jayavarman VII</a></strong>, known posthumously as Mahaparamasaugata, was king of the Khmer
+                Empire. He was the son of King Dharanindravarman II and Queen Sri Jayarajacudamani. He was the first
+                king devoted to Buddhism,
+                as only one prior Khmer king had been a Buddhist.</p>
+        </div>
+        <div id="popup-angkorthom" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Angkor_Thom_Gate_2023.jpg/479px-Angkor_Thom_Gate_2023.jpg">
+            <p><strong><a>Angkor Thom</a></strong>, alternatively Nokor Thom, located in present-day
+                Cambodia, was the last and most enduring capital city of the Khmer Empire. It was established in the
+                late twelfth century by King Jayavarman VII. It covers an area of 9 km², within which are located
+                several monuments from earlier</p>
+        </div>
+
+        <div id="popup-vishnu" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Vishnu_in_his_complete_form.jpg/440px-Vishnu_in_his_complete_form.jpg">
+            <p><strong><a>Vishnu</a></strong>, also known as <strong>Narayana</strong>and <strong>Hari</strong>, is one
+                of the principal deities of Hinduism. He is the supreme being within Vaishnavism, one of the major
+                traditions within contemporary Hinduism.</p>
+        </div>
+
+        <div id="popup-ta-prohm" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Ta_Prohm_%28III%29.jpg/640px-Ta_Prohm_%28III%29.jpg">
+            <p><strong><a>Ta Prohm</a></strong>is the modern name of a temple near the city of Siem Reap,
+                Cambodia, approximately one kilometre east of Angkor Thom and on the southern edge of the East Baray. It
+                was built in the Bayon style largely in the late 12th century and early 13th century and was originally
+                called <strong>Rajavihara</strong>.</p>
+        </div>
+
+        <div id="popup-banteay-kdei" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Banteay_Kdei%2C_Angkor%2C_Camboya%2C_2013-08-16%2C_DD_10.JPG/424px-Banteay_Kdei%2C_Angkor%2C_Camboya%2C_2013-08-16%2C_DD_10.JPG">
+            <p><strong><a>Banteay Kdei</a></strong>, also known as "Citadel of Monks' cells", is a Buddhist
+                temple in Angkor, Cambodia. It is located southeast of Ta Prohm and east of Angkor Thom. Built in the
+                mid-12th to early 13th centuries AD during the reign of Jayavarman VII, it is in the Bayon architectural
+                style.</p>
+        </div>
+
+
+        <div id="popup-avalokitesvara" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Khasarpana_Lokesvara.jpg/480px-Khasarpana_Lokesvara.jpg">
+            <p>In Buddhism, <strong>Avalokiteśvara</strong>, also known as <strong>Lokeśvara</strong>and
+                <strong>Chenrezig</strong>,is a tenth-level bodhisattva associated with great compassion (mahakaruṇā).
+                He is often associated with Amitabha Buddha. Avalokiteśvara has numerous manifestations and is depicted
+                in various forms.
+            </p>
+        </div>
+
+        <div id="popup-bodhisattva" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Plaosan_Bodhisattva_02.jpg/426px-Plaosan_Bodhisattva_02.jpg">
+            <p>In Buddhism, a <strong>bodhisattva </strong>or <strong>bodhisatva</strong> is a person who is on the
+                path towards bodhi ('awakening') or Buddhahood.</p>
+        </div>
+
+        <div id="popup-brahma" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Brahma_on_hamsa.jpg/448px-Brahma_on_hamsa.jpg">
+            <p><strong>Brahma </strong> is a Hindu god, referred to as "the Creator" within the Trimurti, the trinity of
+                supreme divinity
+                that includes Vishnu and Shiva. He is associated with creation, knowledge, and the Vedas. Brahma is
+                prominently mentioned in creation legends.</p>
+        </div>
+
+        <div id="popup-shiva" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Bangalore_Shiva.jpg/640px-Bangalore_Shiva.jpg">
+            <p><strong>Shiva</strong>, also known as Mahadeva or Hara, is one of the principal deities of Hinduism. He
+                is the Supreme
+                Being in Shaivism, one of the major traditions within Hinduism.</p>
+        </div>
+
+        <div id="popup-trimurti" class="popup">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/UgrataraTemple2_%28cropped%29.jpeg/640px-UgrataraTemple2_%28cropped%29.jpeg">
+            <p>The <strong>Trimurti</strong>is the trinity of supreme divinity in Hinduism, in which the cosmic
+                functions of creation,
+                preservation, and destruction are personified as a triad of deities. Typically, the designations are
+                that of Brahma the creator, Vishnu the preserver, and Shiva the destroyer.</p>
+        </div>
+
+        <div id="popup-contact" class="popup">
+            <img src="qr.jpg">
+        </div>
+
+
+
+        <!-- end popup -->
+
+        <div class="main-content">
+            <h1>Bayon Temple</h1>
+            <p class="main_p">The Bayon was the state temple of King Jayavarman VII, built at the end of the 12th
+                century. It is a
+                mountain temple built to represent Mount Meru, the center of the universe in Hindu and Buddhist
+                cosmology. However, unlike most Khmer temples, the Bayon is not surrounded by a moat and walls with
+                gopura entrances.</p>
+
+            <p class="main_p">The Bayon’s most distinctive feature is the multitude of serene and massive stone faces on
+                the many
+                towers that jut from the upper terrace and cluster around its center peak.</p>
+
+            <p class="main_p">The similarity of the 216 gigantic faces to other statues of Jayavarman VII has led many
+                scholars to the
+                hypothesise that the faces are representations of the king himself. Others believe that the faces belong
+                to Avalokitesvara, the bodhisattva of compassion while yet another commentary suggested that the temple
+                was originally built for the Hindu God Brahma.</p>
+
+            <p class="main_p">The temple is also popular for two impressive sets of bas-reliefs, which present an
+                unusual combination
+                of mythological, historical, and mundane scenes. This is one of the many ‘must visit’ temples.</p>
+            <img src="https://www.visitkohrong.com/wp-content/uploads/2023/09/Bayon-Temple-in-Cambodia-121212.jpg"
+                alt="Image">
+            <h1>The Art of Bayon Temple</h1>
+            <img src="https://gadttravel.com/uploads/cambodia/phnom-penh/bac74c7535fc9079461678dd8737d5d1-bayon.jpg"
+                alt="">
+            <h1>The image of Tourism at Bayon Temple </h1>
+            <img src="https://cambodiatravel.com/images/2020/12/Best-time-to-visit-Bayon-Temple.jpg">
+            <h2 >Location</h2>
+            <p class="main_p">Bayon temple is located in the centre of the ancient city of Angkor Thom. Just a few
+                kilometres from Angkor Wat, Bayon is easily accessible.</p>
+            <!-- map -->
+            <div class="container-map">
+                <div id="map" class="map"></div>
+                <div class="info">
+                    <div class="coordinates">
+                        <h3>Coordinates</h3>
+                        <p class="p-map">13.4411272, 103.8590454</p>
+                    </div>
+                    <div class="distances">
+                        <h3>Distances</h3>
+                        <p class="p-map">Siem Reap: 9.3km</p>
+                        <p class="p-map">Bakeng Hill: 2.8km</p>
+                        <p class="p-map">Angkor Wat: 3.3km</p>
+                        <p class="p-map">Ta Prohm Temple: 4.7km</p>
+                    </div>
+                </div>
+            </div>
+            <!-- map -->
+            <h1>The video of Apsara Dance</h1>
+            <iframe width="900px" height="500px" src="https://www.youtube.com/embed/_E0OPtfsB78?si=PK9uX_rYchJ3PUD1"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <h1>The last with a good views</h1>
+            <div class="container_last">
+                <div class="item">
+                    <img src="https://www.greeneratravel.com/userfiles/thumbs/bayon-temple.jpg"
+                        alt="Earth Network Project">
+
+                </div>
+                <div class="item">
+                    <img src="https://theangkorguide.net/userfiles/bayon-tour-gallery-1.jpg" alt="The Earth Network">
+
+                </div>
+                <div class="item">
+                    <img src="https://www.atntravel.asia/wp-content/uploads/2024/02/Elephant_ride_bayon_temple-425x345.jpg"
+                        alt="World Heritage forests">
+
+                </div>
+                <div class="item">
+                    <img src="https://theangkorguide.net/userfiles/mobile/slideshow_mobile_2.jpg"
+                        alt="World Heritage glaciers">
+
+                </div>
+                <div class="item">
+                    <img
+                        src="https://img.freepik.com/premium-photo/bayon-temple-ancient-stone-temple-bayon-is-one-unesco-world-heritage-anprasat-bayon-temple-angkor-thom-is-popular-tourist-attraction-siem-reap-cambodiagkor-cambodia_106569-189.jpg">
+
+                </div>
+                <div class="item">
+                    <img
+                        src="https://tourismcambodia.org/storage/uploads/contents/entryform/1549964136-898-Bayon-Temple-Reflection-at-Sunrise-lores.jpg">
+                </div>
+
+            </div>
+
+        </div>
+        <div class="sidebar">
+            <div class="box">
+                <h2>The History</h2>
+                <p class="main_p">The Bayon was the last state temple to be built at <a
+                        href="https://en.wikipedia.org/wiki/Angkor" class="hover-link"
+                        data-popup="popup-Angkor">Angkor</a>,
+                    and the only Angkorian state temple to be built primarily
+                    to worship Buddhist deities, though a great number of minor and local deities were also encompassed
+                    as representatives of the various districts and cities of the realm. Originally a Hindu temple, the
+                    Bayon (Jayagiri) was the centrepiece of <a href="https://en.wikipedia.org/wiki/Jayavarman_VII"
+                        class="hover-link" data-popup="popup-jayavarman">Jayavarman VII's</a>
+                    massive program of monumental construction and public works, which was also responsible for the
+                    walls and nāga-bridges of <a href="https://en.wikipedia.org/wiki/Angkor_Thom" class="hover-link"
+                        data-popup="popup-angkorthom">Angkor Thom</a> and the temples of <a
+                        href="https://en.wikipedia.org/wiki/Vishnu" class="hover-link"
+                        data-popup="popup-vishnu">Vishnu</a>, <a href="https://en.wikipedia.org/wiki/Ta_Prohm"
+                        class="hover-link" data-popup="popup-ta-prohm">Ta Prohm</a> and <a
+                        href="https://en.wikipedia.org/wiki/Banteay_Kdei" class="hover-link"
+                        data-popup="popup-banteay-kdei">Banteay Kdei</a>.
+                    The similarity of the 216 gigantic faces on the temple's towers to other statues of the has led many
+                    scholars to the conclusion that the faces are representations of Jayavarman VII, himself. Scholars
+                    have theorized that the faces belong to <a href="https://en.wikipedia.org/wiki/Avalokitesvara"
+                        class="hover-link" data-popup="popup-avalokitesvara">Avalokitesvara</a>, the <a
+                        href="https://en.wikipedia.org/wiki/Bodhisattva" class="hover-link"
+                        data-popup="popup-bodhisattva">bodhisattva</a>
+                    compassion. But some
+                    locals believe the temple was built for <a href="https://en.wikipedia.org/wiki/Brahma"
+                        class="hover-link" data-popup="popup-brahma">Brahma</a>, since the faces have four
+                    sides, representing
+                    Brahma's four faces. Also, the faces have three eyes, which symbolizes <a
+                        href="https://en.wikipedia.org/wiki/Brahma" class="hover-link"
+                        data-popup="popup-shiva">Shiva</a> in the <a href="https://en.wikipedia.org/wiki/Brahma"
+                        class="hover-link" data-popup="popup-trimurti">Trimurti</a>.
+                    Buddha's images seldom wear jewelry like necklaces, large earrings and a crown. The two hypotheses
+                    need not be regarded as mutually exclusive. Angkor scholar George Coedès has theorized that
+                    Jayavarman VII stood squarely in the tradition of the Khmer monarchs in thinking of himself as a
+                    devaraja (god-king), the difference being that while his predecessors were Hindus and associated
+                    themselves with Brahma and his symbol the, chaturmukha (four faces), Jayavarman VII was a Buddhist.
+                </p>
+
+            </div>
+
+            <div class="box">
+                <h2>Wish Regards by G3</h2>
+                <p class="main_p">Thanks for visiting our Website. This website create to share to the tourism for who
+                    want to visit cambodia. Welcome to Cambodia. <a href="#" class="hover-link"
+                        data-popup="popup-contact"> Support Us </a> </p>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="Kbalchhaywaterfall.html">Kbal Chhay Waterfall</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahVihearTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySrei.jpg">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Support Us</h3>
+                <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are
+                    interest us please join us <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+                <p class="p_support" style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i> +855 :
+                    0974303668</p>
+                <p class="p_support" style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>
+                    @group3</p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("fade");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000);
+        }
+        const hoverLinks = document.querySelectorAll('.hover-link');
+
+        hoverLinks.forEach(link => {
+            const popupId = link.getAttribute('data-popup');
+            const popup = document.getElementById(popupId);
+
+            link.addEventListener('mouseover', () => {
+                document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+                const rect = link.getBoundingClientRect();
+                const popupRect = popup.getBoundingClientRect();
+
+                // Calculate available space
+                const spaceBelow = window.innerHeight - rect.bottom;
+                const spaceAbove = rect.top;
+                const spaceRight = window.innerWidth - rect.right;
+                const spaceLeft = rect.left;
+
+                // Position the popup based on available space
+                if (spaceBelow >= popupRect.height) {
+                    popup.style.top = `${rect.bottom}px`;
+                    popup.style.left = `${rect.left}px`;
+                } else if (spaceAbove >= popupRect.height) {
+                    popup.style.top = `${rect.top - popupRect.height}px`;
+                    popup.style.left = `${rect.left}px`;
+                } else if (spaceRight >= popupRect.width) {
+                    popup.style.top = `${rect.top}px`;
+                    popup.style.left = `${rect.right}px`;
+                } else if (spaceLeft >= popupRect.width) {
+                    popup.style.top = `${rect.top}px`;
+                    popup.style.left = `${rect.left - popupRect.width}px`;
+                } else {
+
+                    popup.style.top = `${rect.bottom}px`;
+                    popup.style.left = `${rect.left}px`;
+                }
+
+                popup.classList.add('active');
+            });
+
+            link.addEventListener('mouseout', () => {
+                setTimeout(() => {
+                    if (!popup.matches(':hover')) {
+                        popup.classList.remove('active');
+                    }
+                }, 200);
+            });
+
+            popup.addEventListener('mouseleave', () => {
+                popup.classList.remove('active');
+            });
+        });
+
+        var map = L.map('map').setView([13.4411272, 103.8590454], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        var marker = L.marker([13.4411272, 103.8590454]).addTo(map);
+        marker.bindPopup("<b>Bayon Temple</b><br>CVF4+GCF Angkor Archaeological Park, Krong Siem Reap 17000").openPopup();
+
+    </script>
+</body>
+
+</html>

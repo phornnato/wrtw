@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chipart Cambodia</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Khmer&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 23%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+.container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.container-f {
+          padding: 5% 10%; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #d8f8eb;
+            border-radius: 10px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .content {
+            max-width: 50%;
+        }
+        .h1 {
+            color: #0e5f7a;
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+        .p {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+        .signup-form {
+            display: flex;
+            align-items: center;
+        }
+        .signup-form input[type="email"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .signup-form button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007b5e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .image {
+            max-width: 45%;
+        }
+        .image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+.main_container {
+    padding: 5% 10%;
+}
+.img_container {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.left-section {
+    flex: 2;
+    padding: 10px;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.top-images {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-images img {
+    width: 48%;
+    margin-bottom: 10px;
+}
+
+.bottom-image img {
+    width: 100%;
+    height: 330px;
+}
+
+.large-img {
+    width: 100%;
+    height: 480px;
+}
+.heart{
+  position: absolute;
+  color: rgb(0, 0, 0);
+  left: 50%;
+  top: 50%;
+}
+.main_kp{
+    padding: 10px 0; 
+    font-size: 23px;
+    font-family: "Khmer", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://cdn.sabay.com/cdn/media.sabay.com/media/RoadHome3/01-Chiphat/5e0184188630e_1577157600_medium.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://asset.cambodia.gov.kh/provincial/sites/12/2020/09/FB_IMG_1599796483203-1024x585.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://economy.ams.com.kh/wp-content/uploads/2023/01/GiphatCommunity.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://cnc.com.kh/news/laravel-filemanager/photos/26/65f1a044ce3e6.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://phkaslapartner.com/wp-content/uploads/2022/10/IMG_20221009_231629_781.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://pppkhmer.sgp1.digitaloceanspaces.com/image/main/field/image/photo_2023-07-14_11-31-56.jpg');"></div>
+        <div class="title">Chipart​​ Resort
+            <p class="title_p">The place that full of Green color  </p>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="TraditionalTransportation.html" >Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html" >Kep</a>
+              <a href="BohKoh.html" >BohKor</a>
+              <a href="Kampot.html" >KamPot</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- Content section -->
+
+    <!-- for popup  -->
+    <div id="popup-kohkong" class="popup">
+        <img src="https://i.ytimg.com/vi/e6xPHNjolrk/maxresdefault.jpg">
+     </div>
+
+
+    <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Chipart Resort</h1>
+    <div class="container-f">
+        <div class="content">
+            <h1 class="h1">Your travel journey starts here</h1>
+            <p class="p">Sign up now for travel tips, personalized itineraries, and vacation inspiration straight to your inbox.</p>
+            <div class="signup-form">
+                <input type="email" placeholder="Email">
+                <button type="submit">Sign up</button>
+            </div>
+        </div>
+        <div class="image">
+            <img src="https://1.bp.blogspot.com/-okPcJQ3PkSU/YDNj1DxWxBI/AAAAAAAAHBw/USDMas88UIMcyG648KWUSqKeTEE91zCVQCLcBGAsYHQ/s2048/120199063_110533800811578_6745615220767635182_o.jpg" alt="Travel image">
+        </div>
+    </div>
+    <div class="main_container">
+        <h1 style="text-align: center; margin-top: 40px; font-size: 60px; font-family:fantasy;">តំបន់ទេសចរណ័៏</h1>
+        <p class="main_kp" >កោះកុងៈ ជីផាត​ គឺជា​ឈ្មោះ​របស់​តំបន់​ទេស​ចរណ៍​លក្ខណៈ​សហ​គមន៍​មួយ​នៅ​<a href="#" class="hover-link" data-popup="popup-kohkong">ខេត្ត​កោះ​កុង</a>
+            ​ហើយបាន​ក្លាយជា​ទីចាប់​អារម្ម​ណ៍​របស់​ភ្ញៀវ​ទេស​ចរ​ទាំង​អ្នក​មក​ពី​ក្រៅ​ស្រុក ​និង​នៅ​ក្នុងស្រុក ​តាំងពី​ឆ្នាំ ២០០៨។ មូល​ហេតុ​ដែល​នាំឱ្យ​ជីផាត​ទាក់​ចិត្ត​ទេស​ចរ​បាន ក៏​ដោយ​សារតែ​តំបន់​នោះ ​មាន​សក្តានុ​ពល​ទេសច​រណ៍​ច្រើន​ប្រភេទ។
+
+            ជិះ​កង់​ឡើ​ងភ្នំ ​ដើរ​ថ្មើរជើង ​ចូលព្រៃ​បោះតង់ ​ជិះ​កាយ៉ាក​កម្សាន្ដ​តាម​មាត់​ព្រែក​ ចូល​ល្អាង​ភ្នំ ​ងូត​ទឹកជ្រោះ ​សុទ្ធ​តែ​ជា​សកម្ម​ភាព​កម្សាន្ដ​ដែល​មាន​ក្នុង​តំបន់​នេះ។ ហេតុ​ដូច្នេះ​ហើយ ​ទើប​ជីផាត ​បាន​ក្លាយ​ជា​ទីកម្សាន្ត​ស័ក្តិស​ម​មួយ​ដែរ​ សម្រាប់​ផ្តល់​នូវ​ការ​លម្ហែ​ចិត្ត​របស់​អ្នក​ទេសចរ​ ជា​ពិសេស​ភ្ញៀវ ​ដែល​ជា​ជន​បរទេស​។
+            
+            ក្នុង​១ឆ្នាំៗ ​សហ​គមន៍​អេកូ​ទេសច​រណ៍​ជីផាត ​បាន​ទាក់​ទាញ​ភ្ញៀវ​រាប់​ពាន់​នាក់​ឱ្យចូល​ទៅ​លេង​កម្សាន្ដ ​ហើយ​​ការ​កម្សាន្ដ​ទាំង​អស់​ធ្វើ​ឡើង​ជា​លក្ខណៈ​ស្ងប់​ស្ងាត់ ​ជាការ​កម្សាន្ដ​ជាមួយ​ធម្មជាតិ​ពិតៗ ​ដោយ​មិនមាន​ការកែ​ច្នៃ។ ជាង​នេះ​ទៅទៀត ​ភ្ញៀវ​ទេសចរ​ ក៏​អាច​ស្វែង​យល់​អំពី​ការ​រស់​នៅ​របស់​បង​ប្អូន​ក្នុង​សហគ​មន៍​ផង​ដែរ។
+            
+            លោក​ អ៊ន សុវណ្ណ ​ដែលជា​ប្រធាន​សហគមន៍​អេកូ​ទេស​ចរណ៍​ជីផាតឱ្យដឹង​ថា​៖«សហគមន៍​យើង​បាន​បង្កើត​ឡើង​តាំង​តែ​ពី​ឆ្នាំ​២០០៧​មក​ម្ល៉េះ ​ប៉ុន្តែ​ពេលនោះ​មិន​សូវជា​មាន​ភ្ញៀវ​ក្នុង​ស្រុក​ប៉ុន្មាន​ទេ។ ភ្ញៀវ​ភាគ​ច្រើន​ជាភ្ញៀវ​បរទេស ​ព្រោះ​ជន​ជាតិ​បរទេស ​គេ​ចូល​ចិត្ត​ដើរ​បែប​ស្ងប់​ស្ងាត់»។</p>
+        <div class="img_container">
+            <div class="left-section">
+                <img  class="large-img" src="https://moi-static.sgp1.digitaloceanspaces.com/uploads/post/feature_image/26997/feature.jpeg" alt="Large Image">
+            </div>
+            <div class="right-section">
+                <div class="top-images">
+                    <img src="https://pppkhmer.sgp1.digitaloceanspaces.com/image/main/field/image/photo_2023-07-14_11-31-56.jpg" alt="Image 1">
+                    <img src="https://www.cnc.com.kh/news/8ff6d5a0c77d2c4579fde9f5a56f94b9.jpg" alt="Image 2">
+                </div>
+                <div class="bottom-image">
+                    <img src="https://www.cnc.com.kh/news/b29545ee4ad3756c0b1194b8e2bbb482.jpg" alt="Image 3">
+                </div>
+            </div>
+        </div>
+        <p class="main_kp">ក្នុង​១ឆ្នាំៗ ​សហ​គមន៍​អេកូ​ទេសច​រណ៍​ជីផាត ​បាន​ទាក់​ទាញ​ភ្ញៀវ​រាប់​ពាន់​នាក់​ឱ្យចូល​ទៅ​លេង​កម្សាន្ដ ​ហើយ​​ការ​កម្សាន្ដ​ទាំង​អស់​ធ្វើ​ឡើង​ជា​លក្ខណៈ​ស្ងប់​ស្ងាត់ ​ជាការ​កម្សាន្ដ​ជាមួយ​ធម្មជាតិ​ពិតៗ ​ដោយ​មិនមាន​ការកែ​ច្នៃ។ ជាង​នេះ​ទៅទៀត ​ភ្ញៀវ​ទេសចរ​ ក៏​អាច​ស្វែង​យល់​អំពី​ការ​រស់​នៅ​របស់​បង​ប្អូន​ក្នុង​សហគ​មន៍​ផង​ដែរ។
+
+            លោក​ អ៊ន សុវណ្ណ ​ដែលជា​ប្រធាន​សហគមន៍​អេកូ​ទេស​ចរណ៍​ជីផាតឱ្យដឹង​ថា​៖«សហគមន៍​យើង​បាន​បង្កើត​ឡើង​តាំង​តែ​ពី​ឆ្នាំ​២០០៧​មក​ម្ល៉េះ ​ប៉ុន្តែ​ពេលនោះ​មិន​សូវជា​មាន​ភ្ញៀវ​ក្នុង​ស្រុក​ប៉ុន្មាន​ទេ។ ភ្ញៀវ​ភាគ​ច្រើន​ជាភ្ញៀវ​បរទេស ​ព្រោះ​ជន​ជាតិ​បរទេស ​គេ​ចូល​ចិត្ត​ដើរ​បែប​ស្ងប់​ស្ងាត់»។
+            
+            លោក​ថា ​១ ឆ្នាំ ​ទៅ​ ២ ឆ្នាំ ​បន្ទាប់​ពី​បង្កើត​សហ​គមន៍​នេះ​ហើយ ​ទើប​ចាប់ផ្ដើម​​មាន​ភ្ញៀវ​ខ្មែរ​ចូលទៅ​លេង​កម្សាន្ដ​ជាបន្ត​បន្ទាប់។​ ទោះជា​យ៉ាង​នេះ​ក្ដី ​រាល់​ចំណូល​ដែល​បាន​មក​ពី​ការចូល​ទៅ​កម្សាន្ដ​របស់​ភ្ញៀវ ​មិន​ថា ​ក្នុង​ស្រុក ​ឬ​ក្រៅ​ស្រុក​ សុទ្ធតែ​បាន​រួម​ចំណែក​ដ៏ធំ​ក្នុង​ការ​កសាង​ជីវភាព​មូល​ដ្ឋានរបស់​ប្រជា​ជន​ក្នុង​សហ​គមន៍។</p>
+            <h1 style="text-align: center; margin-top: 40px; font-size: 60px; font-family:fantasy;">ទស្សនាវីដេអូក្លីប</h1>
+          
+            <iframe width="1200px" height="600px" src="https://www.youtube.com/embed/NscZF9rjD54?si=lbVKbCcHi6GWDdZL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  
+        </div>   
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+
+   </script>
+</body>
+</html>

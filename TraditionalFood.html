@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Food</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* h2 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #333;
+        } */
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+/* Content section */
+.content_m1 {
+    margin-top: 40px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.content_m1 p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    text-align: justify;
+}
+
+.first_section_m {
+    display: flex;
+    align-items: flex-start; 
+    justify-content: center; 
+    gap: 30px; 
+}
+
+.img_first_m {
+    width: 410px; 
+    height: 435px; 
+    margin-top: 22px;
+}
+/* for card vertical  */
+.container {
+    padding: 0 10%; /* 10% padding on both sides */
+    margin-top: 20px;
+}
+
+.hotel-listing {
+    display: flex;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-image {
+    width: 30%;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.hotel-info {
+    flex-grow: 1;
+    
+}
+
+.hotel-info h2 {
+    margin: 0 0 10px 0;
+}
+
+.exploreLink {
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.exploreLink:hover {
+    background-color: #ffaa00;
+}
+.exploreLink:active {
+    background-color: #ffaa0091;
+}
+.h2_m {
+  font-size: 40px;
+  font-family: "Merriweather", serif;
+  font-weight: 900px;
+  font-style: normal;
+}
+.image_container {
+    padding: 0 10%; /* 10% padding on both sides */
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Hides the scrollbar */
+    position: relative;
+}
+
+.image_nom {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    margin-left: -280px;
+    max-width: calc(100% + 20%); /* Accounts for the 10% padding on both sides */
+    cursor: grab;
+}
+
+
+.image_nom img {
+    width: 300px;
+    height: 200px;
+    border-radius: 8px;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://www.agoda.com/wp-content/uploads/2024/02/Featured-photo-Cambodia-restaurants-1244x700.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://i0.wp.com/travelinspires.org/wp-content/uploads/2023/10/Cambodian-cuisine.jpg?fit=1280%2C731&ssl=1');"></div>
+        <div class="slide fade" style="background-image: url('https://www.indochinatravel.com/country/cambodia/images/1024-cambodian-dishes-at-sugar-palm-siem-reap-cambodia.webp');"></div>
+        <div class="slide fade" style="background-image: url('https://media.cntraveler.com/photos/61856ff1f162a6a3ee33fd97/16:9/w_5135,h_2888,c_limit/Cambodian%20Cuisine_GettyImages-573108149.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://scontent.fpnh10-1.fna.fbcdn.net/v/t39.30808-6/358102442_2456163547890932_4747050291109177153_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=MWG9iRUq-tUQ7kNvgHFjgmx&_nc_ht=scontent.fpnh10-1.fna&_nc_gid=AS3UN9NWhj4oMSnvsw4Rwqv&oh=00_AYDx3x10cu_WwmwxkXbJntOGnRUW-Q4i1sowMbRxVHDA4g&oe=66D4B349');"></div>
+        <div class="slide fade" style="background-image: url('https://cookingwithlane.com/wp-content/uploads/2020/11/thai-pumpkin-squash2.jpg');"></div>
+        <div class="title">Traditional Food
+            <p class="title_p">In Cambodia you should try our food.</p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Traditional Food</a>
+              <a href="TraditionalMusic.html">Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html">Traditional Dancing</a>
+              <a href="TraditionalWedding.html">Traditional Wedding</a>
+              <a href="TraditionalMedicines.html">Traditional Medicines</a>
+              <a href="TraditionalTransportation.html">Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+      
+      <!-- popup  -->
+
+    <div id="popup-khmer" class="popup">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYn3W4TNSHLsEXESJixpULE93IyCk8Lf0IJA&s">
+        <p><strong><a href="">Khmer</a></strong> is an Austroasiatic
+            language spoken natively by the Khmer people. This language is a Official
+            language and national language of Cambodia. The language is also widely spoken by Khmer people in
+            Eastern Thailand and Isan, Thailand, also in Southeast and Mekong Delta of Vietnam.</p>
+    </div>
+    
+    <div id="popup-Khmer" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Num_Banchok.jpg/359px-Num_Banchok.jpg">
+        <p><strong><a href="">Khmer</a></strong> Cambodian cuisine reflects the varied culinary traditions of different ethnic groups in Cambodia. 
+            Central to Cambodian cuisine is Khmer cuisine, the nearly-two-thousand-year-old culinary tradition of the majority Khmer people. Over centuries,
+            Cambodian cuisine has</p>
+    </div>
+
+    <div id="popup-steamed" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ho_mok_pla.JPG/480px-Ho_mok_pla.JPG">
+        <p><strong><a href="">steamed</a></strong> curry (Khmer: អាម៉ុក, amŏk lit. 'to steam in banana leaves', [ʔaːmok] or ហហ្មុក,hormŏk; Lao: ໝົກ, mok [mók]; Thai: ห่อหมก lit. 'bury wrap', ho mok [hɔ̀ː.mòk],) is a Southeast Asian type of curry steam-cooked in banana leaves and served with cooked rice. 
+        In Laos, it is also roasted on embers. The base of the curry is made with a curry paste (Khmer: គ្រឿង, krœăng [krɨəŋ]; Thai: พริกแกง, prik kaeng) with or without the addition of coconut cream or coconut milk and eggs. A wide range of leaves and staple ingredients are also added to the dish.</p>
+    </div>
+    
+    <div id="popup-mousse" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Chocolate_coffee_mousse.jpg/320px-Chocolate_coffee_mousse.jpg">
+        <p><strong><a href="">mousse</a></strong> is a soft prepared food that incorporates air bubbles to give it a light and airy texture. Depending on preparation techniques, it can range from light and fluffy to creamy and thick. A mousse may be sweet or savoury.</p>
+    </div>
+    
+    <div id="popup-Cambodia" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_Cambodia.svg/480px-Flag_of_Cambodia.svg.png">
+        <p><strong><a href="">Cambodia</a></strong> , officially the Kingdom of Cambodia, is a country in Mainland Southeast Asia. It borders Thailand to the northwest, Laos to the north, Vietnam to the east, and has a coastline along the Gulf of Thailand on the southwest. 
+            It spans an area of 181,035 square kilometres (69,898 square miles), and has a population of about 17 million. Its capital and most populous city is Phnom Penh.</p>
+    </div>
+    
+    <div id="popup-national dishes" class="popup">
+        <p><strong><a href="">national dishes</a></strong> is a culinary dish that is strongly associated with a particular country.[1] A dish can be considered a national dish for a variety of reasons:
+            It is a staple food, made from a selection of locally available foodstuffs that can be prepared in a distinctive way, such as fruits de mer, served along the west coast of France.
+            It contains a particular ingredient that is produced locally, such as a paprika grown in the European Pyrenees.
+            It is served as a festive culinary tradition that forms part of a cultural heritage—for example, barbecues at summer camp or fondue at dinner parties—or as part of a religious practice, such as Korban Pesach or Iftar celebrations.
+            It has been promoted as a national dish, by the country itself, such as the promotion of fondue as a national dish of Switzerland by the Swiss Cheese Union (Schweizerische Käseunion) in the 1930s.</p>
+    </div>
+    
+    <div id="popup-royal Khmer dish" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Khmer_painting.jpg/480px-Khmer_painting.jpg">
+        <p><strong><a href="">royal Khmer dish</a></strong> Khmer royal cuisine or Cambodian royal cuisine (Khmer: ម្ហូបព្រះបរមរាជវាំង Mahob Preah Barom Reacheaveang lit. 
+            'Royal palace cuisine' or simply ម្ហូបវាំង Mahob Veang lit. 'Palace cuisine') is one of the three types of Khmer cuisine, the other two being elite and rural cuisine.
+            Khmer royal cuisine has evolved over the centuries with influences from India, China, Thailand, Vietnam and France.</p>
+    </div>
+    
+    <div id="popup-Khmer Empire" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Map-of-southeast-asia_900_CE.svg/340px-Map-of-southeast-asia_900_CE.svg.png">
+        <p><strong><a href="">Khmer Empire</a></strong> The Khmer Empire was a Hindu-Buddhist empire in Southeast Asia, centered around hydraulic cities in what is now northern Cambodia. 
+            Known as Kambuja (Old Khmer: កម្វុជ; Khmer: កម្ពុជ) by its inhabitants, it grew out of the former civilisation of Chenla and lasted from 802 to 1431. Historians call this period of Cambodian history the Angkor period, after the empire's most well-known capital, Angkor. 
+            The Khmer Empire ruled or vassalised most of mainland Southeast Asia[3] and stretched as far north as southern China.[4][5] At its peak, the Empire was larger than the Byzantine Empire, which existed around the same time.</p>
+    </div>
+    
+    <div id="popup-[1]" class="popup">
+        <p><strong><a href="">[1]</a></strong> Gillan, Audrey (7 September 2017). "Cambodia: the art of amok". National Geographic. Archived from the original on 18 September 2021. Retrieved 4 October 2019.</p>
+    </div>
+    
+    <div id="popup-[2]" class="popup">
+        <p><strong><a href="">[2]</a></strong> Dunston, Lara (23 May 2017). "Cambodian Fish Amok Recipe – an Authentic Steamed Fish Curry in the Old Style". Grantourismo Travels. Archived from the original on 17 June 2022. Retrieved 4 October 2019.</p>
+    </div>
+    
+    <div id="popup-[4]" class="popup">
+        <p><strong><a href="">[4]</a></strong> Lees, Phil (May 25, 2007). "The Dish: Fish Amok". The Wall Street Journal. Archived from the original on 2 November 2021. Retrieved 7 October 2019. The origins of fish amok are a source of regional debate. 
+            Dishes of this kind aren't unique to Cambodia. Malaysia and Indonesia boast the similar otak otak and Thailand cooks a spicier hor mok but neither nation embraces them with the passion of Cambodia. 
+            "Amok" in the Cambodian language, Khmer, only refers to the dish whereas in Thai, "hor mok" translates as "bury wrap," suggesting amok may have come from Cambodia's neighbor.</p>
+    </div>
+    
+    <div id="popup-snakehead" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Snakehead_-_Channa_argus_2.jpg/480px-Snakehead_-_Channa_argus_2.jpg">
+        <p><strong><a href="">snakehead</a></strong> The snakeheads are members of the freshwater perciform fish family Channidae, native to parts of Africa and Asia. These elongated, predatory fish are distinguished by their long dorsal fins, large mouths, and shiny teeth. 
+            They breathe air with gills, which allows them to migrate short distances over land. They have suprabranchial organs, which are primitive forms of labyrinth organs, that develop when they grow older. The two extant genera are Channa in Asia and Parachanna in Africa, consisting of more than 50 species.</p>
+    </div>
+    
+    <div id="popup-catfish" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Ameiurus_melas_by_Duane_Raver.png/480px-Ameiurus_melas_by_Duane_Raver.png">
+        <p><strong><a href="">catfish</a></strong> (or catfishes; order Siluriformes /sɪˈljʊərɪfɔːrmiːz/ or Nematognathi) are a diverse group of ray-finned fish. Named for their prominent barbels, which resemble a cat's whiskers, catfish range in size and behavior from the three largest species alive, the Mekong giant catfish from Southeast Asia, the wels catfish of Eurasia, and the piraíba of South America, to detritivores (species that eat dead material on the bottom), and even to a tiny parasitic species commonly called the candiru, Vandellia cirrhosa. Neither the armour-plated types nor the naked types have scales. 
+            Despite their name, not all catfish have prominent barbels or "whiskers". Members of the Siluriformes order are defined by features of the skull and swimbladder. Catfish are of considerable commercial importance; many of the larger species are farmed or fished for food. Many of the smaller species, particularly the genus Corydoras, are important in the aquarium hobby. Many catfish are nocturnal,[6][7] but others (many Auchenipteridae) are crepuscular or diurnal (most Loricariidae or Callichthyidae, for example).</p>
+    </div>
+    
+    <div id="popup-cod" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Gadus_morhua_Cod-2b-Atlanterhavsparken-Norway.JPG/480px-Gadus_morhua_Cod-2b-Atlanterhavsparken-Norway.JPG">
+        <p><strong><a href="">cod</a></strong> (pl.: cod) is the common name for the demersal fish genus Gadus, belonging to the family Gadidae. Cod is also used as part of the common name for a number of other fish species, and one species that belongs to genus Gadus is commonly not called cod (Alaska pollock, Gadus chalcogrammus).</p>
+    </div>
+    
+    <div id="popup-snapper" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Paddletail_melb_aquarium.jpg/480px-Paddletail_melb_aquarium.jpg">
+        <p><strong><a href="">snapper</a></strong> Lutjanidae or snappers are a family of perciform fish, mainly marine, but with some members inhabiting estuaries, feeding in fresh water. The family includes about 113 species. Some are important food fish. One of the best known is the red snapper.</p>
+    </div>
+    
+    <div id="popup-barramundi" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Lates_calcarifer%2C_2014-09-19a.jpg/480px-Lates_calcarifer%2C_2014-09-19a.jpg">
+        <p><strong><a href="">barramundi</a></strong> The barramundi (Lates calcarifer), Asian sea bass, or giant sea perch (also known as dangri or apahap) is a species of catadromous fish in the family Latidae of the order Perciformes. The species is widely distributed in the Indo-West Pacific, spanning the waters of the Middle East, South Asia, Southeast Asia, East Asia, and Oceania.</p>
+    </div>
+    
+    <div id="popup-salmon" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Sashimi_-_Maguro_Restaurant%2C_Bangna%2C_Bangkok_%2844856596864%29.jpg/375px-Sashimi_-_Maguro_Restaurant%2C_Bangna%2C_Bangkok_%2844856596864%29.jpg">
+        <p><strong><a href="">salmon</a></strong> Salmon is a common food fish classified as an oily fish[1] with a rich content of protein and omega-3 fatty acids.[2] Norway is a major producer of farmed and wild salmon, accounting for more than 50% of global salmon production. Farmed and wild salmon differ only slightly in terms of food quality and safety, with farmed salmon having lower content of environmental contaminants, and wild salmon having higher content of omega-3 fatty acids</p>
+    </div>
+    
+    <div id="popup-salmon" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Sashimi_-_Maguro_Restaurant%2C_Bangna%2C_Bangkok_%2844856596864%29.jpg/375px-Sashimi_-_Maguro_Restaurant%2C_Bangna%2C_Bangkok_%2844856596864%29.jpg">
+        <p><strong><a href="">salmon</a></strong> Salmon is a common food fish classified as an oily fish with a rich content of protein and omega-3 fatty acids. Norway is a major producer of farmed and wild salmon, accounting for more than 50% of global salmon production. Farmed and wild salmon differ only slightly in terms of food quality and safety, with farmed salmon having lower content of environmental contaminants, and wild salmon having higher content of omega-3 fatty acids</p>
+    </div>
+    
+    <div id="popup-whiting" class="popup">
+        <p><strong><a href="">whiting</a></strong> A number of Actinopterygiian fish have been given the common name whiting.</p>
+    </div>
+    
+    <div id="popup-perch" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/YellowPerch.jpg/330px-YellowPerch.jpg">
+        <p><strong><a href="">perch</a></strong> Perch is a common name for freshwater fish from the genus Perca, which belongs to the family Percidae of the large order Perciformes. The name comes from Greek: πέρκη, romanized: perke, meaning the type species of this genus, the European perch (P. fluviatilis).</p>
+    </div>
+    
+    <div id="popup-fillets" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Doryfill.JPG/330px-Doryfill.JPG">
+        <p><strong><a href="">fillets</a></strong> Fish amok or amok trei (Khmer: អាម៉ុកត្រី [ʔaːmok trəj]) is a Khmer steamed fish curry (amok) with a mousse-like consistency, considered one of Cambodia's national dishes. Fish amok is believed to have been a royal Khmer dish dating back to the Khmer Empire, although some question it originating in Cambodia.</p>
+    </div>
+    
+    <div id="popup-yellow" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Red_Kroeung_Paste.jpg/375px-Red_Kroeung_Paste.jpg">
+        <p><strong><a href="">yellow</a></strong> Kroeung (Khmer: គ្រឿង, romanized: krœăng, IPA: [krɨəŋ]) is a generic Khmer word for a number of spice/herb pastes that make up the base flavors of many Khmer dishes.[1] Such dishes are often dubbed with the "-kroeung" suffix. 
+            Kroeung is traditionally made by finely chopping the ingredients and grinding them together using a heavy mortar and pestle although mechanical food processors can be used in modern kitchens. 
+            Various ingredients, depending on the dish and the taste of the cook, can be pounded into kroeung. 
+            The eight most commonly used are lemongrass, magrut lime zest and leaves, galangal, turmeric, garlic, shallots, dried red chillies and various rhizomes (lesser galangal, fingerroot, Kaempferia galanga, etc.).[2] This herbal paste is essential for preparing Khmer dishes in order to create the authentic flavour.</p>
+    </div>
+    
+    <div id="popup-green kroeung" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Red_Kroeung_Paste.jpg/375px-Red_Kroeung_Paste.jpg">
+        <p><strong><a href="">green kroeung</a></strong> Kroeung (Khmer: គ្រឿង, romanized: krœăng, IPA: [krɨəŋ]) is a generic Khmer word for a number of spice/herb pastes that make up the base flavors of many Khmer dishes.[1] Such dishes are often dubbed with the "-kroeung" suffix. 
+            Kroeung is traditionally made by finely chopping the ingredients and grinding them together using a heavy mortar and pestle although mechanical food processors can be used in modern kitchens. 
+            Various ingredients, depending on the dish and the taste of the cook, can be pounded into kroeung. 
+            The eight most commonly used are lemongrass, magrut lime zest and leaves, galangal, turmeric, garlic, shallots, dried red chillies and various rhizomes (lesser galangal, fingerroot, Kaempferia galanga, etc.).[2] This herbal paste is essential for preparing Khmer dishes in order to create the authentic flavour.</p>
+    </div>
+    
+    <div id="popup-[2]" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Red_Kroeung_Paste.jpg/375px-Red_Kroeung_Paste.jpg">
+        <p><strong><a href="">[2]</a></strong> Dunston, Lara (23 May 2017). "Cambodian Fish Amok Recipe – an Authentic Steamed Fish Curry in the Old Style". Grantourismo Travels. Archived from the original on 17 June 2022. Retrieved 4 October 2019.</p>
+    </div>
+    
+    <div id="popup-coconut cream" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Cononut_milk.JPG/375px-Cononut_milk.JPG">
+        <p><strong><a href="">coconut cream</a></strong> Coconut milk is an opaque, milky-white liquid extracted from the grated pulp of mature coconuts. The opacity and rich taste of coconut milk are due to its high oil content, most of which is saturated fat. 
+            Coconut milk is a traditional food ingredient used in Southeast Asia, Oceania, South Asia, and East Africa. It is also used for cooking in the Caribbean, tropical Latin America, and West Africa, where coconuts were introduced during the colonial era.</p>
+    </div>
+    
+    <div id="popup-eggs" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Fried_Egg_2.jpg/330px-Fried_Egg_2.jpg">
+        <p><strong><a href="">eggs</a></strong> "Chicken egg" redirects here. For the causality dilemma, see Chicken or the egg. For the definition of the egg in biology, see Egg. For other uses, see Egg (disambiguation).
+            This article is about eggs as food for people. For eggs as food hunted by animals, see egg predation.</p>
+    </div>
+    
+    <div id="popup-great morinda" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Noni_fruit_%28Morinda_citrifolia%29.jpg/330px-Noni_fruit_%28Morinda_citrifolia%29.jpg">
+        <p><strong><a href="">great morinda</a></strong> Morinda citrifolia is a fruit-bearing tree in the coffee family, Rubiaceae, native to Southeast Asia and Australasia, which was spread across the Pacific by Polynesian sailors.
+            [2] The species is now cultivated throughout the tropics and widely naturalised.[3] There are over 100 names for this fruit across different regions, including great morinda, Indian mulberry, noni, beach mulberry, vomit fruit, awl tree, and rotten cheese fruit.</p>
+    </div>
+    
+    <div id="popup-[2]" class="popup">
+        <p><strong><a href="">[2]</a></strong>  Dunston, Lara (23 May 2017). "Cambodian Fish Amok Recipe – an Authentic Steamed Fish Curry in the Old Style". Grantourismo Travels. Archived from the original on 17 June 2022. Retrieved 4 October 2019.</p>
+    </div>
+
+      <!-- Content section -->
+         <div class="container">
+             <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">About Traditionalonal Food</h1>
+             <div class="content_m1">
+                   <div class="first_section_m">
+                    <p class="main_p">Fish amok or amok trei (<a href="https://en.wikipedia.org/wiki/Khmer_language" class="hover-link" data-popup="popup-khmer">Khmer</a>: អាម៉ុកត្រី [ʔaːmok trəj]) is a <a href="https://en.wikipedia.org/wiki/Cambodian_cuisine" class="hover-link" data-popup="popup-Khmer">Khmer</a> <a href="https://en.wikipedia.org/wiki/Steamed_curry" class="hover-link" data-popup="popup-steamed">steamed</a> fish curry (amok) with a <a href="https://en.wikipedia.org/wiki/Mousse" class="hover-link" data-popup="popup-mousse">mousse</a>-like consistency, considered one of <a href="https://en.wikipedia.org/wiki/Cambodia" class="hover-link" data-popup="popup-Cambodia">Cambodia</a>'s <a href="https://en.wikipedia.org/wiki/National_dish" class="hover-link" data-popup="popup-national dishes">national dishes</a>. 
+                        Fish amok is believed to have been a <a href="https://en.wikipedia.org/wiki/Khmer_royal_cuisine" class="hover-link" data-popup="popup-royal Khmer dish">royal Khmer dish</a> dating back to the <a href="https://en.wikipedia.org/wiki/Khmer_Empire" class="hover-link" data-popup="popup-Khmer Empire">Khmer Empire</a> , <a href="https://en.wikipedia.org/wiki/Fish_amok#cite_note-Gillan-1" class="hover-link" data-popup="popup-[1]">[1]</a><a href="https://en.wikipedia.org/wiki/Fish_amok#cite_note-Dunston-2" class="hover-link" data-popup="popup-[2]">[2]</a> although some question it originating in Cambodia.<a href="https://en.wikipedia.org/wiki/Fish_amok#cite_note-4" class="hover-link" data-popup="popup-[4]">[4]</a> Ingredients Usually, goby, <a href="https://en.wikipedia.org/wiki/Snakehead_(fish)" class="hover-link" data-popup="popup-snakehead">snakehead</a> or 
+                        <a href="https://en.wikipedia.org/wiki/Catfish" class="hover-link" data-popup="popup-catfish">catfish</a> is used; however, they are also sometimes substituted with <a href="https://en.wikipedia.org/wiki/Cod" class="hover-link" data-popup="popup-cod">cod</a>, <a href="https://en.wikipedia.org/wiki/Lutjanidae" class="hover-link" data-popup="popup-snapper">snapper</a>, <a href="https://en.wikipedia.org/wiki/Barramundi" class="hover-link" data-popup="popup-barramundi">barramundi</a>, <a href="https://en.wikipedia.org/wiki/Salmon_as_food" class="hover-link" data-popup="popup-salmon">salmon</a>, <a href="https://en.wikipedia.org/wiki/Whiting_(fish)" class="hover-link" data-popup="popup-whiting">whiting</a>, or <a href="https://en.wikipedia.org/wiki/Perch" class="hover-link" data-popup="popup-perch">perch</a>. 
+                        The fish <a href="https://en.wikipedia.org/wiki/Fish_amok" class="hover-link" data-popup="popup-fillets">fillets</a> are rubbed with or marinated in a freshly-made <a href="https://en.wikipedia.org/wiki/Kroeung" class="hover-link" data-popup="popup-yellow">yellow</a> or <a href="https://en.wikipedia.org/wiki/Fish_amok#cite_note-Dunston-2" class="hover-link" data-popup="popup-[2]">[2]</a> mixed with <a href="https://en.wikipedia.org/wiki/Coconut_milk" class="hover-link" data-popup="popup-coconut cream">coconut cream</a> or coconut milk and <a href="https://en.wikipedia.org/wiki/Eggs_as_food" class="hover-link" data-popup="popup-eggs">eggs</a>. 
+                        The curry mixture is placed in a banana leaf container with <a href="https://en.wikipedia.org/wiki/Morinda_citrifolia" class="hover-link" data-popup="popup-great morinda">great morinda</a> leaves at the bottom and steamed for around 20 to 30 minutes until the curry achieves a mousse-like consistency.<a href="https://en.wikipedia.org/wiki/Fish_amok#cite_note-Dunston-2" class="hover-link" data-popup="popup-[2]">[2]</a> Great morinda leaves can also be substituted with Swiss chard leaves if not available.[5]
+                        Fish amok is served hot usually in either banana leaf containers or coconut shells and eaten with steamed rice.[2] 
+                        Many restaurants in Cambodia also serve less traditional versions of amok with chicken, tofu, or beef instead of fish. Other deviations include the use of a store-bought herb paste, other types of kroeung, more liquid consistency and cooking instead of steaming.[6]  
+                    </p>
+                       <img class="img_first_m" src="https://res.cloudinary.com/rainforest-cruises/images/c_fill,g_auto/f_auto,q_auto/v1620068179/Traditional-Cambodian-Dishes-To-Eat-Amok/Traditional-Cambodian-Dishes-To-Eat-Amok.jpg" alt="">
+                   </div>
+               </div>
+               <div>
+                 <h1 class="pga">About Traditonal Food In Cambodia</h1>
+             <div class="hotel-listing">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Num_Banchok.jpg/330px-Num_Banchok.jpg" alt="Saravoan Kep Hotel" class="hotel-image">
+                 <div class="hotel-info">
+                     <h2>1. Nom banh chok (Khmer noodles)</h2>
+                     <!-- <p><strong>Holy place</strong></p> -->
+                     <p>⭐️⭐️⭐️⭐️⭐️ 835 reviews</p>
+                     <p style="max-width: 800px;">"Num banhchok (Khmer: នំបញ្ចុក, num bânhchŏk Khmer pronunciation: [nom ɓaɲcok]) are lightly fermented Cambodian rice noodles and a breakfast noodle dish."</p>
+                    <a href="https://en.wikipedia.org/wiki/Num_banhchok" class="exploreLink">Explore</a>
+                        <div class="image_container">
+                            <div class="image_nom">
+                                <img src="https://grantourismotravels.com/wp-content/uploads/2021/02/Authentic-Nom-Banh-Chok-Recipe-Cambodian-Khmer-Noodles-Copyright-2021-Terence-Carter-Grantourismo-500x500.jpg" alt="">
+                                <img src="https://grantourismotravels.com/wp-content/uploads/2021/02/Authentic-Nom-Banh-Chok-Recipe-Cambodian-Khmer-Noodles-Copyright-2021-Terence-Carter-Grantourismo.jpg" alt="">
+                                <img src="https://i.ytimg.com/vi/uGWa-yn5d2I/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBykH9WDrRR_unKeSRML680fb1Sxw" alt="">
+                                <img src="https://cdn.tgdd.vn/Files/2023/04/26/1527537/nom-banh-chok-mon-bun-vo-cung-doc-dao-cua-nguoi-khmer-202304261115513509.jpg" alt="">
+
+                            </div>
+                        </div>
+                 </div>
+             </div>
+             
+            <div class="hotel-listing">
+                 <img src="https://khema.thalias.com.kh/wp-content/uploads/2022/03/Kuy-Teav-Phnom-Penh.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+                 <div class="hotel-info">
+                     <h2>2. Kuy Teav (Noodle Soup)</h2>
+                     <!-- <p><strong>Luxurious Resort</strong></p> -->
+                     <p>⭐️⭐️⭐️⭐️⭐️ 743 reviews</p>
+                     <p>Kuy teav, a steaming bowl of noodle soup, is one of Cambodia’s most popular breakfasts. The thin vermicelli noodles are served in a meaty broth with some green veg and bean sprouts and you season it with condiments.</p>
+                     <a href="https://en.wikipedia.org/wiki/Kuyteav" class="exploreLink">Explore</a>
+                 </div>
+             </div>
+             
+            <div class="hotel-listing">
+                <img src="https://allpointseast.com/wp-content/uploads/2018/03/DSC9123-site.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>3. Khmer Curry</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 971 reviews</p>
+                    <p>Like in many Asian countries, curry is a popular dish in Cambodia too, but the country puts its own unique stamp on it. Usually milder and sweeter in taste than curries we are typically used to, the flavour of Khmer curry relies on herbs more than spices. 
+                        As a base, the curry normally features chicken, coconut milk, fish sauce, sweet potato, shallots, garlic, ginger and turmeric. Depending on where you are in the country, as well as the occasion, the curry may feature other ingredients, and is usually served either with rice or a baguette.</p>
+                    <a href="https://en.wikipedia.org/wiki/Chicken_curry" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://media.cnn.com/api/v1/images/stellar/prod/191122151358-4-bai-sach-chrouk-lina-goldberg.jpg?q=w_1600,h_900,x_0,y_0,c_fill" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>4. Bai sach chrouk</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 1045 reviews</p>
+                    <p>Cambodian cuisine is renowned for its bold flavors and use of fresh ingredients, and Bai sach chrouk is a dish that perfectly exemplifies these qualities. Traditionally made with pork, rice, and a variety of herbs and spices, this popular breakfast dish is both hearty and refreshing. 
+                    The pork is first marinated in a mix of garlic, lemongrass, and fish sauce, then grilled until slightly charred. This gives the meat a rich flavor that is offset by the freshness of the rice and herbs. It is often served with a simple dipping sauce of lime juice and chili peppers, making it an incredibly flavorful and irresistible dish.</p>
+                    <a href="https://en.wikipedia.org/wiki/Bay_sach_chruk" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Paung_din.JPG/330px-Paung_din.JPG" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>5. Sticky rice in bamboo (Kralan)</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 1305 reviews</p>
+                    <p>Sticky rice in bamboo is a common Southeast Asian dish consisting of sticky rice roasted inside specially prepared bamboo sections of different diameters and lengths. It is consumed both as a savory food and as a sweet dessert.</p>
+                    <a href="https://en.wikipedia.org/wiki/Sticky_rice_in_bamboo" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Sangkhaya_fak_thong.JPG/375px-Sangkhaya_fak_thong.JPG" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>6. Pumpkin-coconut custard (sankhya lapov)</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 1578 reviews</p>
+                    <p>Pumpkin-coconut custard (Thai: สังขยาฟักทอง, sangkhaya fak thong, [sǎŋ.kʰā.jǎː fák tʰɔ̄ːŋ]; Khmer: សង់ខ្យាល្ពៅ, sankhya lapov; Lao: ສັງຂະຫຍາໝາກອຶ, sangkhanya mak eu, [sǎŋ.kʰā.ɲǎ mȁːk ʔɯ́(ʔ)]; Northeastern Thai: สังขยาบักอึ, [sǎŋ.kʰā.ɲǎː bǎk ʔɯ̌(ʔ)], sangkhaya bak ue) is a Southeast Asian dessert, consisting of a coconut custard steam-baked in a whole pumpkin or kabocha. 
+                        It was created by Maria Guyomar de Pinha in Ayutthaya Kingdom in 17th century as an adaptation of a Portuguese egg-based dessert.</p>
+                    <a href="https://en.wikipedia.org/wiki/Pumpkin-coconut_custard" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Kampot_pepper_crab.jpg/375px-Kampot_pepper_crab.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>7. Kampot Pepper Crab</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 1682 reviews</p>
+                    <p>Kampot Pepper Crab (Khmer: ឆាក្តាមម្រេច) is a Khmer dish made by stir-frying crab with garlic, palm sugar, spring onions, fish sauce and green Kampot peppercorns, a regional specialty of Kampot and Kep.</p>
+                    <a href="https://en.wikipedia.org/wiki/Kampot_Pepper_Crab" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Prahokktis.jpg/375px-Prahokktis.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>8. Prahok ktis</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 1743 reviews</p>
+                    <p>Prahok ktis (Khmer: ប្រហុកខ្ទិះ, prâhŏk khtih) is a Cambodian dipping sauce made from prahok sach, minced pork, yellow kroeung, coconut cream, tamarind water, palm sugar, pea eggplants and kaffir lime leaves.[4] Pea eggplants can also be replaced with green apples, unripe peaches or nectarines, cabbage or cauliflower.</p>
+                    <a href="https://en.wikipedia.org/wiki/Prahok_ktis" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Fried_Prahok_meal.jpg/330px-Fried_Prahok_meal.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>9. Prahok</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 1856 reviews</p>
+                    <p>Prahok (/ˈprɑːhʊk/; Khmer: ប្រហុក, romanized: prâhŏk, IPA: [prɑːhok]) is a salted and fermented fish paste (usually of snakeheads) used in Cambodian cuisine as a seasoning or a condiment. It originated as a way of preserving fish during the months when fresh fish was not available in abundant supply. 
+                        Because of its saltiness and strong flavor, it was used as an addition to many meals in Cambodian cuisine, such as soups and sauces. A Cambodian saying goes, "No prahok, no salt", referring to a dish that is of poor flavor or bland thus highlighting its essentiality in Cambodian cuisine.</p>
+                    <a href="https://en.wikipedia.org/wiki/Prahok" class="exploreLink">Explore</a>
+                </div>
+            </div>
+            
+            <div class="hotel-listing">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Somlorkoko.jpg/330px-Somlorkoko.jpg" alt="Knai Bang Chatt Resort" class="hotel-image">
+                <div class="hotel-info">
+                    <h2>10. Samlar kako</h2>
+                    <!-- <p><strong>Luxurious Resort</strong></p> -->
+                    <p>⭐️⭐️⭐️⭐️⭐️ 2497 reviews</p>
+                    <p>amlor kako (Khmer: សម្លកកូរ, lit. 'stirring soup', pronounced [sɑmlɑː kɑːkou]) or Cambodian ratatouille is a traditional Cambodian soup considered one of Cambodia's national dishes. Samlar kako consists of green kroeung, prahok, roasted ground rice, catfish, pork or chicken, vegetables, fruits and herbs.</p>
+                    <a href="https://en.wikipedia.org/wiki/Samlar_kako" class="exploreLink">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup  -->
+     
+    <div id="popup-khmer" class="popup">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYn3W4TNSHLsEXESJixpULE93IyCk8Lf0IJA&s">
+        <p><strong><a href="">Khmer</a></strong> is an Austroasiatic
+            language spoken natively by the Khmer people. This language is a Official
+            language and national language of Cambodia. The language is also widely spoken by Khmer people in
+            Eastern Thailand and Isan, Thailand, also in Southeast and Mekong Delta of Vietnam.</p>
+    </div>
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="" style="color: #d900007d; ;">Traditional Food</a>
+                <a href="TraditionalMusic.html">Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+// for scroll
+const imageNom = document.querySelector('.image_nom');
+let startX;
+let scrollLeft;
+
+imageNom.addEventListener('mousedown', (e) => {
+    // Prevent default behavior and enable dragging
+    e.preventDefault();
+    startX = e.pageX - imageNom.offsetLeft;
+    scrollLeft = imageNom.scrollLeft;
+    
+    // Add event listeners for mouse move and mouse up
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+});
+
+function onMouseMove(e) {
+    const x = e.pageX - imageNom.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    imageNom.scrollLeft = scrollLeft - walk;
+}
+
+function onMouseUp() {
+    // Remove event listeners when the mouse button is released
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+}
+
+   </script>
+</body>
+</html>

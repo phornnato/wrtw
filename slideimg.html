@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Image Slider</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #edc5f1;
+}
+
+.slider-container {
+    width: 60%;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.main-image {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+    transition: 7.2s ease;
+}
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.navigation button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #0a93f64e;
+}
+
+.thumbnails img {
+    width: 60px;
+    height: 60px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.thumbnails img:hover {
+    border-color: #c4d873; /* Hover effect */
+}
+
+.thumbnails .active {
+    border-color: rgb(115, 244, 162);
+    transform: scale(1.1);
+}
+.prev,.next{
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+}
+button:active{
+    background-color: rgba(255, 255, 255, 0.177);
+}
+
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="main-image">
+            <!-- Default main image, can be changed through JS -->
+            <img src="https://i.pinimg.com/736x/a9/ec/71/a9ec71e2067d075394c0a783d0fe32b3.jpg" alt="Main Image" id="mainImage">
+            <div class="navigation">
+                <!-- Navigation buttons for previous and next -->
+                <button class="prev" onclick="prevImage()">&#8249;</button>
+                <button class="next" onclick="nextImage()">&#8250;</button>
+            </div>
+        </div>
+        <div class="thumbnails">
+            <!-- Thumbnails for selecting images -->
+            <img src="https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-50.jpg" alt="Thumbnail 1" onclick="showImage(0)">
+            <img src="https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-04.jpg" alt="Thumbnail 2" onclick="showImage(1)">
+            <img src="https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-04.jpg" alt="Thumbnail 3" onclick="showImage(2)">
+            <img src="https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20247/1_7_2024_dji_0193.jpg" alt="Thumbnail 4" onclick="showImage(3)">
+            <img src="https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20245/8_5_2024_phnom_penh_post_photo_1005_mountain.jpg" alt="Thumbnail 5" onclick="showImage(4)">
+        </div>
+    </div>
+
+    <script>
+       let currentIndex = 0;
+const images = [
+    "https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-50.jpg",
+    "https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-04.jpg",
+    "https://www.cambodiabeginsat40.com/wp-content/uploads/2022/07/JO-Pursat-04.jpg",
+    "https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20247/1_7_2024_dji_0193.jpg",
+    "https://pppenglish.sgp1.digitaloceanspaces.com/image/main/20245/8_5_2024_phnom_penh_post_photo_1005_mountain.jpg"
+];
+
+function showImage(index) {
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnails img');
+
+    // Add a hidden class to trigger transition
+    mainImage.classList.add('hidden');
+
+    // Wait for the transition to finish before changing the image
+    setTimeout(() => {
+        mainImage.src = images[index];
+        mainImage.classList.remove('hidden');
+        currentIndex = index;
+
+        // Update the active thumbnail
+        thumbnails.forEach((thumbnail, i) => {
+            thumbnail.classList.toggle('active', i === index);
+        });
+    }, 100); 
+}
+
+function prevImage() {
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+    showImage(currentIndex);
+}
+
+function nextImage() {
+    currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+    showImage(currentIndex);
+}
+
+document.querySelector('.slider-container').addEventListener('mouseover', () => {
+    clearInterval(autoSlide);
+});
+
+document.querySelector('.slider-container').addEventListener('mouseleave', () => {
+    autoSlide = setInterval(nextImage, 5000);
+});
+showImage(currentIndex);
+
+    </script>
+</body>
+</html>

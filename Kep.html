@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kep Cambodia</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+ <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: 10%;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+.main-content {
+    flex: 3;
+    margin-right: 20px;
+    
+}
+
+.sidebar {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.main_img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.main_img:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+h1, h2 {
+    color: #333;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #efefef;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 3px;
+    color: #444;
+    text-align: center;
+}
+.container_last {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.item {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item img {
+    width: 280px;
+    height: 200px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform .5s;
+}
+.item img:hover{
+    transform: translateY(-10px);
+}
+
+.item p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* for map  */
+.container-map{
+    display: flex;
+    gap: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.map {
+    width: 500px;
+    height: 400px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.coordinates, .distances {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.coordinates h3, .distances h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.coordinates .p-map, .distances .p-map {
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://img.harbor-property.com/bkarticle/2021/10/25/173634624.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://pppenglish.sgp1.digitaloceanspaces.com/image/main/field/image/topic-1-governor-of-kep-province-som-piseth-hold-a-meeting-to-review-and-resolve-some-of-the-remaining-land-disputes-on-15-09-2021-by-kep-admin-2.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.bookaway.com/blog/wp-content/uploads/2022/12/kep-beaches-1.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://img.harbor-property.com/bkcontent/2023/08/10/16300002.jpeg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.cambodiaproperty.info/wp-content/uploads/2021/10/kep4-1.png');"></div>
+        <div class="title">kep Province
+            <p class="title_p">Kep will make you happy if you joining us  </p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="TraditionalTransportation.html" >Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="" style="background-color: #8d8d9386; color: white;">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+
+      <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Kep Province</h1>
+      <div class="container">
+        <!-- popup  -->
+        <div id="popup-cambodai" class="popup">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_Cambodia.svg/1200px-Flag_of_Cambodia.svg.png">
+          <p><strong>Cambodia</strong>   was once called Kampuchea, which is from the Khmer language. Between 1979 and 1989 the official name of the country was The People's Republic of Kampuchea.</p>
+       </div>
+
+       <div id="popup-pailin" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/View_from_Phnom_Yat._%2C_Pailin.jpg/375px-View_from_Phnom_Yat._%2C_Pailin.jpg">
+        <p><strong>Pailin</strong>   (Khmer: ប៉ៃលិន, Pailĭn [ˈpajlɨn]) is a province in western Cambodia at the northern edge of the Cardamom Mountains near the border of Thailand.</p>
+     </div>
+
+     <div id="popup-kep" class="popup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Kep_National_Park_6.jpg/426px-Kep_National_Park_6.jpg">
+        <p><strong>Kep National Park</strong>  (Khmer: ឧទ្យានជាតិកែប) is a national park in Cambodia's Kep Province that was established in 1993 and covers an area of 11.52 km2 (4.45 sq mi). The nearest town lies at Kep.</p>
+     </div>
+
+    <div id="popup-contact" class="popup">
+        <img src="qr.jpg">
+    </div>
+        <!-- end popup -->
+        <div class="main-content">
+          <img class="main_img" src="https://wideeyedtours.com/wp-content/uploads/2019/07/a-quick-guide-to-kep.jpg" alt="Image">
+          <h1>The view feature from the sky</h1>
+          <img class="main_img" src="https://angkorfocus.com/userfiles/attraction-What%20to%20See%20In%20Kep%20City.jpg" alt="">
+          <h1>The Kep Beach with Sunset </h1>
+          <img class="main_img" src="https://www.greeneratravel.com/userfiles/850kep.jpg" alt="">
+          <h1>The beach with boat </h1>
+          <img class="main_img" src="https://cambotours.com/userfiles/thumbs/kep-beach-holiday-tour-3-days-2-nights.jpg" alt="">
+         <h1>The video for a Kep Province by foreinger</h1>
+         <iframe width="900px" height="500px" src="https://www.youtube.com/embed/M1TAhSwzv3Q?si=_qKaZqs0qUp3ovse" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+         <h1>The map of Kep Province</h1>
+         <div class="container-map">
+            <div id="map" class="map"></div>
+                <div class="info">
+                    <div class="coordinates">
+                        <h3>Coordinates</h3>
+                        <p class="p-map">10.542188, 104.318297</p>
+                    </div>
+                    <div class="distances">
+                        <h3>Distances</h3>
+                        <p class="p-map">Phnom Pehn   : 190km</p>
+                        <p class="p-map">Siem Reap    : 160km</p>
+                        <p class="p-map">Sihanoukville: 110km</p>
+                        <p class="p-map">Kampot city  : 36km</p>
+                        <p class="p-map">Kep  : 58km</p>
+                    </div>
+                </div>
+            </div>
+      
+         <h1>The last with a good views</h1>
+         <div class="container_last">
+            <div class="item">
+                <img class="main_img" src="https://refusetohibernate.com/wp-content/uploads/2019/04/cambodge-kep-vue-sailing-club-coucher-de-soleil-refuse-to-hibernate.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://scontent.fpnh8-2.fna.fbcdn.net/v/t39.30808-6/450344177_122155116968180501_915677212604166865_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=n2lAYb5nruQQ7kNvgGyoNcP&_nc_zt=23&_nc_ht=scontent.fpnh8-2.fna&oh=00_AYCj9pqStYIYlqtrOHu7QhCGpX-aTWnnWkqPuLCZ822k4Q&oe=66D52972" >
+               
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://pppenglish.sgp1.digitaloceanspaces.com/image/main/field/image/a_birds-eye_view_of_kep_beach_last_april._kep_provincial_administration.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://mediaim.expedia.com/destination/1/ac4d3868a4dab14125a6289243d82c4d.jpg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://hatienvegas.com/wp-content/uploads/2020/01/Hatien-Vegas-Kep-Beach.jpg">
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://www.insideasiatours.com/sites/default/files/2020-10/PLACE%20PAGE_Kep_iStock-1028714018_%C2%A9SergeiMugashev.jpg">
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://img.harbor-property.com/bkcontent/2023/08/10/16300001.jpeg" >
+                
+            </div>
+            <div class="item">
+                <img class="main_img" src="https://lh5.googleusercontent.com/proxy/8KTi3ygTSmhH3SDw2IucYUjWb1Nf4YEygPnLm8Cgw5046YyQ9X92oyl3iH__uMkbECDsuq0r8h_zAL59m9fHFTvc6wlZKOOnM0vqs1245q2JbQzaSgwGB0SInC8ez0Ee2XuDY4Uw_iNxfJNriRVXB8gwVEDl_Ea4PWoOmWIOmOrAe4gqGb6JbO3MvIUD2lwktVswzSkD9hWvfNSIZii8fq_fnH9wARKGVtw-8uA">
+                
+            </div>
+             <div class="item">
+                <img class="main_img" src="https://www.samanea-resort.com/wp-content/uploads/2017/08/Kep-National-Park.jpg">
+                
+            </div>
+        </div>
+       
+        </div>
+        <div class="sidebar">
+            <div class="box">
+                <h2>The History</h2>
+                <p class="main_p">Kep (Khmer: ខេត្តកែប, UNGEGN: Kêb,
+                     ALA-LC: Kaep [kaep]) is the smallest province (khaet)
+                      of <a href="#" class="hover-link" data-popup="popup-cambodai">Cambodia</a> covering 336 km2 (130 sq mi), with a 
+                      population of 41,798. It is one of the newest Cambodian
+                       provinces, together with <a href="#" class="hover-link" data-popup="popup-pailin">Pailin</a>, Sihanoukville and Tboung
+                        Khmum, created by Royal Decree on 22 December 2008, 
+                        which separated Kep Municipality & Damnak Chang'aeur 
+                        District from the Kampot province, as well as adjusting
+                         several provincial borders. It is both the smallest 
+                         and least populous province of Cambodia. The provincial
+                          capital is Kep and the province contains the <a href="#" class="hover-link" data-popup="popup-kep">Kep National Park.</a></p>
+            
+            </div>
+            
+            <div class="box">
+                <h2>Psar Kdam</h2>
+                <img class="main_img" src="https://t4.ftcdn.net/jpg/03/02/24/55/360_F_302245589_jNuTN63RNIlgyJ6VnxViSMBDC1XZEwAn.jpg" alt="">
+                <p class="main_p">We really thought the food was delicious as well as the beer. Typical menu of crab market restaurants with abundance of seafood dishes and a few western dishes.</p>
+              
+            </div>
+            <div class="box">
+            <h2>Veal Lumher</h2>
+            <img class="main_img" src="https://angkorfocus.com/userfiles/thumbs/new-Veal-Lumher.jpg" alt="">
+            <p class="main_p">Veal Lumher is a lovely little site tucked away in Kep Village of Kep Commune. Veal Lumher refers to the Koh Puor or the Puor Island. It has become as one of the most favorite destinations for the tourists who are looking for spending a few days far away from the crowds of more 'touristy' places</p>
+            </div>
+            <div class="box">
+              <h2>TPhnom Sar Sear</h2>
+              <img class="main_img" src="https://angkorfocus.com/userfiles/thumbs/new-Phnom-Sar-Sear.jpg" alt="">
+            <p class="main_p">Phnom Sar Sear, Kep City is a nature and cultural site located about 14 Kilometers southwest of Kep city. this mountain is called Phnom Sar Sear because, according to Khmer legend mentioned above, when Prince Sakor Reach led the troops to this place, he got off his horse and moved furtively2 ahead of his pursuers along the mountainside, where at that time there was an island to which he fled. Thus, the mountain was called Phnom Sar Sear. </p>
+            </div>
+
+            <div class="box">
+                <h2>Kep National Park</h2>
+                <img class="main_img" src="https://angkorfocus.com/userfiles/thumbs/new-Phnom-Sar-Sear.jpg" alt="">
+              <p class="main_p">Kep National Park is a national park of Cambodia in the Kep region of Cambodia. Established in 1993 it covers an area of 50 square kilometres. The nearest town lies at Krong Kaeb. </p>
+              </div>
+            <div class="box">
+                <h2>Wish Regards by G3</h2>
+                <p class="main_p">Thanks for visiting our Website. This website create to share to the tourism for who want to visit cambodia. Welcome to Cambodia. <a href="#" class="hover-link" data-popup="popup-contact"> Support Us </a> </p>
+                
+            </div>
+            
+        </div>
+    </div>
+   </div>
+    
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+var map = L.map('map').setView([10.542188, 104.318297], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'About our G3 Team'
+}).addTo(map);
+var marker = L.marker([10.542188, 104.318297]).addTo(map);
+marker.bindPopup("<b>Kep Province</b><br>Welcome to kep Province").openPopup();
+
+
+   </script>
+</body>
+</html>

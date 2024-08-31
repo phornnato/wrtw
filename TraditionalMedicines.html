@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Medicines</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- // change icon -->
+    <link rel="icon" href="G3.png">
+    <link href="https://www.who.int/images/default-source/wpro/health-topic/traditional-medicine/f1-13102017-kh-5786.tmb-1024v.jpg?Culture=en&sfvrsn=d550084b_8" rel="stylesheet">
+    <link href="https://cdn.who.int/media/images/default-source/about-us/traditional-medicine-026944.tmb-1200v.jpg?sfvrsn=a985253b_8" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  
+  <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* h2 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #333;
+        } */
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://thebettercambodia.com/wp-content/uploads/2022/10/19366571_1930374780574236_740164042861277585_n.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.gocambodia.tours/wp-content/uploads/2023/04/Herb-medicine-in-Cambodia-Cambodia-trip.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://acanadianincambodia.files.wordpress.com/2014/10/orussey-market-025.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.gocambodia.tours/wp-content/uploads/2023/04/2-3.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.gocambodia.tours/wp-content/uploads/2023/04/1-2.jpg');"></div>
+        <div class="slide fade" style="background-image: url(https://thebettercambodia.com/wp-content/uploads/2022/10/243533711_3073957222882647_3322449263777602839_n.jpg.webp');"></div>
+        <div class="title">Medicine Cambodia
+            <p class="title_p">Medicine cambodia help you lots thing just check </p>
+        </div>
+    </div>
+
+    
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Traditional Medicines</a>
+              <a href="TraditionalTransportation.html">Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- Content section -->
+     
+     
+     
+    <div class="content">
+        <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Medicine of Cambodia</h1>
+
+       <!-- code -->
+        <p style="text-align: justify;">The World Health Organization (WHO) defines traditional medicine as "the sum total of the knowledge, skills, and practices based on the theories, beliefs, and experiences indigenous to different cultures, whether explicable or not, used in the maintenance of health as well as in the prevention, diagnosis, improvement ...</p>
+          <p style="text-align: justify;">Where else can traditional and Indigenous knowledge of the world around us guide the discovery for the health and well-being of the people and the planet?
+
+            With remarkable and rapid modernization of the ways traditional medicine is being studied, new technologies and technological innovation could show the way and provide a deeper understanding of the tangible benefits of traditional medicine. 
+            
+            Artificial intelligence (AI) is emerging as a game-changer, revolutionizing the study and practice of traditional healing systems.  AI’s advanced algorithms and machine learning capabilities allow researchers to explore extensive traditional medical knowledge, mapping evidence and identifying once elusive patterns and trends.
+            
+            Functional magnetic resonance imaging (fMRI) has enabled the study of brain activity and measuring of relaxation responses of individuals engaged in traditional practices of yoga and meditation, which people around the world increasingly use for their mental health, stress management and overall well-being.  Taking clues from traditional uses, new clinically effective drugs can be identified through research methods such as ethnopharmacology and reverse pharmacology. 
+            
+            It is an exciting time in research about traditional medicine products and practices, which are increasingly used by people around the world.  With increased use comes more research and more evidence to establish what works and what doesn’t.  And the research looks really promising.  </p>
+            <!--me do-->
+            <!-- image on right -->
+          <h1  style="text-align: center;">Traditional medition khmer</h1>
+         
+          
+          <div id="img">
+          
+              <img height="600px" src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Market_Pharmacy_Tana_MS5179.jpg" alt="">
+
+             <p  style="text-align: justify;" class="p">In some Asian and African countries, up to 80% of the population relies on traditional medicine for their primary health care needs. Traditional medicine is a form of alternative medicine. Practices known as traditional medicines include traditional European medicine[citation needed], traditional Chinese medicine, traditional Korean medicine, traditional African medicine, Ayurveda, Siddha medicine, Unani, ancient Iranian medicine, traditional Iranian medicine, medieval Islamic medicine, Muti, Ifá and Rongoā. Scientific disciplines that study traditional medicine include herbalism, ethnomedicine, ethnobotany, and medical anthropology.
+
+                The WHO notes, however, that "inappropriate use of traditional medicines or practices can have negative or dangerous effects" and that "further research is needed to ascertain the efficacy and safety" of such practices and medicinal plants used by traditional medicine systems.[1] Its "Traditional Medicine Strategy 2014–2023" said that the WHO would "support Member States in developing proactive policies and implementing action plans that will strengthen the role traditional medicine plays in keeping populations healthy</p>
+         </div>
+
+        <div class="christain">
+          <h1>Some of traditional medicin</h1>
+          <img height="600px" src="https://www.who.int/images/default-source/wpro/health-topic/traditional-medicine/f1-13102017-kh-5786.tmb-1024v.jpg?Culture=en&sfvrsn=d550084b_8" alt="">
+          <p style="text-align: justify;">People in the WHO South-East Asia Region have a long history of using traditional medicine for a wide range of health conditions. In some areas, traditional therapies are the main or even only source of health care, particularly in remote areas.
+
+            The majority of Member States in the South-East Asia Region have integrated traditional medicine into their national health-care delivery systems to varying degrees.
+            
+            Following the Delhi Declaration on Traditional Medicine in 2013, and endorsement of the WHO Traditional Medicine Strategy 2014–2023, a regional action plan on traditional medicine was developed in October 2015. This has five areas of action:
+            
+            Traditional medicine system monitoring
+            Catalyzing research on Traditional medicine system organization and management
+            Capacity-building of Traditional medicine practitioners/workforce
+            Adverse events reporting systems
+            Effective communication</p>
+            
+        </div>
+        <h1 style="text-align: center;"> traditional medicin Khmer can help your life</h1>
+        <img height="600px" align:center src="https://krukhmer.com/wp-content/uploads/2023/10/Q6A2701.jpg" alt="">
+        <p style="text-align:  center;">People in the WHO South-East Asia Region have a long history of using traditional medicine for a wide range of health conditions. In some areas, traditional therapies are the main or even only source of health care, particularly in remote areas.
+  
+          The majority of Member States in the South-East Asia Region have integrated traditional medicine into their national health-care delivery systems to varying degrees.
+          
+          Following the Delhi Declaration on Traditional Medicine in 2013, and endorsement of the WHO Traditional Medicine Strategy 2014–2023, a regional action plan on traditional medicine was developed in October 2015. This has five areas of action:
+          
+          Traditional medicine system monitoring
+          Catalyzing research on Traditional medicine system organization and management
+          Capacity-building of Traditional medicine practitioners/workforce
+          Adverse events reporting systems
+          Effective communication</p>
+          
+    </div>
+
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+
+   </script>
+</body>
+</html>

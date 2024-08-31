@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sombo Prei Kok Temple</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+            background-size: cover;
+            background-attachment: fixed;
+            /* Fixes the background image */
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+
+        .background-image .title p {
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 70px;
+            cursor: pointer;
+        }
+
+        .navbar a {
+            text-align: center;
+            font-size: 25px;
+            color: rgb(113, 106, 106);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+
+            font-size: 25px;
+            border: none;
+            outline: none;
+            color: rgb(113, 106, 106);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(33, 115, 255, 0.905);
+            transition: 0.6s;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #e6e1e1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            transition: 0.6s;
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #8d8d9386;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .main-pic img {
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .temple-info {
+            /* max-width: 900px; */
+            margin: 0 auto;
+            /* background-color: #fff; */
+            padding: 20px;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+            border-radius: 5px;
+        }
+
+        .temple-info h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .temple-info p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .image-text {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+
+        .image-text img {
+            width: 50%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .image-text .text {
+            flex: 1;
+        }
+
+        .image-text .text p {
+            margin: 0 0 10px;
+            color: #555;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* map */
+        .container-map {
+            display: flex;
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 0;
+            margin-left: 310px;
+            margin-right: 310px;
+            box-shadow: 10 10 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map {
+            width: 600px;
+            height: 400px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coordinates,
+        .distances {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coordinates h3,
+        .distances h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .coordinates .p-map,
+        .distances .p-map {
+            margin: 5px 0;
+            font-size: 19px;
+        }
+
+        /* map */
+        .video {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+        }
+
+        /* preahvihear */
+
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        .title_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+        }
+
+        .about-us-line1 h3,
+        .Natural-line1 h3 {
+            color: rgb(5, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        .about-us-line1 a,
+        .Natural-line1 a {
+            display: block;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .about-us-line1 a:hover,
+        .Natural-line1 a:hover {
+            color: #d900007d;
+
+        }
+
+        @media (max-width: 768px) {
+            .container_footer {
+                flex-direction: column;
+                padding-inline: 20px;
+                text-align: center;
+            }
+        }
+
+        .Natural-line1 .p_support,
+        .icon-support {
+            max-width: 200px;
+            margin-bottom: 15px;
+            padding: 8px;
+            color: rgb(6, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background image with title -->
+
+    <div class="background-image">
+        <div class="slide fade"
+            style="background-image: url('https://pppenglish.sgp1.cdn.digitaloceanspaces.com/image/main/photo_2023-07-08_08-23-00.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://helloangkor.com/wp-content/uploads/2023/07/HA5D9502.jpg');"></div>
+        <div class="slide fade"
+            style="background-image: url('https://www.cambodiabeginsat40.com/wp-content/uploads/2021/09/DSC08325-Edit.jpg');">
+        </div>
+        <div class="slide fade"
+            style="background-image: url('https://helloangkor.com/wp-content/uploads/2022/02/HA5D7082.jpg');"></div>
+        <div class="slide fade"
+            style="background-image: url('https://helloangkor.com/wp-content/uploads/2023/08/HA5D7303-1.jpg');"></div>
+        <div class="slide fade"
+            style="background-image: url('https://www.cambotours.com/userfiles/kampong-thom-thing-to-do.jpg');"></div>
+        <div class="title">Sombo Preikok Temple
+            <p class="title_p">Welcome To Sombo Preikok Temple in Kampong Thom/p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+            <div class="dropdown-content">
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html">Traditional Musics</a>
+                <a href="TraditionalClothes.html">Traditional Clothes</a>
+                <a href="TraditionalDancing.html">Traditional Dancing</a>
+                <a href="TraditionalWedding.html">Traditional Wedding</a>
+                <a href="TraditionalMedicines.html">Traditional Medicines</a>
+                <a href="TraditionalTransportation.html">Traditional Transportation</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+                <a href="Kep.html">Kep</a>
+                <a href="BohKoh.html">BohKor</a>
+                <a href="Kampot.html">KamPot</a>
+                <a href="Chipart.html">Chipart</a>
+                <a href="KohTonsay.html">Koh Tonsay </a>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Tourism</div>
+            <div class="dropdown-content">
+                <a href="AngkorWat.html">Angkor Wat</a>
+                <a href="BayonTemple.html">Bayon Temple</a>
+                <a href="BakengHill.html">Bakheng Hill</a>
+                <a href="TapromTemple.html">Taprom Temple</a>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="" style="background-color: #8d8d9386; color: white;">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">SomboPreikok Temple</a>
+            </div>
+        </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+    </div>
+
+    <!-- Content section -->
+    <div class="content">
+        <div>
+            <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To
+                PreahVihear Temple</h1>
+        </div>
+        <div class="main-pic">
+            <img src="https://helloangkor.com/wp-content/uploads/2022/02/HA5D7082.jpg" alt="">
+        </div>
+        <section class="temple-info">
+            <h1>PREAH VIHEAR The Sacred Site of Preah Vihear Temple; a World Heritage</h1>
+
+            <p>
+                Sambo Prey Kuk Temple is a cultural and historical site located in Sambo village, Sambo commune, Prasat
+                Sambo district, about 25 kilometers northeast of Kampong Thom provincial town. The site was once an old
+                capital named Isanapura and a religious center for the worship of Shiva Brahmanism.
+            </p>
+
+            <p>
+                Many temples were built in Sambo Preykuk during the reign of King Isanavarman I (AD 616- 635) in the 7th
+                century. The temples of Sambo Preykuk constructed of solid brick, laterite and sandstone and decorated
+                by bas-reliefs. The lintel, pillars and the door frames are all made of sandstone. So far, 140 temples
+                have been discovered in the forest.
+            </p>
+
+            <!-- Image with Text Section -->
+            <div class="image-text">
+                <img src="https://www.greeneratravel.com/userfiles/850sambopreykuk.jpg" alt="Preah Vihear Temple">
+                <div class="text">
+                    <p>
+                        Sambor Prei Kuk, located near Kompong Thom, 150km south-east of Siem Reap, lies off the main
+                        road towards Cambodia?s capital Phnom Penh.
+                    </p>
+                    <p>
+                        Kompong Thom is a sleepy little town. The only hive of activity was the market place next to the
+                        Stung Sen River where we bought some brown palm sugar and Cambodian fragrant rice. The local
+                        ?taxi? was actually an open-air wooden cart pulled by an antiquated motorbike. Its owner was an
+                        elderly man wearing spectacles with thick lenses.
+                    </p>
+                </div>
+            </div>
+
+            <p>
+                From its location on top of the cliff the scenic view below stretches many kilometers across the plain.
+                This awesome temple is only 140 km from Angkor Wat and 418 km from Phnom Penh. Preah Vihear is
+                definitely worth the while making a trip.
+            </p>
+
+            <p>
+                Through the energetic efforts of the Royal Government of Cambodia under the wise, brilliant leadership
+                of Samdech Akka Moha Sena Padei Techo HUN SEN, Prime Minister of the Kingdom of Cambodia, Preah Vihear
+                Temple was listed and declared a World Heritage site by UNESCO on 8 July, 2008.
+            </p>
+        </section>
+        <h2>The last with a good views</h2>
+        <div class="image-gallery">
+            <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcT-JKD8liWEYQRCG55k-q2cRYluy2O03ARl06OKonsjBiB62o4XMGkByftiE7uhn_zZymfuuUMixOtut3qT62_PDpgUs8_7Gajz9HGzBw"
+                alt="Temple Image 1">
+            <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTIB2iV4L6MSYdQ8prdfSf1SQAcsBoOB91g5YvS3xV9iEea5SkO0qHRo0IZxTm1Owd2Yk-AuPlHpdkkS95ae52qYXvKCQuxWO6maOrTpw"
+                alt="Temple Image 2">
+            <img src="https://smartsinntravel.com/userfiles/thumbs/sambor_prey_kok_&_beng_mealea_jungle_temple.jpg"
+                alt="Temple Image 3">
+            <img src="https://www.cambodiabeginsat40.com/wp-content/uploads/2021/09/DSC08325-Edit.jpg"
+                alt="Temple Image 4">
+            <img src="https://live.staticflickr.com/4333/36522303830_6803415a23_b.jpg" alt="Temple Image 5">
+            <img src="https://d13jio720g7qcs.cloudfront.net/images/destinations/origin/5d1adf6463250.png"
+                alt="Temple Image 6">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/78/08/f6/a-ruin-succumbs-to-a.jpg?w=1200&h=1200&s=1"
+                alt="Temple Image 6">
+            <img src="https://media.tacdn.com/media/attractions-splice-spp-674x446/09/a5/09/49.jpg"
+                alt="Temple Image 6">
+        </div>
+        <h2>Location</h2>
+        <p>Phimeanakas temple is located inside the Royal Palace in Angkor Thom. It’s just north of Baphuon temple
+            and West of the Terrace of the Elephants and the Terrace of Leper King. A few hundred metres to the
+            north is Prasat Preah Palilay.</p>
+
+    </div>
+    <!-- map -->
+    <div class="container-map">
+        <div id="map" class="map"></div>
+        <div class="info">
+            <div class="coordinates">
+                <h3>Coordinates</h3>
+                <p class="p-map">12.8710636, 105.0433490</p>
+            </div>
+            <div class="distances">
+                <h3>Distances</h3>
+                <p class="p-map">Preah Vihear: 120km</p>
+                <p class="p-map">Phnom Penh: 419km</p>
+                <p class="p-map">Angkor Wat: 204km</p>
+                <p class="p-map">Taprom: 198km</p>
+            </div>
+        </div>
+    </div>
+    <div class="video">
+        <h2>The video of Preah Vihear Temple</h2>
+        <iframe width="900px" height="500px" src="https://www.youtube.com/embed/a2oJbdeVWyA?si=PHHQNUAw0ZjTh4yv"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    </div>
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html">Greetings</a>
+                <a href="TraditionalArt.html">Traditional Art</a>
+                <a href="TraditionalFood.html">Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="Kbalchhaywaterfall.html">Kbal Chhay Waterfall</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="" style="color: #d900007d;">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Support Us</h3>
+                <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are
+                    interest us please join us <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+                <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i> +855 : 0974303668</p>
+                <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i> @group3</p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("fade");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000);
+        }
+
+         var map = L.map('map').setView([12.8710636, 105.0433490], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'SomboPreikok Temple'
+        }).addTo(map);
+        var marker = L.marker([12.8710636, 105.0433490]).addTo(map);
+        marker.bindPopup("<b>SomboPreikok Temple</b><br>V2CV+C8H Prasat Sambour​ District").openPopup();
+
+    </script>
+</body>
+
+</html>

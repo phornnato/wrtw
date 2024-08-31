@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Dancing</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+         body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+            background-size: cover;
+            background-attachment: fixed;
+            /* Fixes the background image */
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 23%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+
+        .background-image .title p {
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 70px;
+            cursor: pointer;
+        }
+
+        .navbar a {
+            text-align: center;
+            font-size: 25px;
+            color: rgb(113, 106, 106);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+
+            font-size: 25px;
+            border: none;
+            outline: none;
+            color: rgb(113, 106, 106);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(33, 115, 255, 0.905);
+            transition: 0.6s;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #e6e1e1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            transition: 0.6s;
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #8d8d9386;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* h2 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #333;
+        } */
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        .title_p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+
+        .container_footer {
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 15%;
+            background-color: rgba(0, 0, 0, 0.042);
+            color: rgb(0, 0, 0);
+            height: 300px;
+        }
+
+        .about-us-line1 h3,
+        .Natural-line1 h3 {
+            color: rgb(5, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        .about-us-line1 a,
+        .Natural-line1 a {
+            display: block;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .about-us-line1 a:hover,
+        .Natural-line1 a:hover {
+            color: #d900007d;
+
+        }
+
+        @media (max-width: 768px) {
+            .container_footer {
+                flex-direction: column;
+                padding-inline: 20px;
+                text-align: center;
+            }
+        }
+
+        .Natural-line1 .p_support,
+        .icon-support {
+            max-width: 200px;
+            margin-bottom: 15px;
+            padding: 8px;
+            color: rgb(6, 5, 5);
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        /* taprohm */
+
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .temple {
+            background-color: #2f4f4f;
+
+        }
+
+        .historical {
+
+            background-color: #f5f5dc;
+            color: #333;
+        }
+
+        .content-ta {
+            padding: 50px;
+            flex: 1;
+        }
+
+        .image {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .h1-ta {
+            font-size: 2.5rem;
+            margin: 0;
+            color: white;
+
+        }
+
+        .h1-ta2 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: rgb(0, 0, 0);
+        }
+
+        .h2-ta {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: white;
+        }
+
+        .h2-ta2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: rgb(0, 0, 0);
+
+        }
+
+        /* piture-ta */
+        .container-taprom {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .text-section {
+            width: 50%;
+            padding: 50px;
+            background-color: #2e4c47;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-section1 {
+            width: 50%;
+            padding: 50px;
+            background-color: #fefce0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .subheading {
+            font-size: 14px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #eaeaea;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #d9d9d9;
+            margin-bottom: 40px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #d9d9d9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #f0f0f0;
+            color: #2e4c47;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: start;
+        }
+
+        .subheading1 {
+            font-size: 14px;
+            color: #000000;
+            margin-bottom: 40px;
+
+        }
+
+        .title1 {
+
+            color: #000000;
+
+        }
+
+        .subtitle1 {
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 40px;
+
+        }
+
+        .description1 {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 20px;
+            line-height: 1.6;
+
+        }
+
+        .cta-button1 {
+            padding: 15px 30px;
+            background-color: #f0f0f0;
+            color: #000000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: start;
+
+        }
+
+        .image-section {
+            width: 50%;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ta-prohm1 {
+            color: black;
+            text-align: center;
+        }
+
+              /* map */
+              .container-map {
+            display: flex;
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map {
+            width: 600px;
+            height: 400px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coordinates,
+        .distances {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coordinates h3,
+        .distances h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .coordinates .p-map,
+        .distances .p-map {
+            margin: 5px 0;
+            font-size: 19px;
+        }
+/* map */
+
+        /* ta */
+
+        .text-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .image-content {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .image-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background-color: #f4c542;
+            color: #014436;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #e6b539;
+        }</style>
+
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://cambodiatravel.com/images/2020/10/Apsara-Dance-show.jpg.webp');"></div>
+        <div class="slide fade" style="background-image: url('https://cambodiatravel.com/images/2020/10/Khmer-classical-dance-1.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.areacambodia.com/wp-content/uploads/2023/11/Exploring-the-Origins-of-Apsara-Dance-The-Art-of-Storytelling-in-Cambodian-Traditional-Dance.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://intocambodia.org/wp-content/uploads/2024/08/Robam-Nesat-or-Khmer-Fishing-Dance-2.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3a/Khmer_Robam_Apsara.png');"></div>
+        <div class="title">Traditional Dancing
+            <p class="title_p">Welcome to our Traditional Dancing </p>
+    </div></div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Traditional Dancing</a>
+              <a href="TraditionalWedding.html">Traditional Wedding</a>
+              <a href="TraditionalMedicines.html">Traditional Medicines</a>
+              <a href="TraditionalTransportation.html">Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+
+       <!-- Content section -->
+    <div class="ta-all">
+        <div class="h-taprohm">
+            <div class="container-taprohm">
+                <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Traditional Dancing</h1>
+                <p class="ta-prohm1">There are more than ten Khmer classical dances but the most performed and known dances are Apsara Dance (Robam Tep Apsara) and Blessing Dance (Robam Choun Por).</p>
+                <p class="ta-prohm1">Dance in Cambodia (Khmer: របាំ robam) consists of three main categories: classical dance of the royal court, folk dance which portrays cultural traditions, and social dances performed in social gatherings.</p>
+            </div>
+        </div>
+        <br><br><br>
+        <!-- Main Content -->
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="text-section">
+                    <p class="subheading">Classical dance</p>
+                    <h1 class="title">Main article: Royal ballet of Cambodia</h1>
+                    <p class="subtitle">Cambodia's premier performing art form is Khmer classical dance, or Robam Preah Reach Trop, a highly stylized dance form originating from the royal courts.</p>
+                    <p class="description">Originally performed and maintained by attendants of the royal palaces, Khmer classical dance was introduced to the general public in the mid-20th century and became widely celebrated as iconic of Cambodian culture, often performed during public events, holidays, and for tourists visiting Cambodia.</p>
+                    <p class="description">Performances feature elaborately costumed dancers performing slow and figurative gestures to the musical accompaniment of a pinpeat ensemble.</p>
+                    <button class="cta-button">ALIGN WITH SACRED FORCES</button>
+                </div>
+                <div class="image-section">
+                    <img src="https://cambodiatravel.com/images/2020/10/Khmer-classical-dance-1.jpg"
+                        alt="Tree roots covering a temple" />
+                </div>
+            </div>
+        </section>
+
+        <br><br><br><br><br><br>
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="image-section">
+                    <img src="https://www.originaltravel.co.uk/travel-blog/ShowPhoto/353/0"
+                        alt="Tree roots covering a temple" />
+                </div>
+                <div class="text-section1">
+                    <p class="subheading1">List of classical dances</p>
+                    <p class="description1">Reamker (Ramayana)</p>
+                    <p class="description1">Robam Apsara (Apsara Dance)</p>
+                    <p class="description1">Robam Tep Monorom (Dance of Heavenly Bliss)</p>
+                    <p class="description1">Robam Chuon Por (Wishing Dance)</p>
+                    <p class="description1">Robam Neang Sovannmaccha</p>
+                    <p class="description1">Robam Khun Luong</p>
+                    <p class="description1">Robam Phlet (Fan Dance)</p>
+                    <p class="description1">Robam Makor</p>
+                    <button class="cta-button1">ALIGN WITH SACRED FORCES</button>
+                </div>
+            </div>
+        </section>
+
+
+        <br><br><br><br><br><br>
+        <section class="section temple">
+            <div class="container-taprom">
+                <div class="text-section">
+                    <p class="description">Trot dance (Dance of the Stag) - a popular dance representing a tale of a hunter and a deer who spread several danger between giant to ogress and peacock.[clarification needed] It is performed to ward off evil and bad luck.</p>
+                    <p class="description">Sneang Tosoang Dance (Dance of the Wild Oxen) - a dance around a tiger, a peacock, a deer, and other animals. The dance originates in Phnum Kravanh District, Pursat Province and depicts the Pear people.</p>
+                    <p class="description">Robam Kom Araek - a dance mainly used two or three bamboo pole which hitting every second. It is reported that the dance came from Kuy people but it is more believed that the birthplace is Philippines during the reign of King Norodom (1834-1904) when he was traveling in Philippines.[citation needed]</p>
+                    <p class="description">Robam Neary Chea Chuor (Khmer: របាំនារីជាជួរ) - is a traditional Khmer dance of young Cambodian women[1] wearing colorful and elegant costumes. The dance reminds the Khmer people of the rich culture that has been nourished through generations, and it is well known among the neighboring countries of South-East Asia</p>
+                    <p class="description">Cambodian Coconut Dance - a dance performance involving coconuts with male and female dancers. Men wear a yellow shirt and dark red "Changkibin". Women wear a button up shirt and a green silk "Chong Kben". The dance originated around 1960 from Romeas Haek District in Svay Rieng Province.[2]</p>
+
+                    <button class="cta-button">ALIGN WITH SACRED FORCES</button>
+                </div>
+                <div class="image-section">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Royal_Ballet_Camboda_Apsara_Mera.jpg/1200px-Royal_Ballet_Camboda_Apsara_Mera.jpg"
+                        alt="Tree roots covering a temple" />
+                </div>
+            </div>
+        </section>
+    </div>
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("fade");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000);
+    }     
+    var map = L.map('map').setView([13.4348039, 103.8893379], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: 'Taprom Temple'
+    }).addTo(map);
+    var marker = L.marker([13.4348039, 103.8893379]).addTo(map);
+    marker.bindPopup("<b>Taprom Temple</b><br>CVMQ+WPG, Krong Siem Reap").openPopup();
+
+</script>
+</body>
+</html>

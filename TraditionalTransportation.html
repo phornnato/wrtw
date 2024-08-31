@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Transportation</title>
+    <link rel="stylesheet" href="https://assets.volvo.com/is/image/VolvoInformationTechnologyAB/blue-bus?qlt=82&wid=1024&ts=1660212095501&dpr=off&fit=constrain">
+    <link rel="icon" href="G3.png">
+    <link href="https://assets.volvo.com/is/image/VolvoInformationTechnologyAB/blue-bus?qlt=82&wid=1024&ts=1660212095501&dpr=off&fit=constrain" rel="stylesheet">
+    <link href="" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+   
+   <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .content img{
+            width: 900px;
+            height: 700px;
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://cen.com.kh/wp-content/uploads/2023/10/7a20.png');"></div>
+        <div class="slide fade" style="background-image: url('https://image.freshnewsasia.com/2021/id-155/fn-2023-04-16-22-44-58-1.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.cambodiapropertyreport.com/photos/%E1%9F%A2%E1%9F%A4%E1%9F%A8%E1%9F%A9.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://pppkhmer.sgp1.cdn.digitaloceanspaces.com/image/main/JOOMLA_IMPORT/images/stories/news/national_pk/2014/140207/140207_22a.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://assets.volvo.com/is/image/VolvoInformationTechnologyAB/blue-bus?qlt=82&wid=1024&ts=1660212095501&dpr=off&fit=constrain');"></div>
+        <div class="slide fade" style="background-image: url('https://www.vayaaustralia.com.au/wp-content/uploads/2020/08/vaya-hurricane-electric-motorbike-fast.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://cdn.cambonomist.com/media/images/onion-e-tuktuk01.2e16d0ba.fill-960x540.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.itweb.co.za/static/pictures/2019/11/taxi-miniVAN-2019.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://imgcdn.zigwheels.co.th/large/gallery/exterior/90/1670/honda-super-cub-2018-slant-rear-view-full-image-960946.jpg');"></div>
+        <div class="title">Cambodia Transportation
+            <p class="title_p">You will enjoy with the good transportation of cambodia</p>
+        </div>
+    </div>
+
+
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html">Kep</a>
+              <a href="BohKoh.html">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- Content section -->
+    <div class="content">
+    
+       <!-- code -->
+       <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Traditional Transportation</h1>
+
+        <p>Transportation refers to the movement of people, animals and goods from one place to the other. The movement can be done through different modes of transport such as air, land, sea, cable, pipeline and space transport. Since the transportation mode vary, the means of transporting people and goods also varies.</p>
+          <p>When the Khmer Empire came to power in the ninth century AD, Hinduism was the official religion. It had been the case in that part of the world for generations. Rulers of the great empire worshipped Hindu gods such as Vishnu and Shiva, and dedicated the 12th-century temple of Angkor Wat to these beliefs. 
+
+            It wasn’t until King Jayavarman VII, who ruled later in the 12th and 13th centuries, that Buddhism was fully introduced to the Khmer people. The temple of Bayon was the first in the Angkor complex to be built in the image of Buddha. Buddhism then infiltrated Khmer society through trade and interaction with nearby Southeast Asian kingdoms. Now, Buddhism is the most popular religion of Cambodia.  </p>
+            <h1>Transportation By ox cart</h1>
+            <img src="https://withnorwegianeyes.com/wp-content/uploads/2019/02/Ox-cart-1-av-2.jpeg" alt="">
+            <p style="text-align:justify;">We are greatly impressed by Mr. Phaniths commitment to his local community. Ox Cart Adventure Tours supports 25 families in Chreav Village every month and also focuses on providing jobs and development support for the locals.
+
+                After a brief visit to a colorfully decorated pagoda, we climb back onto the cart and our ride continues on gravel roads. It is dusty and bumpy, but we still enjoy the tour immensely. Cambodia seems to have its own color schemes, comprised of soft pink (the roads), lush green (the trees), and the most amazing shades of blue (the evening light). Our cameras go click-click-click as we attempt to capture this magical momentWe are greatly impressed by Mr. Phaniths commitment to his local community. Ox Cart Adventure Tours supports 25 families in Chreav Village every month and also focuses on providing jobs and development support for the locals.
+
+               After a brief visit to a colorfully decorated pagoda, we climb back onto the cart and our ride continues on gravel roads. It is dusty and bumpy, but we still enjoy the tour immensely. Cambodia seems to have its own color schemes, comprised of soft pink (the roads), lush green (the trees), and the most amazing shades of blue (the evening light). Our cameras go click-click-click as we attempt to capture this magical moment</p>
+                <h1>Transportation By buffalo cart</h1>
+          <img src="https://image.freshnewsasia.com/2021/id-155/fn-2023-04-16-22-44-58-1.jpg" alt="">
+          <p style="text-align:justify;">The Buffalo Cart Community, a cultural tourism located 10 kilometers from Siem Reap City reopened after three years of being shuttered following the Covid-19 pandemic. The aged residents are excited to return to work, but they claim the number of visitors remains small and are mostly foreigners.
+
+            Sun Liv, 53, a buffalo cart community driver, living in Knat commune, Pouk district, Siem Reap province, three kilometers from his workplace in Teuk Vil commune, is happy to be back at work as he can once again earn an income to support his family. Even when he is unwell, it bears no hindrance to driving tourists around</p>
+            <h1>Transportation By elephant</h1>
+          <img src="https://www.cambodiapropertyreport.com/photos/%E1%9F%A2%E1%9F%A4%E1%9F%A8%E1%9F%A9.jpg" alt="">
+          <p style="text-align:justify;">For horse training purposes, "driving" may also include the practice of long-lining (long reining), wherein a horse is driven without a cart by a handler walking behind or behind and to the side of the animal. This technique is used in the early stages of training horses for riding as well as for driving.
+
+            Horses, mules and donkeys are driven in harness in many different ways. For working purposes, they can pull a plow or other farm equipment designed to be pulled by animals. In many parts of the world they still pull carts, wagons, horse-drawn boats or logs for basic hauling and transportation. They may draw carriages at ceremonies, such as when the British monarch is Trooping the Colour, as well as in parades or for tourist rides.</p>
+            <h1>Transportation By Horse erriage</h1>
+          <img src="https://pppkhmer.sgp1.cdn.digitaloceanspaces.com/image/main/JOOMLA_IMPORT/images/stories/news/national_pk/2014/140207/140207_22a.jpghttps://pppkhmer.sgp1.cdn.digitaloceanspaces.com/image/main/JOOMLA_IMPORT/images/stories/news/national_pk/2014/140207/140207_22a.jpg" alt="">
+          <p style="text-align:justify;">Elephants are scattered throughout sub-Saharan Africa, South Asia, and Southeast Asia and are found in different habitats, including savannahs, forests, deserts, and marshes. They are herbivorous, and they stay near water when it is accessible. They are considered to be keystone species, due to their impact on their environments. Elephants have a fission–fusion society, in which multiple family groups come together to socialise. Females (cows) tend to live in family groups, which can consist of one female with her calves or several related females with offspring. The leader of a female group, usually the oldest cow, is known as the matriarch.</p>
+            <!-- image on right -->
+          <h1>Transportation By bus</h1>
+          <img src="https://osabus.com/wp-content/uploads/2022/09/49-MAN-1024x768.jpeg" alt="">
+          <p style="text-align:justify;">Every day, millions of people around the world rely on our buses, and our job is to bring them to their destination. Safely, in comfort and on time. All with a minimum of impact on the environment, and with responsible use of energy and natural resources. That's why quality of life is our guiding star, and that's also why our core values – safety, quality and environmental care – are so much more than words.</p>
+          <h1>Transportation By tricycal</h1>
+          <img src="https://cdn.i-scmp.com/sites/default/files/images/methode/2017/06/23/8902535c-4f55-11e7-b896-7f2d3a4d650b_1280x720_195428.JPG" alt="">
+          <p style="text-align:justify;">Every day, millions of people around the world rely on our buses, and our job is to bring them to their destination. Safely, in comfort and on time. All with a minimum of impact on the environment, and with responsible use of energy and natural resources. That's why quality of life is our guiding star, and that's also why our core values – safety, quality and environmental care – are so much more than words.
+            <h1>Transportation By taxi car</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/1991_Toyota_Corolla_%28AE92%29_CS_sedan_%282010-05-19%29.jpg" alt="">
+            <p style="text-align:justify;">Under the strategic vision of Government of Dubai in regulating franchised Taxi operation system and we are very proud to be the first franchise company who initiated the Taxi operation in April 2000. Our drivers are professionally trained to cater the business requirements engulfing defensive & safe driving. Being a staunch supporter of the green environment, we are also the first Taxi franchise company in UAE to incorporate & increase the usage of Hybrid/CNG vehicles in our Taxi fleet. We also have our own dedicated Garage to assist in the maintenance of our vehicles & accidental repairs.Under the strategic vision of Government of Dubai in regulating franchised Taxi operation system and we are very proud to be the first franchise company who initiated the Taxi operation in April 2000. Our drivers are professionally trained to cater the business requirements engulfing defensive & safe driving. Being a staunch supporter of the green environment, we are also the first Taxi franchise company in UAE to incorporate & increase the usage of Hybrid/CNG vehicles in our Taxi fleet. We also have our own dedicated Garage to assist in the maintenance of our vehicles & accidental repairs.
+                <h1>Transportation By moto</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Royal_Enfield_Classic_350_%282017_Model_Year%29.jpg/800px-Royal_Enfield_Classic_350_%282017_Model_Year%29.jpg" alt="">
+            <p style="text-align:justify;">SuperBike Factory is Europe’s largest used motorbike retailer, with a commitment to offering riders the widest choice and the best prices in the UK.
+
+                Every one of our 3,000+ motorbikes has a full HPI and MOT history report and comes with at least three months MOT.
+                
+                Unlike other dealers, who carry out unnecessary work that pushes prices up, SuperBike Factory has the expertise to do only the work that is actually required, enabling us to maintain our famously low prices. It's also worth knowing that we price every motorbike as a standard model: so even if the original owner has added lots of options and upgrades, you won't pay a penny more.
+                
+                This all adds up to a customer experience that's made us the go-to destination for riders who want quality, value, and plenty of choice.
+                
+                You're more than welcome to visit us at our Cheshire, Donington Park, West Yorkshire, South West, or Buckinghamshire showrooms, you can also browse our full showroom of used motorbikes for sale on our easy-to-use website.</p>
+            </div>
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+
+   </script>
+</body>
+</html>

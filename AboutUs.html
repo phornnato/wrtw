@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About G3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+   <style>
+        body, html {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+           
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .container_list {
+            display: flex;
+            justify-content: center;
+            padding: 60px 15%;
+            background-color: #f9f9f9;
+        }
+        .property {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        /* for menu */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.property img {
+    width: 500px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 20px;
+        }
+        .textskill {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .textskill h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .textskill p {
+            margin-bottom: 20px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .social-icons a:hover {
+            background-color: white;
+            color: rgba(0, 0, 0, 0.795);
+        }
+        .resumeback {
+            color: rgba(9, 9, 9, 0.087);
+            position: absolute;
+            margin: 0;
+            top: 0;
+            font-size: 110px;
+            z-index: -2;
+            margin-left: 20px;
+        }
+        .resumeback1 {
+            color: rgba(9, 9, 9, 0.087);
+            position: absolute;
+            margin: 0;
+            top: 0;
+            font-size: 110px;
+            z-index: -2;
+            margin-left: 26%;
+        }
+        .info-section {
+            position: relative;
+            text-align: center;
+            justify-content: space-between;
+            margin: 40px 17%;
+            margin-top: 50px;
+        }
+        .info-section h1 {
+            font-size: 40px;
+        }
+        .info-section p {
+            font-size: 20px;
+        }
+     /* Responsive Design */
+        @media (max-width: 768px) {
+            .container_list {
+                padding: 20px 5%;
+            }
+            .property {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .property img {
+                width: 100%;
+                height: auto;
+            }
+            .textskill {
+                max-width: 100%;
+            }
+            .content h1 {
+                font-size: 32px;
+            }
+            .content p {
+                font-size: 16px;
+            }
+            .info-section {
+                margin: 20px 5%;
+            }
+            .info-section h1 {
+                font-size: 32px;
+            }
+            .info-section p {
+                font-size: 18px;
+            }
+           .resumeback {
+                font-size: 80px;
+                top: -10px;
+                margin-left: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .content h1 {
+                font-size: 24px;
+            }
+            .content p {
+                font-size: 14px;
+            }
+            .info-section h1 {
+                font-size: 24px;
+            }
+            .info-section p {
+                font-size: 16px;
+            }
+            .resumeback {
+                font-size: 40px;
+                margin-left: 5px;
+            }
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+        /* card_informations */
+        .card_information{
+            flex-wrap: wrap; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding-inline: 16%; 
+            gap: 40px; 
+            margin-top: 60px;
+        }
+        .card{
+            text-align: center;
+            padding: 20px;
+            width:  265px;
+            height: 390px;
+            background-color: rgba(255, 249, 249, 0.275);
+            border: 1px solod;
+            box-shadow: 2px 3px 15px rgba(0, 0, 0, 0.177);
+            position: relative;
+            overflow: hidden;
+        }
+        .card p{
+            max-width: 500px;
+        }
+        .card img{
+            margin-top: 14px;
+            text-align: center;
+            width: 269px;
+            height: 212px;
+            transition: opacity 0.3s ease;
+            
+        }
+        .card:hover img {
+            opacity: 0.4; 
+        }
+        .card_information .card img{
+            display: inline-block
+        }
+        
+        /* for icon absolute */
+        .icon_information {
+        position: absolute;
+        bottom: 25%; 
+        left: 50%;
+        transform: translateX(-50%); 
+        display: flex;
+        opacity: 0; 
+        visibility: hidden; 
+        gap: 15px;
+        justify-content: center;
+        width: 100%;
+    }
+    .card:hover .icon_information {
+    
+    opacity: 1; 
+    visibility: visible;
+    cursor: pointer;
+   }
+   .skills-container {
+    padding-inline: 20%;
+    margin-top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+.skill {
+    width: 45%;
+}
+.skill-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.progress-bar {
+    background-color: #6b68684d;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.progress {
+    height: 10px;
+    background-color: #f7c12b;
+}
+.container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+.flagContainer {
+    margin-top: 25px;
+}
+
+.flagContainer h1 {
+    margin-bottom: 20px; 
+}
+
+.flagContainer .flag {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(128, 128, 128, 0.506);
+    border-radius: 50%; 
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    margin: 50px 19px; 
+     
+}
+
+.flagContainer .flag img {
+    width: 50px;
+    height: 30px; 
+}
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade " style="background-image: url('G3.png');"></div>
+        <div class="slide fade" style="background-image: url('phorn.jpg');"></div>
+        <div class="slide fade" style="background-image: url('serey.jpg');"></div>
+        <div class="slide fade" style="background-image: url('roth.jpg');"></div>
+        <div class="slide fade" style="background-image: url('sopponu.jpg');"></div>
+        <div class="slide fade" style="background-image: url('mengly.jpg');"></div>
+        <div class="slide fade" style="background-image: url('rathana.JPG');"></div>
+        <div class="title">About Our Team
+            <p class="title_p">Awesome, clean & Activity, Cooperations</p>
+        </div>
+    </div>
+  
+        <div class="navbar">
+            <img src="Kampuchea .png" class="logo" />
+            <a href="index.html">Home</a>
+            <div class="dropdown">
+                <div class="dropbtn">Culture</div>
+                  <div class="dropdown-content">
+                  <a href="Religion.html" >Religion</a>
+                  <a href="Greetings.html"  >Greetings</a>
+                  <a href="TraditionalArt.html" >Traditional Art</a>
+                  <a href="TraditionalFood.html" >Traditional Food</a>
+                  <a href="TraditionalMusic.html">Traditional Musics</a>
+                  <a href="TraditionalClothes.html">Traditional Clothes</a>
+                  <a href="TraditionalDancing.html">Traditional Dancing</a>
+                  <a href="TraditionalWedding.html">Traditional Wedding</a>
+                  <a href="TraditionalMedicines.html">Traditional Medicines</a>
+                  <a href="TraditionalTransportation.html">Traditional Transportation</a>
+                  </div>
+              </div>
+      
+              <div class="dropdown">
+                <div class="dropbtn">Natural Beauty</div>
+                <div class="dropdown-content">
+                  <a href="Kep.html">Kep</a>
+                  <a href="BohKoh.html">BohKor</a>
+                  <a href="Kampot.html">KamPot</a>
+                  <a href="Chipart.html">Chipart</a>
+                  <a href="KohTonsay.html">Koh Tonsay </a>
+                  <a href="1500Mountain.html">1500 Mountain </a>
+                  <a href="KohKongKrav.html">Koh Kong krav</a>
+                  <a href="KampongSpue.html">Kampong Speu</a>
+                  <a href="KulenNationalPark.html">Kulen National Park</a>
+                  <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+                </div>
+              </div>
+              <div class="dropdown">
+                <div class="dropbtn">Tourism</div>
+                <div class="dropdown-content">
+                  <a href="AngkorWat.html">Angkor Wat</a>
+                  <a href="BayonTemple.html" >Bayon Temple</a>
+                  <a href="BakengHill.html">Bakheng Hill</a>
+                  <a href="TapromTemple.html" >Taprom Temple</a>
+                  <a href="PreahKhanTemple.html" >Preah Khan Temple</a>
+                  <a href="PhimeanakasTemple.html" >Phimeanakas Temple</a>
+                  <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+                  <a href="BanteaySreiTemple.html" >Banteay Srei Temple</a>
+                  <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                  <a href="BakseyChamkrong.html" >Baksey Chamkrong Temple</a>
+                </div>
+              </div>
+            <a href="contact.html">Contact</a>
+            <a href="" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">About Us</a>
+          </div>
+          <br><br><br>
+          <div class="container_list">
+              <!-- for popup  --> 
+               <div id="popup-beltei" class="popup">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtSZbvH59lUBbn8V0Y-Hi3GE1zN2dtVCn_o6B4ehhlU5Q7jWduHNpuIX3rhppJ5uf179Q&usqp=CAU">
+                  <p><strong>Beltie</strong>  is an International University located in Phnom Pehn. This is a campus one of Beltie. Beltie has short form called BIU University.</p>
+              </div>
+
+              <div id="popup-FIT" class="popup">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZzkyrgWjwLKUf7R_TtdGaOkSj1zuNhMe39KrXVDxehzfsjhM-4xLuG4ZHM-kP2T4QLbc&usqp=CAU">
+                <p><strong>FIT</strong>  is a faculty at BIU. In 2024 , FIT has the most Students study this manjor.</p>
+            </div>
+              <!-- end popup  -->
+            <div class="property">
+            <img src="us.jpg" alt="logo">
+            <div class="textskill">
+                <h1>About Us & Our Skills</h1>
+                <p>We come from <a href="https://web.facebook.com/belteiuniversity/?_rdc=1&_rdr" class="hover-link" data-popup="popup-beltei">BIU University</a> at campus one. we are teamwords. we are group 3.
+                   We are from Software Student of <a href="https://web.facebook.com/belteiiu.it/?_rdc=1&_rdr" class="hover-link" data-popup="popup-FIT">Faculty IT</a>. We will have developed about Cambodia in order to spread our Country's has to all over the word.
+                   Our porpuse want to see and hear Cambodia rise in the future.
+                </p>
+                <p><i class="fa fa-quote-left" aria-hidden="true"></i> Talking about us, the way we are going to like us, or about the some informations.</p>
+                <div class="social-icons">
+                    <a href="#" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="mailto:pichsoppognu.biu@gmail.com" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="info-section">
+        <h1>Team Informations</h1>
+        <h1 class="resumeback" style="font-size: 100px;">Team Informations</h1>
+        <p>I demonstrate to you about my teammates,we will provide detailed information about us to all of you.</p>
+    </div>
+    <div class="card_information">
+        <div class="card">
+            <h1>Pich Sopongnu</h1>
+            <p>Hi, I'm  Sopongnu. I am a software developer. I am glad to see you here. I will try my best to comoplete this purpose </p> 
+            <img src="sopponu.jpg" alt="">
+            
+            <div class="icon_information">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/ps.pich.790?mibextid=ZbWKwL" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="mailto:pichsoppognu.biu@gmail.com" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h1 style="font-size: 28px; margin-top: 26px;">Phirum Panha Roth</h1>
+            <p>Hi, I'm  Panha Roth. I am a software developer. I am glad to see you here. I will try my best to comoplete this purpose </p> 
+            <img src="roth.jpg" alt="">
+            
+            <div class="icon_information">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=100070002755524&mibextid=ZbWKwL" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="mailto:phirumpanharoth.biu@gmail.com" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h1>Horm Sophorn</h1>
+            <p>Hi, I'm  Sophorn. I am a software developer. I am glad to see you here. I will try my best to comoplete this purpose </p> 
+            <img src="phorn.jpg" alt="">
+            <div class="icon_information">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=100088314306741&mibextid=ZbWKwL" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="mailto:natophorn@gmail.com" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h1>Keam Serey</h1>
+            <p>Hi, I'm  Sery. I am a software developer. I am glad to see you here. I will try my best to comoplete this purpose </p> 
+            <img src="serey.jpg" alt="">
+            <div class="icon_information">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=100081008086225&mibextid=ZbWKwL" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="mailto:keamserey.biu@gmail.com" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h1>Va Mengly</h1>
+            <p>Hi, I'm  Mengly. I am a software developer. I am glad to see you here. I will try my best to comoplete this purpose </p> 
+            <img src="mengly.jpg" alt="">
+            <div class="icon_information">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/mengly.mengly.5494?mibextid=ZbWKwL" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#megnyly" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h1 style="font-size: 29px; margin-top: 24px;">Oueng Sovanatana</h1>
+            <p>Hi, I'm  Rathana. I am a software developer. I am glad to see you here. I will try my best to comoplete this purpose </p> 
+            <img src="rathana.JPG" alt="">
+            <div class="icon_information">
+                <div class="social-icons">
+                    <a href="#" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="rathana" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BXWEzjGr" ><i class="fa fa-podcast" aria-hidden="true"></i></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+    <div class="info-section">
+        <h1>Our Skills</h1>
+        <h1 class="resumeback1" style="font-size: 110px;">Our Skills</h1>
+        <p>I will demonstrate to you about my teammates, we will show you the ability or skill of our teamate.</p>
+    </div>
+    <div class="skills-container">
+        <div class="skill">
+            <div class="skill-name">
+                <p>Photoshop</p>
+                <p>90%</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 90%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">
+                <p>MS Office</p>
+                <p>85%</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 85%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">
+                <p>HTML</p>
+                <p>95%</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 95%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">
+                <p>CSS</p>
+                <p>90%</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 90%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">
+                <p>Javascript</p>
+                <p>70%</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">
+                <p>CPP</p>
+                <p>80%</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 80%;"></div>
+            </div>
+        </div>
+        <div class="flagContainer">
+            <h1>Find Supplies and Spread to <i class="fa fa-handshake-o" aria-hidden="true"></i> </h1>
+            <div class="flag">
+                <img src="https://t4.ftcdn.net/jpg/00/10/13/73/360_F_10137391_ypY4pjk8T9zfLCNJIRDQNI25t3IK7X6v.jpg" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://img.freepik.com/free-vector/illustration-singapore-flag_53876-27129.jpg" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://media.istockphoto.com/id/1258709699/vector/national-flag-background.jpg?s=612x612&w=0&k=20&c=8l3RE0f94V113E0WiEgISyBzI7U1XtNP5_9xd4zDTCU=" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDD-YNsX2E_vhalpCNnZCaj-0xDJ5KzGGe1g&s" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxVq-a6x-FhpnlD9F7SJmbbp1K7_p-x7efoA&s" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://i.pinimg.com/originals/2d/15/b8/2d15b89bb9f3809580386522da21e405.png" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Kuk7j01tK7-obvHj2SFO0XupoVXP_O2jPQ&s" alt="">
+
+            </div>
+            <div class="flag">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnc2HbuN9iJ3NA-etgTOCtg9IeZdNxaQSFtA&s" alt="">
+
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html" > Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="Kbalchhaywaterfall.html">Kbal Chhay Waterfall</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html" >Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html" >Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html" >Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html" >Baksey Chamkrong Temple</a>
+            </div>
+
+            <div class="Natural-line1">
+                <h3>Support Us</h3>
+                <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+                <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+                <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+            </div>
+
+        </div>
+    </footer>
+    <script>
+    
+        let slideIndex = 0;
+     showSlides();
+     
+     function showSlides() {
+         let i;
+         let slides = document.getElementsByClassName("fade");
+         for (i = 0; i < slides.length; i++) {
+             slides[i].style.display = "none";  
+         }
+         slideIndex++;
+         if (slideIndex > slides.length) {slideIndex = 1}    
+         slides[slideIndex-1].style.display = "block";  
+         setTimeout(showSlides, 5000); 
+     }
+     const hoverLinks = document.querySelectorAll('.hover-link');
+    
+    hoverLinks.forEach(link => {
+        const popupId = link.getAttribute('data-popup');
+        const popup = document.getElementById(popupId);
+    
+        link.addEventListener('mouseover', () => {
+            document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+    
+            const rect = link.getBoundingClientRect();
+            const popupRect = popup.getBoundingClientRect();
+    
+            // Calculate available space
+            const spaceBelow = window.innerHeight - rect.bottom;
+            const spaceAbove = rect.top;
+            const spaceRight = window.innerWidth - rect.right;
+            const spaceLeft = rect.left;
+    
+            // Position the popup based on available space
+            if (spaceBelow >= popupRect.height) {
+                popup.style.top = `${rect.bottom}px`;
+                popup.style.left = `${rect.left}px`;
+            } else if (spaceAbove >= popupRect.height) {
+                popup.style.top = `${rect.top - popupRect.height}px`;
+                popup.style.left = `${rect.left}px`;
+            } else if (spaceRight >= popupRect.width) {
+                popup.style.top = `${rect.top}px`;
+                popup.style.left = `${rect.right}px`;
+            } else if (spaceLeft >= popupRect.width) {
+                popup.style.top = `${rect.top}px`;
+                popup.style.left = `${rect.left - popupRect.width}px`;
+            } else {
+                
+                popup.style.top = `${rect.bottom}px`;
+                popup.style.left = `${rect.left}px`;
+            }
+    
+            popup.classList.add('active');
+        });
+    
+        link.addEventListener('mouseout', () => {
+            setTimeout(() => {
+                if (!popup.matches(':hover')) {
+                    popup.classList.remove('active');
+                }
+            }, 200);
+        });
+    
+        popup.addEventListener('mouseleave', () => {
+            popup.classList.remove('active');
+        });
+    });
+       </script>
+</body>
+</html>

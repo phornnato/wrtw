@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Religion Cambodia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+  <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+          text-align: justify;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+       
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+          margin-top: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-inline:15%;
+          background-color: rgba(0, 0, 0, 0.042);
+          color: rgb(0, 0, 0);
+          height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.nav_content {
+    padding-inline: 10%;
+}
+
+/* Content section */
+.content_m1 {
+    margin-top: 40px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.content_m1 p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    text-align: justify;
+}
+
+.first_section_m {
+    display: flex;
+    align-items: flex-start; 
+    justify-content: center; 
+    gap: 30px; 
+}
+
+.img_first_m {
+    width: 410px; 
+    height: 435px; 
+    margin-top: 22px;
+}
+
+.h2_m {
+  font-size: 40px;
+  font-family: "Merriweather", serif;
+  font-weight: 900px;
+  font-style: normal;
+}
+
+.h2_m2 {
+   
+    font-size: 30px;
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin-top: 100px;
+}
+
+.img_m2 {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.img_m2_g1 img {
+    width: 375px; 
+    height: 300px; 
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+.img_m2_g1 img:hover {
+  transform: translateY(-10px);
+}
+
+.img_m2_g1 span {
+    display: block;
+    margin-top: 10px;
+    font-size: 19px;
+    color: #666;
+}
+.img_geograph{
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    max-width: 100%; 
+    height: auto; 
+}
+        .card_monkPic{
+            flex-wrap: wrap; 
+            display: flex; 
+            align-items: center;  
+            gap: 60px; 
+            margin-top: 60px;
+        }
+        .card{
+            text-align: center;
+            padding: 10px;
+            width: 550px;
+            height: 500px;
+            background-color: rgba(255, 249, 249, 0.275);
+            border: 1px solod;
+            box-shadow: 2px 3px 15px rgba(0, 0, 0, 0.177);
+            position: relative;
+            overflow: hidden;
+        }
+        .card p{
+            max-width: 500px;
+        }
+        .card img{
+            margin-top: 10px;
+            text-align: center;
+            width: 500px;
+            height: 300px;
+            transition: opacity 0.3s ease;
+            
+        }
+        .card:hover img {
+           cursor: pointer;
+        }
+        .card_information .card img{
+            display: inline-block
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+            margin-left: 21px;
+        }
+        .social-icons a{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .social-icons a:hover {
+            background-color: white;
+            color: rgba(0, 0, 0, 0.795);
+        }
+        .card .p_monk{
+          text-align: center;
+          padding-inline-start: 10px;
+          color: #666;
+    
+        }
+        .p_contact{
+            font-size: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://www.triplekangkor.com/wp-content/uploads/2023/08/Buddha-statue-1024x574.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.triplekangkor.com/wp-content/uploads/2023/08/Buddhist-monks-with-umbrellas-in-Cambodia-1024x574.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://ohhcambodia.com/wp-content/uploads/2019/07/contemplating-monk-in-cambodia-PWUR3C6.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.visitkohrong.com/wp-content/uploads/2023/09/Cambodian-Religion-and-Culture-1212.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://t3.ftcdn.net/jpg/08/65/84/20/360_F_865842097_iBYdGhOoNMLk1O40zQqrOsPJtHaFXkAf.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.triplekangkor.com/wp-content/uploads/2023/08/Buddhist-monks-walking-in-Cambodia-1024x574.jpg');"></div>
+        <div class="title">Cambodia Religion
+            <p class="title_p">You only lose what you cling to</p>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+          <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;" >Culture</div>
+            <div class="dropdown-content">
+            <a href="#" style="background-color: #8d8d9386; color: white;">Religion</a>
+            <a href="Greetings.html">Greetings</a>
+            <a href="TraditionalArt.html">Traditional Art</a>
+            <a href="TraditionalFood.html">Traditional Food</a>
+            <a href="TraditionalMusic.html">Traditional Musics</a>
+            <a href="TraditionalClothes.html">Traditional Clothes</a>
+            <a href="TraditionalDancing.html">Traditional Dancing</a>
+            <a href="TraditionalWedding.html">Traditional Wedding</a>
+            <a href="TraditionalMedicines.html">Traditional Medicines</a>
+            <a href="TraditionalTransportation.html">Traditional Transportation</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+          <div class="dropbtn">Natural Beauty</div>
+          <div class="dropdown-content">
+            <a href="Kep.html">Kep</a>
+            <a href="BohKoh.html">BohKor</a>
+            <a href="Kampot.html">KamPot</a>
+            <a href="Chipart.html">Chipart</a>
+            <a href="KohTonsay.html">Koh Tonsay </a>
+            <a href="1500Mountain.html">1500 Mountain </a>
+            <a href="KohKongKrav.html">Koh Kong krav</a>
+            <a href="KampongSpue.html">Kampong Speu</a>
+            <a href="KulenNationalPark.html">Kulen National Park</a>
+            <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <div class="dropbtn">Tourism</div>
+          <div class="dropdown-content">
+            <a href="AngkorWat.html">Angkor Wat</a>
+            <a href="BayonTemple.html">Bayon Temple</a>
+            <a href="BakengHill.html">Bakheng Hill</a>
+            <a href="TapromTemple.html">Taprom Temple</a>
+            <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+            <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+            <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+            <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+            <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+            <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+          </div>
+        </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    <!-- Content section -->
+     <main class="nav_content">
+      <!-- for popup  -->
+      <div id="popup-chris" class="popup">
+        <img src="https://assets.editorial.aetnd.com/uploads/2017/10/christianity-gettyimages-121153575.jpg">
+        <p><strong>Christianity</strong>  is an Abrahamic monotheistic religion based on the life and teachings of Jesus Christ. It is the world's largest and most widespread religion with roughly 2.4 billion followers, comprising around 31.2% of the world population</p>
+     </div>
+
+     <div id="popup-khmer_empire" class="popup">
+      <img src="https://www.worldhistory.org/img/c/p/1200x900/1106.png">
+      <p><strong>The Khmer Empire</strong>  
+         was a Hindu-Buddhist empire in Southeast Asia, centered around hydraulic cities in what is now northern Cambodia. Known as Kambuja (Old Khmer: កម្វុជ; Khmer: កម្ពុជ, romanized: Kâmpŭchô) by its inhabitants, it grew out of the former civilisation of Chenla and lasted from 802 to 1431.</p>
+    </div>
+
+    <div id="popup-factbook" class="popup">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbWKHmzXdoRZtPYlYo71-pU4L6QFtKw_eXMkbMLvjryD3nF98M9q6Dvy0OGFgzUnUBVes&usqp=CAU">
+      <p><strong>The World Factbook</strong>  
+         provides national-level information on countries, territories, and dependencies, but not subnational administrative units within a country. A national statistical agency website or a comprehensive encyclopedia are possible sources for state/province-level information.</p>
+    </div>
+
+    <div id="popup-buddist" class="popup">
+      <img src="https://beyondexperience.digital/wp-content/uploads/2021/07/photo_2021-07-15_16-53-50.jpg">
+      <p><strong>Buddhists</strong>  
+         believe in reincarnation of the soul, and that, by following the teachings of Buddha, or dharma, people can reach an enlightened state called nirvana and stop the cycle of reincarnation.</p>
+    </div>
+
+    <div id="popup-monkhood" class="popup">
+      <img src="https://www.exotravel.com/blog/wp-content/uploads/2012/06/Monks-at-a-temple-in-Laos.jpg">
+      <p><strong>Monkhood</strong>  
+         is Monasticism (from Ancient Greek μοναχός (monakhós) 'solitary, monastic'; from μόνος (mónos) 'alone'), also called monachism or monkhood, is a religious way of life in which one renounces worldly pursuits to devote oneself fully to spiritual work.</p>
+    </div>
+
+    <div id="popup-muslim" class="popup">
+      <img src="https://ichef.bbci.co.uk/news/976/cpsprodpb/302C/production/_133123321_gettyimages-1252464961.jpg">
+      <p><strong>Muslim </strong>  
+         is a person who has dedicated his worship exclusively to God, for just as we say in Arabic that something is 'salima' to a person, meaning that it became solely his own, so in the same way 'Islām' means making one's religion and faith God's alone.</p>
+    </div>
+
+    <div id="popup-hindu" class="popup">
+      <img src="https://religionmediacentre.org.uk/wp-content/uploads/2020/10/fares-nimri-v6uFg-OLrCc-unsplash-scaled.jpg">
+      <p><strong>Hindu</strong>  
+        is a person who believes in the religion called Hinduism. Many Hindus live in India. Use the term Hindu to talk about someone who follows the teachings and practices of Hinduism, or who has a cultural connection to Hinduism.</p>
+    </div>
+
+    <div id="popup-vishnu" class="popup">
+      <img src="https://vedicfeed.com/wp-content/uploads/2018/06/Lord-Vishnu-e1530087560148.jpg">
+      <p><strong>Vishnu</strong>  
+         is the god of Preservation, the great maintainer who often appears in various incarnations (avatara) to provide salvation for humanity. Some of his best-known avatars, who are tremendously popular and beloved throughout Hindu India, are the gods Krishna and Rama.</p>
+    </div>
+
+    <div id="popup-shiva" class="popup">
+      <img src="https://static.toiimg.com/photo/106997471.cms">
+      <p><strong>Shiva</strong>  
+         is known as The Destroyer within the Trimurti, the Hindu trinity which also includes Brahma and Vishnu. In the Shaivite tradition, Shiva is the Supreme Lord who creates, protects and transforms the universe.</p>
+    </div>
+
+    <div id="popup-vii" class="popup">
+      <img src="https://visitlocaltravel.com/blog/media/2023/12/King-Jayavarman-VII.png">
+      <p><strong>Jayavarman VII</strong>  
+         was born around 1120 or 1125, son of King Dharanindravarman II (r. 1150 -1160) and queen Sri Jayarajacudamani. He married a very religious, strong-minded, and devote princess, Jayarajadevi, who exerted an important influence on him, both before he gained the throne and during the early years of his reign</p>
+    </div>
+
+    <div id="popup-angkor" class="popup">
+      <img src="https://cdn.mos.cms.futurecdn.net/veQKQrhqeLXwXHw4Q6qM3N.jpg">
+      <p><strong>Angkor</strong>  
+         is one of the most important archaeological sites in South-East Asia. Stretching over some 400 km2, including forested area, Angkor Archaeological Park contains the magnificent remains of the different capitals of the Khmer Empire, from the 9th to the 15th century. They include the famous Temple of Angkor Wat and, at Angkor Thom, the Bayon Temple with its countless sculptural decorations. UNESCO has set up a wide-ranging programme to safeguard this symbolic site and its surroundings.</p>
+    </div>
+    
+    <div id="popup-kpt" class="popup">
+      <img src="https://www.asiakingtravel.com/cuploads/images/Cambodia/Kampong%20Thom/kampong-thom-1.jpg">
+      <p><strong>KPT</strong> stand for Kampong Thom Province. Kampong Thom Province is located in the middle of the Kingdom of Cambodia, along National Road No. 6, 168 kilometres fromPhnom Penh.  </p>
+   </div>
+
+     <!-- end popup  -->
+      <div class="content_m1">
+        <h2 class="h2_m">The History</h2>
+       <!-- code -->
+          <div class="first_section_m">
+            <p class="main_p">Buddhism is the state religion of Cambodia. Approximately 97% of Cambodia's population follows Theravada Buddhism, with Islam, <a href="#" class="hover-link" data-popup="popup-chris">Christianity</a>., and tribal animism as well as Bahai faith making up the bulk of the small remainder.The wat (Buddhist monastery) and sangha <a href="#" class="hover-link" data-popup="popup-monkhood">(monkhood)</a>, together with essential Buddhist doctrines such as reincarnation and the accumulation of merit, are at the centre of religious life.
+            
+              According to The <a href="#" class="hover-link" data-popup="popup-factbook">World Factbook</a> in 2019, 97.1% of Cambodia's population was <a href="#" class="hover-link" data-popup="popup-buddist">Buddhist</a>, 2% <a href="#" class="hover-link" data-popup="popup-muslim">Muslim</a>, 0.3% Christian and 0.5% Other.
+
+              According to the Pew Research Center in 2010, 96.9% of Cambodia's population was Buddhist, 2.0% Muslim, 0.4% Christian, and 0.7% folk religion and non religious.
+              
+              When the <a href="#" class="hover-link" data-popup="popup-khmer_empire">Khmer Empire</a> came to power in the ninth century AD, <a href="#" class="hover-link" data-popup="popup-hindu">Hinduism</a> was the official religion. It had been the case in that part of the world for generations. Rulers of the great empire worshipped Hindu gods such as <a href="#" class="hover-link" data-popup="popup-vishnu">Vishnu</a> and <a href="#" class="hover-link" data-popup="popup-shiva">Shiva</a>, and dedicated the 12th-century temple of Angkor Wat to these beliefs. 
+              
+                It wasn’t until <a href="#" class="hover-link" data-popup="popup-vii">King Jayavarman VII</a>, who ruled later in the 12th and 13th centuries, that Buddhism was fully introduced to the Khmer people. The temple of Bayon was the first in the <a href="#" class="hover-link" data-popup="popup-angkor">Angkor</a> complex to be built in the image of Buddha. Buddhism then infiltrated Khmer society through trade and interaction with nearby Southeast Asian kingdoms. Now, Buddhism is the most popular religion of Cambodia.  
+              </p>
+              <img class="img_first_m" src="https://hiddenmantra.com/wp-content/uploads/2023/06/Buddha-Quotes-on-Peace-01-Hidden-Mantra-1024x1024.jpg" alt="">
+          </div>
+      </div>
+      <div>
+        <h2 class="h2_m2">Featured of Buddhism</h2>
+        <div class="img_m2">
+          <div class="img_m2_g1">
+            <img src="https://www.worldreligionnews.com/wp-content/uploads/2022/09/budha-statue-1024x683.jpg" alt="">
+            <span>It is a man's own mind, not his enemy or foe, that lures him to evil ways</span>
+          </div>
+           <div class="img_m2_g1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxMGIVy83j8j5w15Pze7BurkcBsH4WTs1sDA&s" alt="">
+            <span>Nothing can harm you as much as your own thoughts unguarded.</span>
+          </div>
+          
+          <div class="img_m2_g1">
+            <img src="https://www.triplekangkor.com/wp-content/uploads/2023/08/Buddha-statue-1024x574.jpg" alt="">
+            <span>Avoid evil deeds as a man who loves life avoids poison.</span>
+          </div>
+        </div>
+        <h2 class="h2_m2">Geographical Differences</h2>
+
+        <div id="popup-asean" class="popup">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa5hy8WqcOLBXe_xUQvtspTzoGvHbMzqvmtg&s">
+          <p><strong>Asean</strong> is the Association of Southeast Asian Nations (ASEAN) is an inter-governmental international organization, comprised of Indonesia, Vietnam, Laos, Brunei, Thailand, Myanmar, the Philippines, Cambodia, Singapore and Malaysia. <strong><a href="https://art.thewalters.org/browse/place/cambodia/">This is Cambodai Art</a></strong></p>
+       </div>
+
+        <p class="main_p">Sometimes a picture is worth a thousand words. In order to
+           get a feel for some of the gross differences in the way the
+          Buddha is represented in different countries, the people at
+          have made the following beautiful collage.
+          Of course, this is only a rough and superficial classification <a href="#" class="hover-link" data-popup="popup-asean"> Asean Art </a>
+           and within each country there exists a wide variety of used 
+           material, posutres, expressions and styles, which also change 
+           throughout history and influence each other.
+          But still, if you take that into account, the above gives a nice
+           gross insight into how the humanization of the Buddha image in 
+           each culture managed to find its own way.Over the following centuries 
+           there emerged a new form of Buddhism that involved an expanding 
+           pantheon and more elaborate rituals.</p>
+           <br>
+          <img class="img_geograph" src="https://buddho.org/wp-content/uploads/geografische-verschillen.avif" alt="">
+      
+          <h2 class="h2_m2">Cambodian Monks</h2>
+          <div class="card_monkPic">
+            <div class="card">
+              <h1>Tep Vong</h1>
+              <img src="https://static.independent.co.uk/2024/02/26/16/Cambodia_Obit_Venerable_Tep_Vong_71159.jpg?width=1200&height=1200&fit=crop" alt="">
+               <p class="p_monk">Tep Vong, the leader of Cambodia's Buddhist community, dies at 93</p>
+              <div class="social-icons">
+                    <p class="p_contact">Contact by : </p>
+                    <a href="https://en.wikipedia.org/wiki/Tep_Vong" ><i class="fa fa-share" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/results?search_query=tep+vong" ><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                    <a href="https://www.khmertimeskh.com/501446602/great-supreme-patriarch-tep-vong-passes-away-2/" ><i class="fa fa-globe" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="card">
+              <h1 class="h1_card">Kou Sopheap</h1>
+             <img src="https://i.ytimg.com/vi/yMfmtb6DcQI/maxresdefault.jpg" alt="">
+             <p class="p_monk">Tep Vong, the leader of Cambodia's Buddhist community, dies at 93</p>
+               <div class="social-icons">
+                   <p class="p_contact">Contact by : </p>
+                   <a href="https://web.facebook.com/kousopheapcam/?_rdc=1&_rdr" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                   <a href="https://www.youtube.com/@KouSopheapOfficial" ><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                   <a href="https://www.tiktok.com/@kousopheapofficial?_t=8p8ieEjPFtn&_r=1" ><i class="fa fa-globe" aria-hidden="true"></i></a>
+               </div>
+            </div>
+            <div class="card">
+              <h1>Hak Sienghai</h1>
+              <img src="https://149346090.v2.pressablecdn.com/wp-content/uploads/2023/03/cropped-20230219-RoW-BTB-0297SM-1600x900.jpg" alt="">
+              <p class="p_monk">Tep Vong, the leader of Cambodia's Buddhist community, dies at 93</p>
+              <div class="social-icons">
+                    <p class="p_contact">Contact by : </p>
+                    <a href="https://web.facebook.com/haksienghaiofficial/?_rdc=1&_rdr" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/@haksienghai" ><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                    <a href="https://www.tiktok.com/@haksienghai" ><i class="fa fa-globe" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="card">
+              <h1>Chum Sothy</h1>
+              <img style="width: 450px; mix-blend-mode: multiply;" src="https://yt3.googleusercontent.com/ytc/AIdro_mTAskytr72I4dL0nBOzlGMWPjNrPXu78UBDKNITYkZG2Q=s900-c-k-c0x00ffffff-no-rj" alt="">
+              <p class="p_monk">Chum Sothy, Leader of Tipou Pagoda. Located <a href="#" class="hover-link" data-popup="popup-kpt">KPT</a> Province </p>
+                <div class="social-icons">
+                    <p class="p_contact">Contact by : </p>
+                    <a href="https://web.facebook.com/chum.sothy/?paipv=0&eav=AfZJWzoX05W5C7-r0EOv28YH5xfbztMyyAzRU9RcfjcZvkQd4ZQBoPvppqiqhtNVmVE&_rdc=1&_rdr" ><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/channel/UCKbEEtfn6pms3LVN7P9pYJA" ><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                    <a href="" ><i class="fa fa-globe" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer_container">
+      <div class="container_footer">
+        <div class="about-us-line1">
+          <h3>Culture</h3>
+          <a href="" style="color: #d900007d;">Religion</a>
+          <a href="Greetings.html">Greetings</a>
+          <a href="TraditionalArt.html">Traditional Art</a>
+          <a href="TraditionalFood.html">Traditional Food</a>
+          <a href="TraditionalMusic.html">Traditional Musics</a>
+         
+      </div>
+      <div class="Natural-line1">
+          <h3>Natural</h3>
+          <a href="1500Mountain.html">1500 Mountain </a>
+          <a href="KohKongKrav.html">Koh Kong krav</a>
+          <a href="KampongSpue.html">Kampong Speu</a>
+          <a href="KulenNationalPark.html">Kulen National Park</a>
+          <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+      </div>
+
+      <div class="Natural-line1">
+          <h3>Tourism</h3>
+          <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+          <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+          <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+          <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+          <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+      </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>@Group3</p>
+          </div>
+      </div>
+  </footer>
+  <script>
+    
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+
+   </script>
+  
+</body>
+</html>

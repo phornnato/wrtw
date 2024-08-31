@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boh Koh Cambodia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="G3.png">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+   <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        /* for popup */
+        .hover-link {
+            text-decoration: none;
+            color: blue;
+            position: relative;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100%;
+            height: auto;
+            
+        }
+
+        .popup.active {
+            display: block;
+        }
+        
+        .main_p{
+          font-size: 18px;
+          line-height: 1.6;
+          color: #666;
+        }
+
+
+        /* Background image styling */
+        .background-image {
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .slide {
+          background-size: cover;
+            background-attachment: fixed; /* Fixes the background image */
+            background-position: center;
+            height:100vh; 
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+            transition: all 5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .7}
+            to {opacity: 1}
+        }
+
+        /* Title overlay on the image */
+        .background-image .title {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 60px;
+            color: white;
+            font-family: "Rowdies", sans-serif;
+            font-weight: 700px;
+            font-style: normal;
+        }
+        .background-image .title p{
+            color: rgb(232, 222, 222);
+            text-shadow: 2px 5px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.logo{
+    width: 70px;
+    cursor: pointer;
+}
+.navbar a {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(113, 106, 106);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+
+  font-size: 25px;
+  border: none;
+  outline: none;
+  color: rgb(113, 106, 106);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgba(33, 115, 255, 0.905);
+  transition: 0.6s;
+  color:white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e6e1e1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  transition: 0.6s;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8d8d9386;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+        /* Content section */
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+        .title_p{
+          font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+
+        }
+
+        .h2_witPHo{
+          font-size: 40px;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          text-align: left;
+        }
+        .container_footer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline:15%;
+    background-color: rgba(0, 0, 0, 0.042);
+    color: rgb(0, 0, 0);
+    height: 300px;
+}
+.about-us-line1 h3, .Natural-line1 h3 {
+    color: rgb(5, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+.about-us-line1 a, .Natural-line1 a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.about-us-line1 a:hover, .Natural-line1 a:hover {
+    color: #d900007d; 
+
+}
+@media (max-width: 768px) {
+    .container_footer {
+        flex-direction: column;
+        padding-inline: 20px; 
+        text-align: center;
+    }
+}
+.Natural-line1 .p_support, .icon-support  {
+    max-width: 200px;
+    margin-bottom: 15px;
+    padding: 8px;
+    color: rgb(6, 5, 5);
+    margin-bottom: 15px;
+    padding: 8px;
+}
+/* Content section */
+.content_m1 {
+    margin-top: 40px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.content_m1 p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    text-align: justify;
+}
+
+.first_section_m {
+    display: flex;
+    align-items: flex-start; 
+    justify-content: center; 
+    gap: 30px; 
+}
+
+.img_first_m {
+    width: 410px; 
+    height: 435px; 
+    margin-top: 22px;
+}
+/* for card vertical  */
+.container {
+    padding: 0 10%; /* 10% padding on both sides */
+    margin-top: 20px;
+}
+
+.hotel-listing {
+    display: flex;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-image {
+    width: 30%;
+    border-radius: 10px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.hotel-image:hover{
+    opacity: 0.8;
+}
+
+.hotel-info {
+    flex-grow: 1;
+    
+}
+
+.hotel-info h2 {
+    margin: 0 0 10px 0;
+}
+
+.h2_m {
+  font-size: 40px;
+  font-family: "Merriweather", serif;
+  font-weight: 900px;
+  font-style: normal;
+}
+#hotel{
+    width: 370px;
+    height:230px;
+}
+
+/* for map  */
+.container-map{
+    display: flex;
+    gap: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.map {
+    width: 800px;
+    height: 400px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.coordinates, .distances {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.coordinates h3, .distances h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.coordinates .p-map, .distances .p-map {
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image with title -->
+   
+    <div class="background-image">
+        <div class="slide fade" style="background-image: url('https://image.freshnewsasia.com/2017/113/fn-2017-09-22-19-48-16-1.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ytypkwshot105fytptyp/Bokor%20Mountain%20Day%20Trip%20from%20Sihanoukville%2C%20Cambodia.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/2b/ff/58/pwf-2.jpg?w=1200&h=-1&s=1');"></div>
+        <div class="slide fade" style="background-image: url('https://live.staticflickr.com/5031/7095723507_13dc034909_b.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://s9.kh1.co/41/4129262b9d4eab0af86783915a51c33753fbf5ba.jpg');"></div>
+        <div class="slide fade" style="background-image: url('https://www.visitkampot.info/__asset/img/article/645a1c7ca2ab4.jpg');"></div>
+        <div class="title">Welcome to Bokor
+            <p class="title_p">Borkor the heaven on the earth.  </p>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <img src="Kampuchea .png" class="logo" />
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <div class="dropbtn">Culture</div>
+              <div class="dropdown-content">
+              <a href="Religion.html" >Religion</a>
+              <a href="Greetings.html"  >Greetings</a>
+              <a href="TraditionalArt.html" >Traditional Art</a>
+              <a href="TraditionalFood.html" >Traditional Food</a>
+              <a href="TraditionalMusic.html" >Traditional Musics</a>
+              <a href="TraditionalClothes.html">Traditional Clothes</a>
+              <a href="TraditionalDancing.html" >Traditional Dancing</a>
+              <a href="TraditionalWedding.html" >Traditional Wedding</a>
+              <a href="TraditionalMedicines.html" >Traditional Medicines</a>
+              <a href="TraditionalTransportation.html" >Traditional Transportation</a>
+              </div>
+          </div>
+  
+          <div class="dropdown">
+            <div class="dropbtn" style=" background-color: rgba(33, 115, 255, 0.905); color: white;">Natural Beauty</div>
+            <div class="dropdown-content">
+              <a href="Kep.html" >Kep</a>
+              <a href="" style="background-color: #8d8d9386; color: white;">BohKor</a>
+              <a href="Kampot.html">KamPot</a>
+              <a href="Chipart.html">Chipart</a>
+              <a href="KohTonsay.html">Koh Tonsay </a>
+              <a href="1500Mountain.html">1500 Mountain </a>
+              <a href="KohKongKrav.html">Koh Kong krav</a>
+              <a href="KampongSpue.html">Kampong Speu</a>
+              <a href="KulenNationalPark.html">Kulen National Park</a>
+              <a href="KnongSparMountain.html">Knong Psar Mountain</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn">Tourism</div>
+            <div class="dropdown-content">
+              <a href="AngkorWat.html">Angkor Wat</a>
+              <a href="BayonTemple.html">Bayon Temple</a>
+              <a href="BakengHill.html">Bakheng Hill</a>
+              <a href="TapromTemple.html">Taprom Temple</a>
+              <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+              <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+              <a href="PreahVihearTemple.html">Preah Vihear Temple</a>
+              <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+              <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+              <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+          </div>
+        <a href="contact.html">Contact</a>
+        <a href="AboutUs.html">About Us</a>
+      </div>
+    
+    <!-- Content section -->
+
+    <!-- for popup -->
+    <div id="popup-bokor" class="popup">
+        <img src="https://www.lebokorpalace.com.kh/assets/img/did-you-know/big-images/3.jpg">
+        <p><strong>The Bokor mountain</strong>   was abandoned again in 1972, as Khmer Rouge took over the area. During the Vietnamese invasion in 1979, Khmer Rouge entrenched themselves and held on tightly for months. In the early 1990s Bokor Hill was still one of the last strongholds of Khmer Rouge.</p>
+     </div>
+
+     <div id="popup-kampot" class="popup">
+        <img src="https://www.gocambodia.tours/wp-content/uploads/2018/11/Things-to-Do-See-in-Kampot-Kampot-Travel-Guide-cambodia-tours.jpg">
+        <p><strong>Kampot</strong>    is a small but charming city where you will find a lot of French colonial buildings being converted into guesthouses, bars or restaurants. </p>
+     </div>
+
+     <div id="popup-kiri" class="popup">
+        <img src="https://www.greeneratravel.com/userfiles/850x450-kirirom.jpg">
+        <p><strong>Kirirom </strong> mean of "Kirirom" is "Happiness Mountain". This name was given to the area by King Monivong in the 1930s. The ancient name of the place was Phnom Vorvong Sorvong for the main two hills there were connected with the Cambodian popular legend about two heroic princely brothers Vorvong and Sorvong. </p>
+     </div>  
+
+     <div id="popup-king" class="popup">
+        <img src="https://ca-times.brightspotcdn.com/dims4/default/4fe91ab/2147483647/strip/false/crop/1464x1031+0+0/resize/1464x1031!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F99%2F68%2F7f39dea825544bfaf9743f460c83%2Fla-me-norodom-sihanouk-20121015-001">
+        <p><strong>Norodom Sihanouk</strong> (/ˈsiːhənʊk/; 31 October 1922 – 15 October 2012) was a member of the Cambodian royal house who led the country as King and Prime Minister. </p>
+     </div>
+    <div class="container">
+        <h1 style="text-align: center; margin-top: 60px; font-size: 40px; font-family:fantasy;">Welcome To Bokor National Park</h1>
+        <div class="content_m1">
+              <div class="first_section_m">
+                <p class="main_p">Preah Monivong <a href="#" class="hover-link" data-popup="popup-bokor">"Bokor"</a>
+                    National Park - Biodiversity amongst the mist and ruins
+
+                    More popularly referred to as Bokor National Park, the Preah Monivong National Park was established
+                     by Royal Decree on 01 November 1993 and covers an area of 
+                     140,000 hectares (1,400 square kilometers) that span three 
+                     southern provinces: <a href="#" class="hover-link" data-popup="popup-kampot">Kampot</a>
+                     , Kompong Spue and Preah Sihanouk.
+                      The area forms part of the Elephant Mountains, which are 
+                      contiguous with the Cardamom Mountain range to the northeast.
+                       The southern boundary of the Park is located less than one
+                        kilometer from the coastline of the Gulf of Thailand. 
+                        The northern boundary forms a seven-kilometer link to 
+                        <a href="#" class="hover-link" data-popup="popup-kiri">Kirirom National Park</a>
+                        , separated only by the National 
+                        Highway. Mt. Bokor, at 1,079 meters (3,540 feet), is the
+                         Park's highest point.
+                    The Park was first accessed in 1916 and developed later as a famous
+                     altitude resort during the regime of the French Protectorate and
+                     <a href="#" class="hover-link" data-popup="popup-king">Prince Norodom Sihanouk</a>
+                in the 1960s. Altitude ranges from 10 
+                      meters to 1,079 meters above sea level. The Park is the catchment area for 
+                      Touk Chhou, a major river that flows from the north central forests to the 
+                      southeast and down to Kampot town.
+                     The abandoned French Hill Station of Bokor was established in 1922
+                      at an altitude of 1,071 meters, and included the grand Bokor Palace
+                       Hotel as the centerpiece of the small community. The area was well known
+                        for its refreshing climate, views, and waterfalls.</p>
+                  <img class="img_first_m" src="https://cdn.projectexpedition.com/photos/310728touractivity9916f955c8be46598f13ad90a56d1224_sized.jpg" alt="">
+              </div>
+          </div>
+          <div>
+            <h1 class="pga">Things to do in Borkor National Park</h1>
+        <div class="hotel-listing">
+            <img src="https://t4.ftcdn.net/jpg/04/74/81/81/360_F_474818116_eeabJSkwctYyXTLg2PHpWQLMVwTIOFlC.jpg" alt="Saravoan Kep Hotel" class="hotel-image">
+            <div class="hotel-info">
+                <h2>1. Yeay Mao</h2>
+                <p><strong>Holy place</strong></p>
+                <p>⭐⭐⭐⭐⭐ 600 reviews</p>
+                <p>"Lok Yeay Mao, the Goddess of protector, has been well-known for keeping peace and calm in forest and coastal provinces of Cambodia, Kampot, Kep and Sihanouk Ville."</p>
+               <a href="https://www.sokhahotels.com.kh/kampot/see-and-do/lok-yeay-mao" class="exploreLink">Explore</a>
+            </div>
+        </div>
+        
+        <div class="hotel-listing">
+            <img src="https://cdn-v2.theculturetrip.com/1200x630/wp-content/uploads/2017/01/ct-hill-station--svetlana-eremina-shutterstock-com_.webp" alt="Knai Bang Chatt Resort" class="hotel-image">
+            <div class="hotel-info">
+                <h2>2. Bokor Hill Station</h2>
+                <p><strong>Holy Place</strong></p>
+                <p>⭐⭐⭐⭐⭐ 743 reviews</p>
+                <p>Bokor Hill Station refers to a collection of French colonial buildings constructed as a temperate mountain luxury resort and retreat for colonial residents in the early 1920s atop Bokor Mountain in Preah Monivong National Park, about 37 km west of Kampot in southern Cambodia.</p>
+                <a href="https://en.wikipedia.org/wiki/Bokor_Hill_Station" class="exploreLink">Explore</a>
+            </div>
+        </div>
+        <div class="hotel-listing">
+            <img src="https://cambotours.com/userfiles/bokor-mountain-hill-station-tour-kampot-4.jpg" class="hotel-image">
+            <div class="hotel-info">
+                <h2>3. Kampot Day Tour</h2>
+                <p><strong>Explain the history</strong></p>
+                <p>⭐⭐⭐ 300 reviews</p>
+                <p>Half day tour with countryside include Pepper farm Kampot · Phnom Penh Kampot Kep Tour "Pepper Farm, Salt Field, Crab Market Take a trip up to the breathtaking Bokor National Park. Enjoy sights from Kampot to Sihanoukville while visiting historic buildings like Wat Sompov Pram and the Bokor Palace. Learn about the history from our English-speaking tour guide. Finish the day off with a relaxing visit to the Popokvil Waterfall. Lunch of homemade vegetarian fried rice is provided for all guests." ·</p>
+                <a href="https://www.getyourguide.com/s?cq_src=google_ads&cq_cmp=16375542634&cq_con=146014954551&cq_term=&cq_med=&cq_plac=&cq_net=g&cq_pos=&cq_plt=gp&campaign_id=16375542634&adgroup_id=146014954551&target_id=dsa-1878871247020&loc_physical_ms=1009829&match_type=&ad_id=696492995175&keyword=&ad_position=&feed_item_id=&placement=&device=c&partner_id=CD951&gad_source=1&gclid=CjwKCAjwlbu2BhA3EiwA3yXyu9v4EgjVR63uY-9wjKf9ROwyIlM670mVMtJUhcJBes9znnjE0JbhHBoCnGwQAvD_BwE&q=Kampot&et=519463" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/3d/89/bb/caption.jpg?w=300&h=300&s=1" class="hotel-image" id="hotel">
+            <div class="hotel-info">
+                <h2>4. High Thansur Bokor Resort</h2>
+                <p><strong>The great views</strong></p>
+                <p>⭐⭐⭐⭐⭐ 800 reviews</p>
+                <p>Then you head to the High Thansur Bokor Resort, with its clean grounds, beautiful architecture, and sprawling entry walk.</p>
+                <a href="https://bokor-mountain-cambodia.com/bokor-mountain-in-kampot-cambodia/bokor-mountain-hotels/thansur-bokor-highland-resort/" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://st2.depositphotos.com/1225275/10891/i/950/depositphotos_108911008-stock-photo-abandoned-christian-church-on-top.jpg" class="hotel-image">
+            <div class="hotel-info">
+                <h2>5. Borkor Church</h2>
+                <p><strong>Holy Place</strong></p>
+                <p>⭐⭐⭐ 300 reviews</p>
+                <p>Bokor Church was part of the original French Colonial Bokor Hill Station, built in the early to mid 1920's. The Bokor Church. The old abandoned church at Bokor Hill Station is still in its original state as the French built it back in the day.</p>
+                <a href="https://www.rvasia.org/feature-story/church-mount-bokor-witness-battle-between-vietnamese-and-khmer-rouge-forces" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://www.nativeplanet.com/img/2023/03/zdenek-machacek-uxhol6swlym-unsplash1-1677658628.jpg?18082024011246" class="hotel-image">
+            <div class="hotel-info">
+                <h2>6. Whildlife Viewing</h2>
+                <p><strong>A lots animal</strong></p>
+                <p>⭐⭐⭐⭐⭐ 743 reviews</p>
+                <p>The dense forests of Bokor Mountain are home to wildlife like macaques, hornbills, and sun bears. With some patience, you may be able to spot these animals in their natural habitat. The best times for wildlife viewing are early morning and late afternoon when the animals are most active. Binoculars and a camera with a zoom lens will help you observe the wildlife from a distance without disturbing them</p>
+                <a href="https://samveasna.com/top-10-birds-around-bokor-national-park/" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://npr.brightspotcdn.com/dims4/default/af98d23/2147483647/strip/true/crop/1600x1068+0+0/resize/880x587!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F2a%2Ff1%2F8980b3434fa6b5bea54906b48f78%2Fparkville-35.jpg" class="hotel-image">
+            <div class="hotel-info">
+                <h2>7. Hiking Trails</h2>
+                <p><strong>Green Place </strong></p>
+                <p>⭐⭐⭐⭐⭐ 900 reviews</p>
+                <p>Bokor Mountain has over 50 miles of hiking trails to explore. Two of the most popular trails are the 3-mile trail to the Bokor Palace Casino and the 6-mile trail to the Bokor Catholic Church. Both trails offer stunning views of the surrounding mountains and forests. Be sure to pack hiking boots, snacks, water, a rain jacket, and bug spray before setting out on a hike.</p>
+                <a href="https://www.alltrails.com/parks/cambodia/kampot/phnom-bokor-national-park" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://southeastasiabackpacker.com/wp-content/uploads/2024/02/Inside-Black-Palace-Bokor-National-Park-1200x800.jpg" class="hotel-image">
+            <div class="hotel-info">
+                <h2>8. Black Palace</h2>
+                <p><strong>Holy Place</strong></p>
+                <p>⭐⭐⭐⭐⭐ 1000 reviews</p>
+                <p>Tourists visiting Bokor Mountain are encouraged to have a look at the Black Palace, the former royal residence of King Father Norodom Sihanouk, and which is 88 years old.</p>
+                <a href="https://www.khmertimeskh.com/501497052/tourists-urged-to-visit-black-palace-on-bokor-mountain/" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/SwimmingCaveKompongTrach.JPG" class="hotel-image">
+            <div class="hotel-info">
+                <h2>9. Kampong Trach </h2>
+                <p><strong>Chill Place</strong></p>
+                <p>⭐⭐⭐ 300 reviews</p>
+                <p>The place in Cambodia that resembles the image you've uploaded is likely Kampong Trach in the Kampot Province. Kampong Trach is known for its limestone karsts and cave systems, some of which have pools of water inside them, similar to the one shown in the picture.</p>
+                <a href="https://en.wikipedia.org/wiki/Kampong_Trach_District" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+        <div class="hotel-listing">
+            <img src="https://d13jio720g7qcs.cloudfront.net/images/destinations/origin/5feb4a6003783.jpg" class="hotel-image">
+            <div class="hotel-info">
+                <h2>10. Wat Sompov Pram</h2>
+                <p><strong>Doing good things there</strong></p>
+                <p>⭐⭐⭐⭐ 400 reviews</p>
+                <p>Wat Sampov Pram is the highest Buddha pagoda in Cambodia, and the temple itself means the temple of the five boats.</p>
+                <a href="https://www.tripadvisor.com/Attraction_Review-g608455-d3634941-Reviews-Wat_Sampov_Pram-Kampot_Kampot_Province.html" class="exploreLink">Explore</a>
+            </div>
+        </div>
+
+    </div>
+
+    <h1 class="pga">The Map of Borkor National Park</h1>
+    <div class="container-map">
+        <div id="map" class="map"></div>
+            <div class="info">
+                <div class="coordinates">
+                    <h3>Coordinates</h3>
+                    <p class="p-map">10.642095, 104.027519</p>
+                </div>
+                <div class="distances">
+                    <h3>Distances</h3>
+                    <p class="p-map">Phnom Pehn   : 190km</p>
+                    <p class="p-map">Siem Reap    : 160km</p>
+                    <p class="p-map">Sihanoukville: 110km</p>
+                    <p class="p-map">Kampot city  : 36km</p>
+                    <p class="p-map">Kep  : 58km</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+     <footer class="footer_container">
+        <div class="container_footer">
+            <div class="about-us-line1">
+                <h3>Culture</h3>
+                <a href="Religion.html">Religion</a>
+                <a href="Greetings.html" >Greetings</a>
+                <a href="TraditionalArt.html" >Traditional Art</a>
+                <a href="TraditionalFood.html" >Traditional Food</a>
+                <a href="TraditionalMusic.html"> Traditional Musics</a>
+               
+            </div>
+            <div class="Natural-line1">
+                <h3>Natural</h3>
+                <a href="1500Mountain.html">1500 Mountain </a>
+                <a href="KohKongKrav.html">Koh Kong krav</a>
+                <a href="KampongSpue.html">Kampong Speu</a>
+                <a href="KulenNationalPark.html">Kulen National Park</a>
+                <a href="KnongSparMountain.html"> Knong Psar Mountain</a>
+            </div>
+  
+            <div class="Natural-line1">
+                <h3>Tourism</h3>
+                <a href="PreahKhanTemple.html">Preah Khan Temple</a>
+                <a href="PhimeanakasTemple.html">Phimeanakas Temple</a>
+                <a href="BanteaySreiTemple.html">Banteay Srei Temple</a>
+                <a href="SomboPreiKok.html">Sombo Prey Kok Temple</a>
+                <a href="BakseyChamkrong.html">Baksey Chamkrong Temple</a>
+            </div>
+
+          <div class="Natural-line1">
+              <h3>Support Us</h3>
+              <p class="p_support">you can suport us, actually we are approval the Ad on our website. if you are interest us please join us  <i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+              <p style="margin-left: 10px;"> <i class="fa fa-phone" aria-hidden="true"></i>  +855 : 0974303668</p>
+              <p style="margin-left: 10px;"> <i class="fa fa-telegram" aria-hidden="true"></i>  @Group3</p>
+          </div>
+
+      </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    let slideIndex = 0;
+ showSlides();
+ 
+ function showSlides() {
+     let i;
+     let slides = document.getElementsByClassName("fade");
+     for (i = 0; i < slides.length; i++) {
+         slides[i].style.display = "none";  
+     }
+     slideIndex++;
+     if (slideIndex > slides.length) {slideIndex = 1}    
+     slides[slideIndex-1].style.display = "block";  
+     setTimeout(showSlides, 5000); 
+ }
+ const hoverLinks = document.querySelectorAll('.hover-link');
+
+hoverLinks.forEach(link => {
+    const popupId = link.getAttribute('data-popup');
+    const popup = document.getElementById(popupId);
+
+    link.addEventListener('mouseover', () => {
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        const rect = link.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        // Calculate available space
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.right;
+        const spaceLeft = rect.left;
+
+        // Position the popup based on available space
+        if (spaceBelow >= popupRect.height) {
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceAbove >= popupRect.height) {
+            popup.style.top = `${rect.top - popupRect.height}px`;
+            popup.style.left = `${rect.left}px`;
+        } else if (spaceRight >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.right}px`;
+        } else if (spaceLeft >= popupRect.width) {
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left - popupRect.width}px`;
+        } else {
+            
+            popup.style.top = `${rect.bottom}px`;
+            popup.style.left = `${rect.left}px`;
+        }
+
+        popup.classList.add('active');
+    });
+
+    link.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!popup.matches(':hover')) {
+                popup.classList.remove('active');
+            }
+        }, 200);
+    });
+
+    popup.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+    });
+});
+var map = L.map('map').setView([10.642095, 104.027519], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'About our G3 Team'
+}).addTo(map);
+var marker = L.marker([10.642095, 104.027519]).addTo(map);
+marker.bindPopup("<b>Borkor National Park</b><br>Welcome to Borkor Natoinal Park").openPopup();
+
+   </script>
+</body>
+</html>
